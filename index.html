@@ -8,25 +8,28 @@
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI','Inter',Tahoma,sans-serif; user-select:none; }
 body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display:flex; justify-content:center; align-items:center; }
 
+/* ЛОГИН */
 #login-screen { display:flex; justify-content:center; align-items:center; width:100%; height:100%; position:absolute; top:0; left:0; z-index:100; background:#0f0f0f; }
-.login-container { background:#1a1a1a; width:380px; padding:40px; border-radius:12px; border-top:5px solid #ffd700; box-shadow:0 10px 30px rgba(0,0,0,0.8); text-align:center; }
+.login-container { background:#1a1a1a; width:380px; padding:40px; border-radius:20px; border-top:5px solid #ffd700; box-shadow:0 10px 30px rgba(0,0,0,0.8); text-align:center; }
 .logo svg { width:50px; height:50px; fill:#ffd700; margin-bottom:20px; }
 .login-container h1 { font-size:20px; font-weight:600; margin-bottom:25px; color:#ffd700; }
 .input-group { text-align:left; margin-bottom:20px; }
 .input-group label { display:block; font-size:13px; color:#aaa; margin-bottom:8px; }
-.input-group input { width:100%; padding:10px 12px; background:#0f0f0f; border:1px solid #333; border-radius:6px; color:#f5f5f5; font-size:14px; outline:none; }
+.input-group input { width:100%; padding:12px 14px; background:#0f0f0f; border:1px solid #333; border-radius:12px; color:#f5f5f5; font-size:14px; outline:none; }
 .input-group input:focus { border-color:#ffd700; }
-.btn-login { width:100%; padding:12px; background:#ffd700; color:#0f0f0f; border:none; border-radius:6px; font-size:15px; font-weight:700; cursor:pointer; }
-.btn-login:hover { background:#e6c200; }
+.btn-login { width:100%; padding:14px; background:#ffd700; color:#0f0f0f; border:none; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; transition:.2s; }
+.btn-login:hover { background:#e6c200; transform:translateY(-1px); }
 .error-msg { color:#ff4444; font-size:13px; margin-top:10px; display:none; }
 
+/* ОСНОВНОЙ */
 #main-screen { display:none; width:100%; height:100%; padding:10px; gap:10px; background:#0f0f0f; }
 .bg-stripes { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; background:repeating-linear-gradient(45deg,#0f0f0f,#0f0f0f 40px,#1a1a1a 40px,#1a1a1a 80px); opacity:.4; }
 
-.sidebar { width:380px; background:#141414; border-radius:12px; display:flex; flex-direction:column; overflow:hidden; border:1px solid #2a2a2a; flex-shrink:0; position:relative; z-index:2; }
-.sidebar-top-title { text-align:center; font-size:26px; font-weight:900; color:#ffd700; letter-spacing:3px; padding:15px 0 10px; text-shadow:0 0 20px rgba(255,215,0,.5); cursor:pointer; transition:.2s; text-transform:uppercase; }
+/* САЙДБАР */
+.sidebar { width:360px; background:#141414; border-radius:20px; display:flex; flex-direction:column; overflow:hidden; border:1px solid #2a2a2a; flex-shrink:0; position:relative; z-index:2; }
+.sidebar-top-title { text-align:center; font-size:24px; font-weight:900; color:#ffd700; letter-spacing:3px; padding:15px 0 10px; text-shadow:0 0 20px rgba(255,215,0,.5); cursor:pointer; transition:.2s; text-transform:uppercase; }
 .sidebar-top-title:hover { color:#ffe44d; }
-.sidebar-header-bar { display:flex; align-items:center; justify-content:space-between; padding:6px 12px 8px; border-bottom:1px solid #2a2a2a; gap:8px; }
+.sidebar-header-bar { display:flex; align-items:center; justify-content:space-between; padding:6px 14px 10px; border-bottom:1px solid #2a2a2a; gap:8px; }
 .sidebar-header-left { display:flex; align-items:center; gap:6px; font-size:12px; color:#aaa; }
 .mini-switch { position:relative; width:34px; height:18px; flex-shrink:0; cursor:pointer; }
 .mini-switch input { opacity:0; width:0; height:0; }
@@ -36,124 +39,86 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .mini-switch input:checked + .slider::before { transform:translateX(16px); background:#0f0f0f; }
 .sidebar-header-center { font-size:12px; color:#f5f5f5; border-bottom:1px solid #ffd700; padding-bottom:2px; cursor:pointer; white-space:nowrap; }
 .sidebar-header-center:hover { color:#ffd700; }
-.sidebar-settings-btn { background:#ffd700; border:none; color:#0f0f0f; width:28px; height:28px; border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; transition:.2s; }
-.sidebar-settings-btn:hover { background:#e6c200; }
-.sidebar-content { padding:12px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; flex:1; }
+.sidebar-settings-btn { background:#ffd700; border:none; color:#0f0f0f; width:30px; height:30px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; transition:.2s; }
+.sidebar-settings-btn:hover { background:#e6c200; transform:rotate(45deg); }
+.sidebar-content { padding:14px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; flex:1; }
 .sidebar-content::-webkit-scrollbar { width:6px; }
 .sidebar-content::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
 
-.tab-page { display:none; flex-direction:column; gap:10px; }
-.tab-page.active { display:flex; }
-
 .field-label { font-size:12px; color:#aaa; margin-bottom:4px; display:flex; align-items:center; gap:4px; }
-.channel-block { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:8px 10px; display:flex; align-items:center; gap:10px; }
+.channel-block { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:10px 12px; display:flex; align-items:center; gap:10px; }
 .channel-avatar { width:40px; height:40px; border-radius:50%; background:#ffd700; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; overflow:hidden; color:#0f0f0f; font-weight:800; }
 .channel-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
 .channel-info .name { font-size:13px; font-weight:700; color:#f5f5f5; }
 .channel-info .sub { font-size:11px; color:#666; }
-.input-field { width:100%; padding:8px 10px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:6px; color:#f5f5f5; font-size:13px; outline:none; }
+.input-field { width:100%; padding:10px 12px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-size:13px; outline:none; transition:.2s; }
 .input-field:focus { border-color:#ffd700; }
-.small-input { width:80px; padding:8px 10px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:6px; color:#f5f5f5; font-size:13px; outline:none; text-align:center; }
+.small-input { width:80px; padding:10px 12px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-size:13px; outline:none; text-align:center; transition:.2s; }
 .small-input:focus { border-color:#ffd700; }
 
-.checkbox-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; cursor:pointer; line-height:1.4; }
+.checkbox-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; cursor:pointer; line-height:1.4; padding:6px 4px; border-radius:8px; transition:.2s; }
+.checkbox-item:hover { background:#1a1a1a; }
 .checkbox-item input { accent-color:#ffd700; width:16px; height:16px; margin-top:2px; flex-shrink:0; cursor:pointer; }
 .checkbox-item .main-text { color:#f5f5f5; }
 .checkbox-item .sub-text { color:#666; font-size:11px; display:block; margin-top:2px; }
 
-.switch-row { display:flex; align-items:center; justify-content:space-between; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:10px 12px; gap:10px; }
-.switch-row .switch-info { display:flex; flex-direction:column; gap:2px; flex:1; }
-.switch-row .switch-title { font-size:13px; font-weight:600; color:#f5f5f5; }
-.switch-row .switch-sub { font-size:11px; color:#666; }
-.switch { position:relative; width:46px; height:26px; flex-shrink:0; cursor:pointer; }
-.switch input { opacity:0; width:0; height:0; }
-.switch .slider { position:absolute; top:0; left:0; right:0; bottom:0; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:26px; transition:.3s; }
-.switch .slider::before { content:''; position:absolute; height:20px; width:20px; left:2px; top:2px; background:#555; border-radius:50%; transition:.3s; box-shadow:0 1px 3px rgba(0,0,0,.4); }
-.switch input:checked + .slider { background:#ffd700; border-color:#ffd700; }
-.switch input:checked + .slider::before { transform:translateX(20px); background:#0f0f0f; }
-
-.settings-card { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:12px; display:flex; flex-direction:column; gap:10px; }
-.settings-card .title { font-size:12px; color:#aaa; margin-bottom:2px; }
-.settings-card .row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
-.settings-card .row .label { font-size:13px; color:#f5f5f5; }
-
-.action-btn { width:100%; padding:12px; border:none; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:.2s; color:#0f0f0f; }
+.action-btn { width:100%; padding:14px; border:none; border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:.2s; color:#0f0f0f; }
 .btn-purple { background:#ffd700; }
-.btn-purple:hover { background:#e6c200; }
+.btn-purple:hover { background:#e6c200; transform:translateY(-2px); box-shadow:0 5px 15px rgba(255,215,0,.3); }
 .btn-pink { background:#ffb800; }
-.btn-pink:hover { background:#e6a800; }
+.btn-pink:hover { background:#e6a800; transform:translateY(-2px); box-shadow:0 5px 15px rgba(255,184,0,.3); }
 
-.stat-box { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:12px; text-align:center; display:flex; flex-direction:column; gap:4px; }
+.stat-box { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:12px; text-align:center; display:flex; flex-direction:column; gap:4px; }
 .stat-box .stat-title { font-size:12px; color:#aaa; }
 .stat-box .stat-number { font-size:24px; font-weight:800; color:#ffd700; }
 .stat-box .stat-number.muted { color:#888; }
 .stat-box .stat-sub { font-size:11px; color:#666; }
 
-.winners-log { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:10px; display:flex; flex-direction:column; gap:6px; max-height:200px; overflow-y:auto; }
+.winners-log { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:10px; display:flex; flex-direction:column; gap:6px; max-height:180px; overflow-y:auto; }
 .winners-log .log-title { font-size:12px; color:#ffd700; font-weight:700; margin-bottom:4px; }
-.winners-log .log-entry { font-size:12px; color:#ccc; padding:6px 8px; background:#0f0f0f; border-radius:4px; border-left:3px solid #ffd700; cursor:pointer; transition:.2s; display:flex; justify-content:space-between; }
-.winners-log .log-entry:hover { background:#252525; color:#ffd700; }
+.winners-log .log-entry { font-size:12px; color:#ccc; padding:8px 10px; background:#0f0f0f; border-radius:10px; border-left:3px solid #ffd700; cursor:pointer; transition:.2s; display:flex; justify-content:space-between; }
+.winners-log .log-entry:hover { background:#252525; color:#ffd700; transform:translateX(3px); }
 .winners-log .log-entry .entry-date { color:#666; font-size:11px; }
 .winners-log .log-empty { font-size:12px; color:#666; text-align:center; padding:8px; }
 
+/* ЦЕНТР */
 .center-panel { flex:1; display:flex; flex-direction:column; gap:10px; min-width:0; position:relative; z-index:2; }
-.chat-header { background:#141414; padding:12px 15px; border-radius:12px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2a2a2a; }
+.chat-header { background:#141414; padding:14px 18px; border-radius:20px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2a2a2a; }
 .chat-header .left { font-size:13px; color:#aaa; }
 .chat-header .right { display:flex; align-items:center; gap:10px; font-size:13px; color:#aaa; }
-.chat-header .right .online-dot { width:8px; height:8px; background:#555; border-radius:50%; display:inline-block; transition:background .3s; }
+.chat-header .right .online-dot { width:10px; height:10px; background:#555; border-radius:50%; display:inline-block; transition:background .3s, box-shadow .3s; }
+.chat-header .right .online-dot.live { background:#00ff88; box-shadow:0 0 10px #00ff88; }
 .chat-header .right .count { color:#f5f5f5; font-weight:600; }
-.chat-messages { flex:1; background:#0a0a0a; border-radius:12px; padding:15px; overflow-y:auto; border:1px solid #2a2a2a; display:flex; flex-direction:column; gap:2px; contain:strict; }
+.chat-messages { flex:1; background:#0a0a0a; border-radius:20px; padding:15px; overflow-y:auto; border:1px solid #2a2a2a; display:flex; flex-direction:column; gap:2px; }
 .chat-messages::-webkit-scrollbar { width:6px; }
 .chat-messages::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
 
-.message { font-size:13px; line-height:1.4; padding:2px 6px; border-radius:3px; display:flex; gap:5px; align-items:center; flex-wrap:wrap; position:relative; background:transparent; }
+.message { font-size:13px; line-height:1.4; padding:3px 8px; border-radius:6px; display:flex; gap:5px; align-items:center; flex-wrap:wrap; position:relative; background:transparent; }
 .message:hover { background:#1f1f1f; }
 .message .badge-img { width:16px; height:16px; vertical-align:middle; flex-shrink:0; }
 .message .nick { font-weight:700; color:#ffd700; flex-shrink:0; }
 .message .text { color:#f5f5f5; word-break:break-word; }
-.message.system { color:#aaa; font-style:italic; background:#1f1f1f; padding:4px 10px; border-radius:4px; font-size:12px; border-left:3px solid #ffd700; }
+.message.system { color:#aaa; font-style:italic; background:#1f1f1f; padding:6px 12px; border-radius:8px; font-size:12px; border-left:3px solid #ffd700; }
 .message.win { background:rgba(255,215,0,.15); border:1px solid rgba(255,215,0,.3); }
 .message.win .nick { color:#ffd700; }
-.message.fm-message { background:#3a2e00; padding:4px 8px; border-radius:4px; }
+.message.fm-message { background:#3a2e00; padding:6px 10px; border-radius:8px; }
 .message.fm-message .fm-label { font-size:9px; font-weight:800; color:#ffd700; letter-spacing:.8px; text-transform:uppercase; text-align:right; width:100%; margin-bottom:2px; }
 
-.tag { font-size:10px; padding:2px 6px; border-radius:3px; background:#2a2a2a; color:#aaa; font-weight:600; text-transform:uppercase; }
-.tag.yellow { background:#ffd700; color:#0f0f0f; }
-.logout-btn { background:transparent; border:1px solid #ffd700; color:#ffd700; padding:5px 12px; border-radius:4px; font-size:12px; cursor:pointer; font-weight:600; transition:.2s; margin-left:10px; }
+.logout-btn { background:transparent; border:1px solid #ffd700; color:#ffd700; padding:6px 14px; border-radius:10px; font-size:12px; cursor:pointer; font-weight:600; transition:.2s; margin-left:10px; }
 .logout-btn:hover { background:#ffd700; color:#0f0f0f; }
 
-.right-panel { width:300px; background:#141414; border-radius:12px; padding:15px; display:flex; flex-direction:column; gap:12px; border:1px solid #2a2a2a; flex-shrink:0; position:relative; z-index:2; overflow-y:auto; }
+/* ПРАВАЯ */
+.right-panel { width:280px; background:#141414; border-radius:20px; padding:15px; display:flex; flex-direction:column; gap:12px; border:1px solid #2a2a2a; flex-shrink:0; position:relative; z-index:2; overflow-y:auto; }
 .right-panel::-webkit-scrollbar { width:6px; }
 .right-panel::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
-.rules-box { background:#1a1a1a; border-radius:8px; padding:12px; border:1px solid #2a2a2a; text-align:center; }
-.rules-box .title { font-size:11px; color:#aaa; margin-bottom:5px; }
+.rules-box { background:#1a1a1a; border-radius:14px; padding:14px; border:1px solid #2a2a2a; text-align:center; }
+.rules-box .title { font-size:11px; color:#aaa; margin-bottom:5px; letter-spacing:.5px; }
 .rules-box .value { font-size:13px; color:#ffd700; font-weight:600; }
 
-.rules-ticker-box { background:#1a1a1a; border-radius:8px; padding:10px 0; border:1px solid #2a2a2a; overflow:hidden; position:relative; height:44px; display:flex; align-items:center; }
+.rules-ticker-box { background:#1a1a1a; border-radius:14px; padding:12px 0; border:1px solid #2a2a2a; overflow:hidden; position:relative; height:50px; display:flex; align-items:center; }
 .rules-ticker { display:flex; white-space:nowrap; animation:tickerScroll 25s linear infinite; font-size:13px; font-weight:700; color:#ffd700; gap:60px; }
 .rules-ticker span { display:inline-block; }
 @keyframes tickerScroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
-
-/* ====== ГОНКА УТОК (ОРАВОЙ) ====== */
-.race-track { display:none; flex-direction:column; position:relative; z-index:2; background:#3a9fd6; border-radius:12px; border:2px solid #1a5a8a; padding:8px 0; overflow:hidden; max-height:420px; }
-.race-track.active { display:flex; }
-.race-header-bar { display:flex; justify-content:space-between; align-items:center; padding:6px 14px; background:#2a7fb0; border-bottom:2px solid #1a5a8a; }
-.race-header-bar .race-title { font-size:14px; color:#fff; font-weight:700; text-shadow:1px 1px 2px rgba(0,0,0,.5); }
-.race-header-bar .race-timer { font-size:14px; color:#ffd700; font-weight:800; background:#1a1a1a; padding:4px 12px; border-radius:12px; }
-.race-scroll { max-height:340px; overflow-y:auto; padding:6px 10px; }
-.race-scroll::-webkit-scrollbar { width:8px; }
-.race-scroll::-webkit-scrollbar-thumb { background:#1a5a8a; border-radius:4px; }
-
-/* ОБЩАЯ ВОДНАЯ ДОРОЖКА — все утки в одном потоке */
-.race-lane { display:flex; align-items:center; gap:8px; margin-bottom:6px; position:relative; height:42px; }
-.race-lane .lane-name { font-size:11px; color:#fff; width:80px; flex-shrink:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:700; text-shadow:1px 1px 2px rgba(0,0,0,.6); background:rgba(0,0,0,.35); padding:3px 6px; border-radius:4px; text-align:center; }
-.race-lane .lane-water { flex:1; height:42px; position:relative; background:linear-gradient(180deg,#4db8e8 0%,#3a9fd6 50%,#2a7fb0 100%); border-radius:6px; overflow:hidden; border:1px solid rgba(255,255,255,.25); }
-.race-lane .lane-water::before { content:''; position:absolute; top:0; left:0; right:0; height:6px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.3) 0 6px, transparent 6px 12px); opacity:.6; }
-.race-lane .lane-water::after { content:''; position:absolute; bottom:0; left:0; right:0; height:6px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 8px, transparent 8px 16px); opacity:.5; }
-.race-lane .lane-finish { position:absolute; right:0; top:0; bottom:0; width:14px; background:repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/14px 14px; border-left:2px solid #000; z-index:3; }
-.race-lane .duck { position:absolute; top:50%; transform:translateY(-50%); left:0; width:38px; height:34px; z-index:2; transition:left .12s linear; }
-.race-lane .duck svg { width:100%; height:100%; display:block; }
-.race-lane .lane-place { font-size:14px; color:#ffd700; width:26px; text-align:center; flex-shrink:0; font-weight:900; text-shadow:1px 1px 2px rgba(0,0,0,.6); }
 
 .frog-pepe-block { background:transparent; padding:0; margin:0; display:flex; align-items:flex-end; justify-content:flex-start; flex:1; position:relative; overflow:hidden; min-height:120px; }
 .frog-pepe-block .pepe-off, .frog-pepe-block .pepe-on { max-width:100%; max-height:100%; object-fit:contain; object-position:bottom left; display:none; }
@@ -161,67 +126,108 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .frog-pepe-block.rules-on .pepe-off { display:none; }
 .frog-pepe-block.rules-on .pepe-on { display:block; }
 
-::-webkit-scrollbar { width:0px; }
+/* ====== ГОНКА УТОК ОРАВОЙ ====== */
+.race-track { display:none; flex-direction:column; position:relative; z-index:2; background:linear-gradient(180deg,#4db8e8 0%,#3a9fd6 50%,#2a7fb0 100%); border-radius:20px; border:2px solid #1a5a8a; padding:0; overflow:hidden; max-height:400px; }
+.race-track.active { display:flex; }
+.race-header-bar { display:flex; justify-content:space-between; align-items:center; padding:10px 18px; background:rgba(26,90,138,.7); border-bottom:2px solid #1a5a8a; backdrop-filter:blur(5px); }
+.race-header-bar .race-title { font-size:14px; color:#fff; font-weight:700; text-shadow:1px 1px 2px rgba(0,0,0,.5); }
+.race-header-bar .race-timer { font-size:15px; color:#ffd700; font-weight:800; background:#0f0f0f; padding:5px 14px; border-radius:12px; letter-spacing:1px; }
 
-#winner-modal, #mode-modal, #player-data-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.85); z-index:999; justify-content:center; align-items:center; padding:20px; }
-.winner-window, .mode-window, .player-data-window { width:100%; max-width:700px; background:#141414; border-radius:16px; overflow:hidden; border:1px solid #ffd700; box-shadow:0 0 50px rgba(255,215,0,.3); animation:popIn .3s ease; }
+/* ОБЩАЯ ВОДА — все утки в одном потоке */
+.race-pool { position:relative; width:100%; height:280px; overflow:hidden; }
+.race-pool::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 8px, transparent 8px 16px); opacity:.5; }
+.race-pool::after { content:''; position:absolute; bottom:0; left:0; right:0; height:8px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 10px, transparent 10px 20px); opacity:.4; }
+.race-pool .finish-line { position:absolute; right:20px; top:0; bottom:0; width:16px; background:repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/16px 16px; border-left:2px solid #000; border-right:2px solid #000; z-index:5; box-shadow:0 0 20px rgba(0,0,0,.4); }
+
+.race-duck { position:absolute; width:44px; height:40px; z-index:2; will-change:transform; transition:transform .05s linear; }
+.race-duck svg { width:100%; height:100%; display:block; filter:drop-shadow(0 3px 4px rgba(0,0,0,.3)); }
+.race-duck .duck-label { position:absolute; top:-16px; left:50%; transform:translateX(-50%); font-size:10px; color:#fff; background:rgba(0,0,0,.6); padding:2px 6px; border-radius:6px; white-space:nowrap; font-weight:700; text-shadow:1px 1px 2px rgba(0,0,0,.8); }
+.race-duck .duck-place { position:absolute; top:50%; left:-30px; transform:translateY(-50%); font-size:14px; color:#ffd700; font-weight:900; text-shadow:1px 1px 3px rgba(0,0,0,.9); }
+
+/* МОДАЛКИ */
+#winner-modal, #mode-modal, #player-data-modal, #settings-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.85); z-index:999; justify-content:center; align-items:center; padding:20px; }
+.winner-window, .mode-window, .player-data-window, .settings-window { width:100%; max-width:700px; background:#141414; border-radius:20px; overflow:hidden; border:1px solid #ffd700; box-shadow:0 0 50px rgba(255,215,0,.3); animation:popIn .3s ease; }
 .mode-window { max-width:480px; }
 .player-data-window { max-width:520px; }
+.settings-window { max-width:560px; }
 @keyframes popIn { from { transform:scale(.9); opacity:0; } to { transform:scale(1); opacity:1; } }
-.winner-header, .mode-header, .player-data-header { background:linear-gradient(135deg,#ffd700,#e6c200); padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
-.winner-header h2, .mode-header h2, .player-data-header h2 { color:#0f0f0f; font-size:18px; font-weight:800; }
-.winner-close, .mode-close, .player-data-header .close-btn { background:rgba(0,0,0,.15); border:none; color:#0f0f0f; width:32px; height:32px; border-radius:6px; cursor:pointer; font-size:18px; font-weight:700; }
-.winner-close:hover, .mode-close:hover, .player-data-header .close-btn:hover { background:rgba(0,0,0,.3); }
+.winner-header, .mode-header, .player-data-header, .settings-header { background:linear-gradient(135deg,#ffd700,#e6c200); padding:16px 22px; display:flex; justify-content:space-between; align-items:center; }
+.winner-header h2, .mode-header h2, .player-data-header h2, .settings-header h2 { color:#0f0f0f; font-size:18px; font-weight:800; }
+.winner-close, .mode-close, .player-data-header .close-btn, .settings-close { background:rgba(0,0,0,.15); border:none; color:#0f0f0f; width:34px; height:34px; border-radius:10px; cursor:pointer; font-size:18px; font-weight:700; transition:.2s; }
+.winner-close:hover, .mode-close:hover, .player-data-header .close-btn:hover, .settings-close:hover { background:rgba(0,0,0,.3); transform:rotate(90deg); }
+
 .mode-body { padding:24px; display:flex; flex-direction:column; gap:14px; }
-.mode-option { display:flex; align-items:center; gap:16px; background:#1a1a1a; border:2px solid #2a2a2a; border-radius:12px; padding:18px 20px; cursor:pointer; transition:.2s; }
-.mode-option:hover { border-color:#ffd700; background:#222; transform:translateY(-2px); }
-.mode-option .mode-icon { font-size:34px; flex-shrink:0; }
+.mode-option { display:flex; align-items:center; gap:16px; background:#1a1a1a; border:2px solid #2a2a2a; border-radius:16px; padding:20px 22px; cursor:pointer; transition:.2s; }
+.mode-option:hover { border-color:#ffd700; background:#222; transform:translateY(-3px); box-shadow:0 8px 20px rgba(255,215,0,.15); }
+.mode-option .mode-icon { font-size:36px; flex-shrink:0; }
 .mode-option .mode-info { display:flex; flex-direction:column; gap:4px; }
 .mode-option .mode-title { font-size:15px; font-weight:800; color:#ffd700; }
 .mode-option .mode-sub { font-size:12px; color:#aaa; }
 
-.winner-body { padding:20px; display:flex; flex-direction:column; gap:18px; max-height:80vh; overflow-y:auto; }
-.winner-top { display:flex; justify-content:space-between; align-items:flex-start; }
-.last-message-box { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:10px 14px; min-width:180px; }
+/* НАСТРОЙКИ */
+.settings-body { padding:22px; display:flex; flex-direction:column; gap:14px; max-height:75vh; overflow-y:auto; }
+.settings-body::-webkit-scrollbar { width:6px; }
+.settings-body::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
+.settings-section { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:12px; }
+.settings-section .section-title { font-size:13px; color:#ffd700; font-weight:700; margin-bottom:2px; }
+.settings-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.settings-row .row-label { font-size:13px; color:#f5f5f5; }
+.settings-row .row-sub { font-size:11px; color:#666; display:block; margin-top:2px; }
+
+.switch { position:relative; width:46px; height:26px; flex-shrink:0; cursor:pointer; }
+.switch input { opacity:0; width:0; height:0; }
+.switch .slider { position:absolute; top:0; left:0; right:0; bottom:0; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:26px; transition:.3s; }
+.switch .slider::before { content:''; position:absolute; height:20px; width:20px; left:2px; top:2px; background:#555; border-radius:50%; transition:.3s; }
+.switch input:checked + .slider { background:#ffd700; border-color:#ffd700; }
+.switch input:checked + .slider::before { transform:translateX(20px); background:#0f0f0f; }
+
+/* ОКНО ПОБЕДИТЕЛЯ */
+.winner-body { padding:22px; display:flex; flex-direction:column; gap:18px; max-height:80vh; overflow-y:auto; }
+.winner-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+.last-message-box { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; padding:12px 16px; min-width:180px; }
 .last-message-box .label { font-size:10px; color:#666; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
 .last-message-box .msg { font-size:13px; color:#f5f5f5; font-weight:600; margin-bottom:2px; }
 .last-message-box .date { font-size:11px; color:#666; }
-.timer-badge { background:#ff4444; color:white; padding:6px 14px; border-radius:20px; font-size:14px; font-weight:700; transition:background .3s; }
+.timer-badge { background:#ff4444; color:white; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:700; transition:background .3s; }
 .timer-badge.answered { background:#ffd700; color:#0f0f0f; }
 .winner-avatar { width:120px; height:120px; border-radius:50%; background:#1a1a1a; margin:0 auto; display:flex; align-items:center; justify-content:center; border:3px solid #ffd700; box-shadow:0 0 25px rgba(255,215,0,.4); overflow:hidden; }
 .winner-avatar img { width:100%; height:100%; object-fit:cover; }
 .winner-avatar svg { width:60px; height:60px; fill:#555; }
-.winner-name { text-align:center; font-size:36px; font-weight:800; color:#ffd700; letter-spacing:1px; text-shadow:0 0 20px rgba(255,215,0,.5); }
+.winner-name { text-align:center; font-size:34px; font-weight:800; color:#ffd700; letter-spacing:1px; text-shadow:0 0 20px rgba(255,215,0,.5); }
 .winner-info { display:flex; flex-direction:column; gap:10px; align-items:center; }
-.info-row { display:flex; align-items:center; gap:8px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:8px 16px; font-size:13px; color:#f5f5f5; min-width:320px; justify-content:space-between; }
+.info-row { display:flex; align-items:center; gap:8px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:10px 18px; font-size:13px; color:#f5f5f5; min-width:320px; justify-content:space-between; }
 .info-row .info-value { color:#ffd700; font-weight:700; font-size:13px; }
 .winner-actions { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
-.action-btn-modal { padding:12px; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; color:#0f0f0f; text-decoration:none; text-align:center; }
+.action-btn-modal { padding:14px; border:none; border-radius:14px; font-size:13px; font-weight:700; cursor:pointer; color:#0f0f0f; text-decoration:none; text-align:center; transition:.2s; }
+.action-btn-modal:hover { transform:translateY(-2px); }
 .action-btn-modal.purple { background:#ffd700; }
 .action-btn-modal.green { background:#ffd700; }
 .action-btn-modal.orange { background:#ffb800; }
-.last-messages-block { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:15px; }
+.last-messages-block { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:15px; }
 .last-messages-block .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding-bottom:10px; border-bottom:1px solid #2a2a2a; }
 .last-messages-block .header .title { font-size:14px; color:#f5f5f5; font-weight:600; }
-.last-messages-block .header .count { background:#ffd700; color:#0f0f0f; padding:2px 10px; border-radius:10px; font-size:12px; font-weight:700; }
+.last-messages-block .header .count { background:#ffd700; color:#0f0f0f; padding:3px 12px; border-radius:12px; font-size:12px; font-weight:700; }
 .loader-circle { width:40px; height:40px; border:3px solid #2a2a2a; border-top-color:#ffd700; border-radius:50%; animation:spin 1s linear infinite; margin:0 auto; }
 @keyframes spin { to { transform:rotate(360deg); } }
 .last-messages-block .empty { display:flex; flex-direction:column; align-items:center; gap:10px; padding:20px 0; }
 .last-messages-block .empty-text { font-size:13px; color:#aaa; font-weight:600; }
-.winner-message-item { font-size:13px; color:#f5f5f5; padding:6px 10px; background:#0f0f0f; border-radius:4px; margin-bottom:6px; }
+.winner-message-item { font-size:13px; color:#f5f5f5; padding:8px 12px; background:#0f0f0f; border-radius:10px; margin-bottom:6px; }
 .winner-message-item .time { color:#666; font-size:11px; margin-right:8px; }
 
-.player-data-body { padding:20px; display:flex; flex-direction:column; gap:14px; max-height:80vh; overflow-y:auto; }
+/* ДАННЫЕ ИГРОКА */
+.player-data-body { padding:22px; display:flex; flex-direction:column; gap:14px; max-height:80vh; overflow-y:auto; }
 .player-data-field { display:flex; flex-direction:column; gap:4px; }
 .player-data-field label { font-size:11px; color:#aaa; text-transform:uppercase; letter-spacing:.5px; }
-.player-data-field input { width:100%; padding:9px 12px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:6px; color:#f5f5f5; font-size:13px; outline:none; }
+.player-data-field input { width:100%; padding:11px 14px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-size:13px; outline:none; transition:.2s; }
 .player-data-field input:focus { border-color:#ffd700; }
 .player-data-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:4px; }
-.player-data-actions button { padding:11px; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; }
+.player-data-actions button { padding:12px; border:none; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer; transition:.2s; }
 .player-data-actions .save-btn { background:#ffd700; color:#0f0f0f; }
 .player-data-actions .save-btn:hover { background:#e6c200; }
 .player-data-actions .delete-btn { background:#333; color:#ff4444; }
 .player-data-actions .delete-btn:hover { background:#444; }
+
+::-webkit-scrollbar { width:0px; }
 </style>
 </head>
 <body>
@@ -258,7 +264,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                 </label>
             </div>
             <div class="sidebar-header-center" onclick="openRulesTab()">Правила</div>
-            <button class="sidebar-settings-btn" onclick="openRulesTab()">⚙️</button>
+            <button class="sidebar-settings-btn" onclick="openSettings()">⚙️</button>
         </div>
 
         <div class="sidebar-content">
@@ -278,7 +284,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                     </div>
                     <div style="flex:1;">
                         <div class="field-label">🔑 Ключевое слово</div>
-                        <input class="input-field" type="text" placeholder="Пусто = все пишут" value="розыгрыш" id="keyword-input">
+                        <input class="input-field" type="text" placeholder="Пусто = все" value="розыгрыш" id="keyword-input">
                     </div>
                 </div>
 
@@ -298,7 +304,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                     <input type="checkbox" id="cb-fm">
                     <div>
                         <span class="main-text">(FM) Только первые сообщения</span>
-                        <span class="sub-text">Регает только тех, кто пишет первое сообщение на канале.</span>
+                        <span class="sub-text">Регает только тех, кто пишет первое сообщение.</span>
                     </div>
                 </label>
                 <label class="checkbox-item">
@@ -326,107 +332,12 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                     <div id="winners-log-entries"><div class="log-empty">Пока нет победителей</div></div>
                 </div>
             </div>
-
-            <div class="tab-page" id="tab-channel-rules">
-                <div class="switch-row">
-                    <div class="switch-info">
-                        <div class="switch-title">Следовать за каналом</div>
-                        <div class="switch-sub">Участвуют только подписчики канала</div>
-                    </div>
-                    <label class="switch"><input type="checkbox" id="ch-follow"><span class="slider"></span></label>
-                </div>
-                <div class="switch-row">
-                    <div class="switch-info">
-                        <div class="switch-title">Подписка на канал</div>
-                        <div class="switch-sub">Участвуют только сабы</div>
-                    </div>
-                    <label class="switch"><input type="checkbox" id="ch-sub"><span class="slider"></span></label>
-                </div>
-                <div class="switch-row">
-                    <div class="switch-info">
-                        <div class="switch-title">Минимум сообщений</div>
-                        <div class="switch-sub">Участвуют только те, кто написал N сообщений</div>
-                    </div>
-                    <label class="switch"><input type="checkbox" id="ch-minmsg"><span class="slider"></span></label>
-                </div>
-                <div class="switch-row">
-                    <div class="switch-info">
-                        <div class="switch-title">Аккаунт не новый</div>
-                        <div class="switch-sub">Участвуют только аккаунты старше 7 дней</div>
-                    </div>
-                    <label class="switch"><input type="checkbox" id="ch-oldacc"><span class="slider"></span></label>
-                </div>
-            </div>
-
-            <div class="tab-page" id="tab-rules">
-                <div class="settings-card">
-                    <div class="title">⏱️ КД победы</div>
-                    <div class="row">
-                        <span class="label">Сколько дней ждать после победы:</span>
-                        <input class="small-input" type="number" value="28" id="rule-kd">
-                    </div>
-                </div>
-                <div class="settings-card">
-                    <div class="title">💎 Подписка на канал</div>
-                    <div class="row">
-                        <span class="label">Мин. месяцев подписки:</span>
-                        <input class="small-input" type="number" value="1" id="rule-sub">
-                    </div>
-                </div>
-                <div class="settings-card">
-                    <div class="title">⏳ Watchtime</div>
-                    <div class="row">
-                        <span class="label">Мин. часов просмотра:</span>
-                        <input class="small-input" type="number" value="1" id="rule-watchtime">
-                    </div>
-                </div>
-                <div class="settings-card">
-                    <div class="title">💬 Сообщений на канале</div>
-                    <div class="row">
-                        <span class="label">Мин. сообщений:</span>
-                        <input class="small-input" type="number" value="5" id="rule-msgs">
-                    </div>
-                </div>
-
-                <div class="settings-card">
-                    <div class="title">🦆 Гонка уточек</div>
-                    <div class="row">
-                        <span class="label">Длительность (мин, 1-5):</span>
-                        <input class="small-input" type="number" min="1" max="5" value="2" id="race-duration">
-                    </div>
-                </div>
-
-                <!-- TTS с голосами JeetBot -->
-                <div class="settings-card">
-                    <div class="title">🔊 TTS-режим (голоса JeetBot)</div>
-                    <div class="switch-row" style="background:transparent;border:none;padding:0;">
-                        <div class="switch-info">
-                            <div class="switch-title">Включить TTS</div>
-                            <div class="switch-sub">Озвучивать сообщения с !tts</div>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="tts-enabled">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="row" style="margin-top:6px;">
-                        <span class="label" style="font-size:12px;">Ники и голоса (ник:голос):</span>
-                    </div>
-                    <input class="input-field" type="text" id="tts-users" placeholder="user1:aidar, user2:baya, user3:kseniya" style="font-size:12px;">
-                    <div style="font-size:10px;color:#666;margin-top:4px;">Доступные голоса: aidar, baya, kseniya, xenia, eugene, stalker_bandit, stalker_sidor, portal_glados, warcraft_voljin и др.</div>
-                </div>
-
-                <div class="settings-card">
-                    <div class="title">📜 Текст ленты правил</div>
-                    <input class="input-field" type="text" id="rules-ticker-text" value="ДЛЯ УЧАСТИЯ В ПРОКАЧКЕ !1000 В ЧАТ + ПОДПИСКА НА ТГ И ЗНАТЬ ПРАВИЛА В ЗАКРЕПЛЕННОМ ПОСТЕ" style="font-size:12px;">
-                </div>
-            </div>
         </div>
     </div>
 
     <div class="center-panel">
         <div class="chat-header">
-            <div class="left">Сообщение в чате — участие.</div>
+            <div class="left">Сообщение в чате — участие. <span style="color:#ffd700;">!speed</span> — ускорить утку</div>
             <div class="right">
                 <span class="online-dot" id="online-dot"></span>
                 <span id="channel-name-header">malibash</span>
@@ -440,7 +351,9 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                 <div class="race-title" id="race-title">🦆 Гонка уточек</div>
                 <div class="race-timer" id="race-timer">00:00</div>
             </div>
-            <div class="race-scroll" id="race-lanes"></div>
+            <div class="race-pool" id="race-pool">
+                <div class="finish-line"></div>
+            </div>
         </div>
 
         <div class="chat-messages" id="chat-messages">
@@ -482,7 +395,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                 <div class="mode-icon">💬</div>
                 <div class="mode-info">
                     <div class="mode-title">Обычно по сообщениям</div>
-                    <div class="mode-sub">Случайный победитель из всех участников чата</div>
+                    <div class="mode-sub">Случайный победитель из всех участников</div>
                 </div>
             </div>
             <div class="mode-option" onclick="startMode('ducks')">
@@ -491,6 +404,96 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                     <div class="mode-title">Гонка утками</div>
                     <div class="mode-sub">Утки плывут оравой — кто первый, тот и победил</div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛКА НАСТРОЕК -->
+<div id="settings-modal">
+    <div class="settings-window">
+        <div class="settings-header">
+            <h2>⚙️ Настройки</h2>
+            <button class="settings-close" onclick="closeSettings()">×</button>
+        </div>
+        <div class="settings-body">
+            <div class="settings-section">
+                <div class="section-title">🦆 Гонка уточек</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Длительность (мин, 1-5)</div>
+                        <span class="row-sub">Сколько идёт гонка</span>
+                    </div>
+                    <input class="small-input" type="number" min="1" max="5" value="2" id="race-duration">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">🔊 TTS-режим</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Включить TTS</div>
+                        <span class="row-sub">Озвучивать сообщения с !tts</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="tts-enabled">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:6px;">
+                    <div class="row-label">Ники и голоса (ник:голос)</div>
+                    <input class="input-field" type="text" id="tts-users" placeholder="user1:aidar, user2:baya" style="font-size:12px;">
+                    <span class="row-sub">Голоса: aidar, baya, kseniya, xenia, eugene, milena, yuri</span>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">⏱️ КД победы</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Дней после победы</div>
+                        <span class="row-sub">Сколько ждать</span>
+                    </div>
+                    <input class="small-input" type="number" value="28" id="rule-kd">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">💎 Подписка</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Мин. месяцев</div>
+                        <span class="row-sub">Подписка на канал</span>
+                    </div>
+                    <input class="small-input" type="number" value="1" id="rule-sub">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">⏳ Watchtime</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Мин. часов</div>
+                        <span class="row-sub">Просмотра</span>
+                    </div>
+                    <input class="small-input" type="number" value="1" id="rule-watchtime">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">💬 Сообщений</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Мин. сообщений</div>
+                        <span class="row-sub">На канале</span>
+                    </div>
+                    <input class="small-input" type="number" value="5" id="rule-msgs">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">📜 Лента правил</div>
+                <input class="input-field" type="text" id="rules-ticker-text" value="ДЛЯ УЧАСТИЯ В ПРОКАЧКЕ !1000 В ЧАТ + ПОДПИСКА НА ТГ И ЗНАТЬ ПРАВИЛА В ЗАКРЕПЛЕННОМ ПОСТЕ" style="font-size:12px;">
             </div>
         </div>
     </div>
@@ -609,20 +612,21 @@ let connectionId = 0;
 let winnersLog = [];
 let playerData = {};
 
-// TTS с голосами JeetBot
+// TTS
 let ttsEnabled = false;
-let ttsUsers = {}; // { username: voiceName }
+let ttsUsers = {};
 let ttsQueue = [];
 let ttsSpeaking = false;
 
 // Гонка (оравой)
 let raceInterval = null;
 let raceRunning = false;
-let duckPositions = {};
-let duckOrder = [];
-let duckSpeedBoost = {}; // { username: boostMultiplier }
+let raceStartTime = 0;
+let raceDurationMs = 0;
+let raceDucks = []; // { username, el, position, speed, boost, place }
+let raceWinnerDeclared = false;
 
-// ==================== SVG УТОК (1-в-1) ====================
+// ==================== SVG УТОК ====================
 function duckSVG(index) {
     const accessories = [
         `<ellipse cx="20" cy="10" rx="10" ry="4" fill="#1e5fa8"/><path d="M12 10 Q20 2 28 10 L28 12 L12 12 Z" fill="#1e5fa8"/><rect x="10" y="11" width="20" height="2" fill="#154a82"/>`,
@@ -632,12 +636,10 @@ function duckSVG(index) {
         `<rect x="12" y="4" width="16" height="2" fill="#111"/><polygon points="20,1 30,6 20,9 10,6" fill="#111"/><line x1="28" y1="6" x2="28" y2="13" stroke="#111" stroke-width="1.2"/><circle cx="28" cy="13.5" r="1.5" fill="#ffd700"/>`
     ];
     const acc = accessories[index % accessories.length];
-
     if (index % accessories.length === 3) {
-        return `<svg viewBox="0 0 40 36" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="26" rx="14" ry="8" fill="#e63946"/><ellipse cx="20" cy="22" rx="12" ry="6" fill="#f05a67"/><circle cx="24" cy="12" r="7" fill="#e63946"/><circle cx="23" cy="11" r="1.5" fill="#111"/><path d="M29 12 L36 13 L29 15 Z" fill="#f4a261"/><ellipse cx="14" cy="26" rx="6" ry="4" fill="#f05a67" opacity="0.6"/>${acc || ''}</svg>`;
+        return `<svg viewBox="0 0 40 36" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="26" rx="14" ry="8" fill="#e63946"/><ellipse cx="20" cy="22" rx="12" ry="6" fill="#f05a67"/><circle cx="24" cy="12" r="7" fill="#e63946"/><circle cx="23" cy="11" r="1.5" fill="#111"/><path d="M29 12 L36 13 L29 15 Z" fill="#f4a261"/>${acc || ''}</svg>`;
     }
-
-    return `<svg viewBox="0 0 40 36" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="26" rx="14" ry="8" fill="#f5c518"/><ellipse cx="20" cy="22" rx="12" ry="6" fill="#ffdd44"/><circle cx="24" cy="12" r="7" fill="#f5c518"/><circle cx="23" cy="11" r="1.5" fill="#111"/><path d="M29 12 L36 13 L29 15 Z" fill="#f4a261"/><ellipse cx="14" cy="26" rx="6" ry="4" fill="#ffe066" opacity="0.6"/>${acc || ''}</svg>`;
+    return `<svg viewBox="0 0 40 36" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="26" rx="14" ry="8" fill="#f5c518"/><ellipse cx="20" cy="22" rx="12" ry="6" fill="#ffdd44"/><circle cx="24" cy="12" r="7" fill="#f5c518"/><circle cx="23" cy="11" r="1.5" fill="#111"/><path d="M29 12 L36 13 L29 15 Z" fill="#f4a261"/>${acc || ''}</svg>`;
 }
 
 // ==================== УТИЛИТЫ ====================
@@ -687,13 +689,10 @@ function updatePepeImage() {
 }
 
 function openRulesTab() {
-    document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
-    document.getElementById('tab-rules').classList.add('active');
+    openSettings();
 }
-function openGiveawayTab() {
-    document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
-    document.getElementById('tab-giveaway').classList.add('active');
-}
+
+function openGiveawayTab() {}
 
 // ==================== ЛОГИН ====================
 function checkPassword() {
@@ -729,8 +728,8 @@ function updateActiveRules() {
     updatePepeImage();
 }
 ['rule-kd','rule-sub','rule-watchtime','rule-msgs','channel-rules-enabled'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateActiveRules);
-    document.getElementById(id).addEventListener('change', updateActiveRules);
+    const el = document.getElementById(id);
+    if (el) { el.addEventListener('input', updateActiveRules); el.addEventListener('change', updateActiveRules); }
 });
 
 function updateRulesTicker() {
@@ -739,12 +738,22 @@ function updateRulesTicker() {
 }
 document.getElementById('rules-ticker-text').addEventListener('input', updateRulesTicker);
 
-// ==================== TTS (голоса JeetBot) ====================
+// ==================== НАСТРОЙКИ ====================
+function openSettings() {
+    document.getElementById('settings-modal').style.display = 'flex';
+}
+function closeSettings() {
+    document.getElementById('settings-modal').style.display = 'none';
+}
+document.getElementById('settings-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeSettings();
+});
+
+// ==================== TTS ====================
 function loadTtsSettings() {
     const savedUsers = localStorage.getItem('ttsUsers');
     if (savedUsers) {
         try { ttsUsers = JSON.parse(savedUsers); } catch(e) { ttsUsers = {}; }
-        // Восстанавливаем строку ввода
         const str = Object.entries(ttsUsers).map(([u,v]) => `${u}:${v}`).join(', ');
         document.getElementById('tts-users').value = str;
     }
@@ -757,43 +766,30 @@ document.getElementById('tts-enabled').addEventListener('change', function() {
 });
 document.getElementById('tts-users').addEventListener('input', function() {
     ttsUsers = {};
-    const parts = this.value.split(',').map(s => s.trim()).filter(Boolean);
-    parts.forEach(p => {
+    this.value.split(',').map(s => s.trim()).filter(Boolean).forEach(p => {
         const [user, voice] = p.split(':').map(s => s.trim());
         if (user && voice) ttsUsers[user.toLowerCase()] = voice;
     });
     localStorage.setItem('ttsUsers', JSON.stringify(ttsUsers));
 });
 
-// Пытаемся использовать голос JeetBot через Web Speech API (доступные голоса зависят от системы)
-// Если голос не найден — используем стандартный
 function speakTTS(username, message) {
     if (!ttsEnabled) return;
     const lowerUser = username.toLowerCase();
-    // Если список ников пуст — озвучиваем всех, иначе только указанных
     if (Object.keys(ttsUsers).length > 0 && !ttsUsers[lowerUser]) return;
     if (!message.toLowerCase().startsWith('!tts')) return;
     const text = message.slice(4).trim();
     if (!text) return;
-    
-    const voiceName = ttsUsers[lowerUser] || 'aidar'; // голос по умолчанию
-    ttsQueue.push({ text, voiceName });
+    ttsQueue.push({ text, voiceName: ttsUsers[lowerUser] || 'aidar' });
     if (!ttsSpeaking) processTtsQueue();
 }
-
 function processTtsQueue() {
     if (ttsQueue.length === 0) { ttsSpeaking = false; return; }
     ttsSpeaking = true;
     const item = ttsQueue.shift();
-    
-    // Ищем голос в доступных
     const voices = window.speechSynthesis.getVoices();
-    // Ищем русский голос, похожий по имени на JeetBot голос
-    // JeetBot использует свои серверные голоса, мы можем только имитировать через системные
-    // Ставим русский голос по умолчанию
     let voice = voices.find(v => v.lang.startsWith('ru') && v.name.toLowerCase().includes(item.voiceName));
     if (!voice) voice = voices.find(v => v.lang.startsWith('ru'));
-    
     const utterance = new SpeechSynthesisUtterance(item.text);
     if (voice) utterance.voice = voice;
     utterance.lang = 'ru-RU';
@@ -804,8 +800,6 @@ function processTtsQueue() {
     utterance.onerror = () => processTtsQueue();
     window.speechSynthesis.speak(utterance);
 }
-
-// Предзагрузка голосов
 if (window.speechSynthesis) {
     window.speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
@@ -889,7 +883,7 @@ function logout() {
     document.getElementById('participants-count').textContent = '0';
     document.getElementById('failed-count').textContent = '0';
     document.getElementById('viewer-count').textContent = '0';
-    document.getElementById('online-dot').style.background = '#555';
+    document.getElementById('online-dot').classList.remove('live');
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('password-input').value = '';
@@ -910,7 +904,7 @@ function reconnect() {
     connectToTwitchChat();
 }
 
-// ==================== МОДАЛКА ВЫБОРА РЕЖИМА ====================
+// ==================== МОДАЛКА РЕЖИМА ====================
 function openModeModal() {
     if (participants.size === 0) { addSystemMessage('❌ Нет участников для розыгрыша!'); return; }
     document.getElementById('mode-modal').style.display = 'flex';
@@ -945,93 +939,118 @@ function startMessageGiveaway() {
     giveawayActive = false;
 }
 
-// ==================== ГОНКА УТОК (ОРАВОЙ) ====================
+// ==================== ГОНКА УТОК ОРАВОЙ ====================
 function startDuckRace() {
     if (raceRunning) { addSystemMessage('⚠️ Гонка уже идёт!'); return; }
     giveawayActive = true;
     addSystemMessage('🦆 Гонка уточек запущена! Все плывут оравой!');
 
     const ducks = Array.from(participants);
-    duckPositions = {};
-    duckOrder = [];
-    duckSpeedBoost = {};
-    ducks.forEach(u => { duckPositions[u] = 0; duckSpeedBoost[u] = 1; });
+    const pool = document.getElementById('race-pool');
+    // Очищаем пул, оставляем только финишную линию
+    pool.innerHTML = '<div class="finish-line"></div>';
 
-    const lanesContainer = document.getElementById('race-lanes');
-    lanesContainer.innerHTML = '';
-    
-    // Все утки в одной дорожке (оравой) — каждая на своей строке, но без разделителей
+    const durationMin = Math.max(1, Math.min(5, parseInt(document.getElementById('race-duration').value) || 2));
+    raceDurationMs = durationMin * 60 * 1000;
+    raceStartTime = Date.now();
+    raceWinnerDeclared = false;
+
+    raceDucks = [];
+    const poolHeight = pool.clientHeight || 280;
+    const startY = 20;
+    const maxY = poolHeight - 60;
+    const stepY = ducks.length > 1 ? (maxY - startY) / (ducks.length - 1) : 0;
+
     ducks.forEach((u, i) => {
-        const lane = document.createElement('div');
-        lane.className = 'race-lane';
-        lane.innerHTML = `
-            <div class="lane-name" title="${u}">${u}</div>
-            <div class="lane-water">
-                <div class="lane-finish"></div>
-                <div class="duck" id="duck-${i}">${duckSVG(i)}</div>
-            </div>
-            <div class="lane-place" id="place-${i}">—</div>
+        const duckEl = document.createElement('div');
+        duckEl.className = 'race-duck';
+        duckEl.id = `race-duck-${i}`;
+        duckEl.style.top = `${startY + i * stepY}px`;
+        duckEl.style.left = '0px';
+        duckEl.innerHTML = `
+            <div class="duck-label">${u}</div>
+            <div class="duck-place" id="duck-place-${i}"></div>
+            ${duckSVG(i)}
         `;
-        lanesContainer.appendChild(lane);
+        pool.appendChild(duckEl);
+
+        raceDucks.push({
+            username: u,
+            el: duckEl,
+            placeEl: document.getElementById(`duck-place-${i}`),
+            position: 0,
+            speed: (Math.random() * 0.5 + 0.8), // 0.8–1.3
+            boost: 1,
+            place: 0,
+            finished: false
+        });
     });
 
     document.getElementById('race-track').classList.add('active');
-
-    const durationMin = Math.max(1, Math.min(5, parseInt(document.getElementById('race-duration').value) || 2));
-    const durationMs = durationMin * 60 * 1000;
-    const baseSpeeds = {};
-    // Базовая скорость выше — гонка быстрее
-    ducks.forEach(u => { baseSpeeds[u] = (Math.random() * 0.8 + 0.8) / 100; }); // 0.8–1.6% за тик
-
     raceRunning = true;
-    const startTime = Date.now();
-    const tickMs = 100;
-    const timerEl = document.getElementById('race-timer');
 
-    raceInterval = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const remaining = Math.max(0, durationMs - elapsed);
+    // Запускаем плавную анимацию через requestAnimationFrame
+    const poolWidth = pool.clientWidth - 60; // минус финишная линия и ширина утки
+    let lastTime = performance.now();
+
+    function animate(now) {
+        if (!raceRunning) return;
+        const dt = (now - lastTime) / 1000; // в секундах
+        lastTime = now;
+
+        const elapsed = now - raceStartTime;
+        const remaining = Math.max(0, raceDurationMs - elapsed);
         const rMin = String(Math.floor(remaining / 60000)).padStart(2,'0');
         const rSec = String(Math.floor((remaining % 60000) / 1000)).padStart(2,'0');
-        timerEl.textContent = `${rMin}:${rSec}`;
+        document.getElementById('race-timer').textContent = `${rMin}:${rSec}`;
 
         let allFinished = true;
-        ducks.forEach((u, i) => {
-            if (duckPositions[u] >= 100) return;
+        raceDucks.forEach(d => {
+            if (d.finished) return;
             allFinished = false;
-            
-            // Учитываем буст от !speed
-            const boost = duckSpeedBoost[u] || 1;
-            const jitter = (Math.random() - 0.5) * 0.3;
-            const step = baseSpeeds[u] * boost * (1 + jitter);
-            duckPositions[u] = Math.min(100, duckPositions[u] + step);
 
-            const duckEl = document.getElementById(`duck-${i}`);
-            if (duckEl) {
-                duckEl.style.left = `calc(${duckPositions[u]}% - ${duckPositions[u] * 0.52}px)`;
-            }
+            // Плавное движение: скорость в %/сек, ускорение от boost
+            const baseSpeedPercentPerSec = d.speed * 8; // % в секунду
+            const step = baseSpeedPercentPerSec * d.boost * dt;
+            d.position = Math.min(100, d.position + step);
 
-            if (duckPositions[u] >= 100 && !duckOrder.includes(u)) {
-                duckOrder.push(u);
-                const placeEl = document.getElementById(`place-${i}`);
-                if (placeEl) placeEl.textContent = duckOrder.length;
+            // Позиция в пикселях (от 0 до poolWidth)
+            const px = (d.position / 100) * poolWidth;
+            d.el.style.transform = `translateX(${px}px)`;
+
+            if (d.position >= 100) {
+                d.finished = true;
+                d.place = raceDucks.filter(x => x.finished).length;
+                d.placeEl.textContent = '#' + d.place;
+                if (d.place === 1 && !raceWinnerDeclared) {
+                    raceWinnerDeclared = true;
+                    finishRace(d.username);
+                }
             }
         });
 
-        if (allFinished || elapsed >= durationMs) {
-            clearInterval(raceInterval);
-            raceInterval = null;
+        // Если все финишировали или время вышло
+        if (allFinished || elapsed >= raceDurationMs) {
             raceRunning = false;
-            let winner;
-            if (duckOrder.length > 0) winner = duckOrder[0];
-            else winner = ducks.reduce((a, b) => duckPositions[a] > duckPositions[b] ? a : b);
-            finishRace(winner);
+            if (!raceWinnerDeclared) {
+                // Победитель — тот, кто дальше всех
+                const winner = raceDucks.reduce((a, b) => a.position > b.position ? a : b);
+                raceWinnerDeclared = true;
+                finishRace(winner.username);
+            }
+            return;
         }
-    }, tickMs);
+
+        raceInterval = requestAnimationFrame(animate);
+    }
+
+    raceInterval = requestAnimationFrame(animate);
 }
 
 function finishRace(winner) {
     setTimeout(() => {
+        raceRunning = false;
+        if (raceInterval) { cancelAnimationFrame(raceInterval); raceInterval = null; }
         document.getElementById('race-track').classList.remove('active');
         giveawayActive = false;
         addSystemMessage(`🏆 ПОБЕДИТЕЛЬ ГОНКИ: ${winner}`);
@@ -1046,7 +1065,7 @@ function finishRace(winner) {
         chatMessages.appendChild(msgDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
         showWinnerModal(winner);
-    }, 400);
+    }, 600);
 }
 
 // ==================== ОКНО ПОБЕДИТЕЛЯ ====================
@@ -1119,14 +1138,14 @@ async function updateViewerCount() {
         const onlineDot = document.getElementById('online-dot');
         if (text.toLowerCase().includes('offline') || isNaN(parseInt(text))) {
             viewerCountEl.textContent = '0';
-            onlineDot.style.background = '#555';
+            onlineDot.classList.remove('live');
         } else {
             viewerCountEl.textContent = text;
-            onlineDot.style.background = '#ffd700';
+            onlineDot.classList.add('live');
         }
     } catch (e) {
         document.getElementById('viewer-count').textContent = '0';
-        document.getElementById('online-dot').style.background = '#555';
+        document.getElementById('online-dot').classList.remove('live');
     }
 }
 function startViewerTracking() {
@@ -1142,6 +1161,7 @@ function connectToTwitchChat() {
     const anonUsername = 'justinfan' + Math.floor(Math.random() * 90000 + 1000);
     const randomPass = Math.random().toString(36).substring(2, 15);
     ws = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
+
     ws.onopen = function() {
         ws.send('PASS ' + randomPass);
         ws.send('NICK ' + anonUsername);
@@ -1150,8 +1170,9 @@ function connectToTwitchChat() {
         isConnected = true;
         document.getElementById('chat-messages').innerHTML = '';
         addSystemMessage(`✅ Подключено к чату ${CHANNEL_NAME} — онлайн`);
-        document.getElementById('online-dot').style.background = '#ffd700';
+        document.getElementById('online-dot').classList.add('live');
     };
+
     ws.onmessage = function(event) {
         if (myConnectionId !== connectionId) return;
         const data = event.data;
@@ -1161,17 +1182,19 @@ function connectToTwitchChat() {
             if (lines[i].indexOf('PRIVMSG') !== -1) handleChatMessage(lines[i]);
         }
     };
-    ws.onerror = function() { if (myConnectionId === connectionId) addSystemMessage('❌ Ошибка подключения.'); };
+
+    ws.onerror = function() {
+        if (myConnectionId === connectionId) addSystemMessage('❌ Ошибка подключения.');
+    };
+
     ws.onclose = function() {
         if (myConnectionId !== connectionId) return;
-        if (isConnected) {
-            isConnected = false;
-            document.getElementById('online-dot').style.background = '#555';
-            addSystemMessage('⚠️ Соединение потеряно. Переподключение...');
-            reconnectTimeout = setTimeout(() => {
-                if (document.getElementById('main-screen').style.display === 'flex') connectToTwitchChat();
-            }, 2000);
-        }
+        isConnected = false;
+        document.getElementById('online-dot').classList.remove('live');
+        addSystemMessage('⚠️ Соединение потеряно. Переподключение...');
+        reconnectTimeout = setTimeout(() => {
+            if (document.getElementById('main-screen').style.display === 'flex') connectToTwitchChat();
+        }, 2000);
     };
 }
 
@@ -1223,12 +1246,15 @@ function handleChatMessage(line) {
     // TTS
     speakTTS(displayName, message);
 
-    // !speed — ускорение утки
-    if (message.toLowerCase().trim() === '!speed' && raceRunning && participants.has(username)) {
-        duckSpeedBoost[username] = (duckSpeedBoost[username] || 1) * 1.5; // буст 50%
-        addSystemMessage(`⚡ ${displayName} ускорил свою утку!`);
-        queueMessage(displayName, message, '#ffd700', false, isVip, isMod, isFirstMsg);
-        return;
+    // !speed
+    if (message.toLowerCase().trim() === '!speed' && raceRunning) {
+        const duck = raceDucks.find(d => d.username === username);
+        if (duck) {
+            duck.boost = (duck.boost || 1) * 1.6;
+            addSystemMessage(`⚡ ${displayName} ускорил свою утку!`);
+            queueMessage(displayName, message, '#ffd700', false, isVip, isMod, isFirstMsg);
+            return;
+        }
     }
 
     // Победитель
@@ -1250,7 +1276,7 @@ function handleChatMessage(line) {
         return;
     }
 
-    // Регистрация
+    // РЕГИСТРАЦИЯ
     const isNew = !winnersBase.has(username);
     const cbAll = document.getElementById('cb-all').checked;
     const cbFm = document.getElementById('cb-fm').checked;
@@ -1272,17 +1298,6 @@ function handleChatMessage(line) {
         participants.add(username);
         participantCount++;
         document.getElementById('participants-count').textContent = participantCount;
-    }
-
-    // Проверка правил
-    const chFollow = document.getElementById('ch-follow').checked;
-    const chSub = document.getElementById('ch-sub').checked;
-    const chMinMsg = document.getElementById('ch-minmsg').checked;
-    const chOldAcc = document.getElementById('ch-oldacc').checked;
-    if ((chFollow || chSub || chMinMsg || chOldAcc) && cbNew && !isNew) {
-        failedCount++;
-        document.getElementById('failed-count').textContent = failedCount;
-        saveFailedCount();
     }
 
     queueMessage(displayName, message, userColor, false, isVip, isMod, isFirstMsg);
