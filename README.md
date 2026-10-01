@@ -1,1 +1,0 @@
-# malibash-bot
