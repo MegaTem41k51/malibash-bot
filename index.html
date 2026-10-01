@@ -126,28 +126,40 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .frog-pepe-block.rules-on .pepe-off { display:none; }
 .frog-pepe-block.rules-on .pepe-on { display:block; }
 
-/* ====== ГОНКА УТОК ОРАВОЙ ====== */
+/* ====== ГОНКА УТОК ====== */
 .race-track { display:none; flex-direction:column; position:relative; z-index:2; background:linear-gradient(180deg,#4db8e8 0%,#3a9fd6 50%,#2a7fb0 100%); border-radius:20px; border:2px solid #1a5a8a; padding:0; overflow:hidden; max-height:400px; }
 .race-track.active { display:flex; }
 .race-header-bar { display:flex; justify-content:space-between; align-items:center; padding:10px 18px; background:rgba(26,90,138,.7); border-bottom:2px solid #1a5a8a; backdrop-filter:blur(5px); }
 .race-header-bar .race-title { font-size:14px; color:#fff; font-weight:700; text-shadow:1px 1px 2px rgba(0,0,0,.5); }
 .race-header-bar .race-timer { font-size:15px; color:#ffd700; font-weight:800; background:#0f0f0f; padding:5px 14px; border-radius:12px; letter-spacing:1px; }
 
-/* ОБЩАЯ ВОДА — все утки в одном потоке */
 .race-pool { position:relative; width:100%; height:280px; overflow:hidden; }
 .race-pool::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 8px, transparent 8px 16px); opacity:.5; }
 .race-pool::after { content:''; position:absolute; bottom:0; left:0; right:0; height:8px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 10px, transparent 10px 20px); opacity:.4; }
 .race-pool .finish-line { position:absolute; right:20px; top:0; bottom:0; width:16px; background:repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/16px 16px; border-left:2px solid #000; border-right:2px solid #000; z-index:5; box-shadow:0 0 20px rgba(0,0,0,.4); }
 
-.race-duck { position:absolute; width:44px; height:40px; z-index:2; will-change:transform; transition:transform .05s linear; }
+.race-duck { position:absolute; width:44px; height:40px; z-index:2; will-change:transform; }
 .race-duck svg { width:100%; height:100%; display:block; filter:drop-shadow(0 3px 4px rgba(0,0,0,.3)); }
 .race-duck .duck-label { position:absolute; top:-16px; left:50%; transform:translateX(-50%); font-size:10px; color:#fff; background:rgba(0,0,0,.6); padding:2px 6px; border-radius:6px; white-space:nowrap; font-weight:700; text-shadow:1px 1px 2px rgba(0,0,0,.8); }
 .race-duck .duck-place { position:absolute; top:50%; left:-30px; transform:translateY(-50%); font-size:14px; color:#ffd700; font-weight:900; text-shadow:1px 1px 3px rgba(0,0,0,.9); }
 
+/* ====== КОЛЕСО ФОРТУНЫ ====== */
+.wheel-track { display:none; flex-direction:column; align-items:center; justify-content:center; position:relative; z-index:2; background:#141414; border-radius:20px; border:2px solid #ffd700; padding:20px; max-height:500px; }
+.wheel-track.active { display:flex; }
+.wheel-title { font-size:14px; color:#ffd700; font-weight:700; margin-bottom:10px; text-shadow:0 0 10px rgba(255,215,0,.5); }
+.wheel-container { position:relative; width:420px; height:420px; max-width:100%; }
+.wheel-canvas { width:100%; height:100%; border-radius:50%; box-shadow:0 0 40px rgba(255,215,0,.4), inset 0 0 20px rgba(0,0,0,.5); }
+.wheel-pointer { position:absolute; right:-15px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:20px solid transparent; border-bottom:20px solid transparent; border-right:30px solid #ff3333; filter:drop-shadow(0 0 10px rgba(255,51,51,.8)); z-index:10; }
+.wheel-center-btn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,#ffd700,#e6c200); border:4px solid #0f0f0f; color:#0f0f0f; font-size:14px; font-weight:900; cursor:pointer; z-index:9; box-shadow:0 0 30px rgba(255,215,0,.8), inset 0 -4px 8px rgba(0,0,0,.2); transition:.2s; text-transform:uppercase; letter-spacing:1px; }
+.wheel-center-btn:hover { transform:translate(-50%,-50%) scale(1.05); box-shadow:0 0 40px rgba(255,215,0,1); }
+.wheel-center-btn:active { transform:translate(-50%,-50%) scale(.95); }
+.wheel-center-btn:disabled { opacity:.5; cursor:not-allowed; }
+.wheel-timer { margin-top:12px; font-size:15px; color:#ffd700; font-weight:800; background:#0f0f0f; padding:6px 18px; border-radius:12px; }
+
 /* МОДАЛКИ */
 #winner-modal, #mode-modal, #player-data-modal, #settings-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.85); z-index:999; justify-content:center; align-items:center; padding:20px; }
 .winner-window, .mode-window, .player-data-window, .settings-window { width:100%; max-width:700px; background:#141414; border-radius:20px; overflow:hidden; border:1px solid #ffd700; box-shadow:0 0 50px rgba(255,215,0,.3); animation:popIn .3s ease; }
-.mode-window { max-width:480px; }
+.mode-window { max-width:520px; }
 .player-data-window { max-width:520px; }
 .settings-window { max-width:560px; }
 @keyframes popIn { from { transform:scale(.9); opacity:0; } to { transform:scale(1); opacity:1; } }
@@ -164,7 +176,6 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .mode-option .mode-title { font-size:15px; font-weight:800; color:#ffd700; }
 .mode-option .mode-sub { font-size:12px; color:#aaa; }
 
-/* НАСТРОЙКИ */
 .settings-body { padding:22px; display:flex; flex-direction:column; gap:14px; max-height:75vh; overflow-y:auto; }
 .settings-body::-webkit-scrollbar { width:6px; }
 .settings-body::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
@@ -181,7 +192,6 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .switch input:checked + .slider { background:#ffd700; border-color:#ffd700; }
 .switch input:checked + .slider::before { transform:translateX(20px); background:#0f0f0f; }
 
-/* ОКНО ПОБЕДИТЕЛЯ */
 .winner-body { padding:22px; display:flex; flex-direction:column; gap:18px; max-height:80vh; overflow-y:auto; }
 .winner-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
 .last-message-box { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; padding:12px 16px; min-width:180px; }
@@ -214,7 +224,6 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .winner-message-item { font-size:13px; color:#f5f5f5; padding:8px 12px; background:#0f0f0f; border-radius:10px; margin-bottom:6px; }
 .winner-message-item .time { color:#666; font-size:11px; margin-right:8px; }
 
-/* ДАННЫЕ ИГРОКА */
 .player-data-body { padding:22px; display:flex; flex-direction:column; gap:14px; max-height:80vh; overflow-y:auto; }
 .player-data-field { display:flex; flex-direction:column; gap:4px; }
 .player-data-field label { font-size:11px; color:#aaa; text-transform:uppercase; letter-spacing:.5px; }
@@ -346,14 +355,26 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
             </div>
         </div>
 
+        <!-- ГОНКА УТОК -->
         <div class="race-track" id="race-track">
             <div class="race-header-bar">
                 <div class="race-title" id="race-title">🦆 Гонка уточек</div>
-                <div class="race-timer" id="race-timer">00:00</div>
+                <div class="race-timer" id="race-timer">02:00</div>
             </div>
             <div class="race-pool" id="race-pool">
                 <div class="finish-line"></div>
             </div>
+        </div>
+
+        <!-- КОЛЕСО ФОРТУНЫ -->
+        <div class="wheel-track" id="wheel-track">
+            <div class="wheel-title" id="wheel-title">🎡 Колесо фортуны</div>
+            <div class="wheel-container">
+                <canvas class="wheel-canvas" id="wheel-canvas" width="600" height="600"></canvas>
+                <div class="wheel-pointer"></div>
+                <button class="wheel-center-btn" id="wheel-center-btn" onclick="spinWheel()">КРУТИТЬ</button>
+            </div>
+            <div class="wheel-timer" id="wheel-timer">Осталось: 35 сек</div>
         </div>
 
         <div class="chat-messages" id="chat-messages">
@@ -402,7 +423,14 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                 <div class="mode-icon">🦆</div>
                 <div class="mode-info">
                     <div class="mode-title">Гонка утками</div>
-                    <div class="mode-sub">Утки плывут оравой — кто первый, тот и победил</div>
+                    <div class="mode-sub">Утки плывут по времени — кто первый, тот и победил</div>
+                </div>
+            </div>
+            <div class="mode-option" onclick="startMode('wheel')">
+                <div class="mode-icon">🎡</div>
+                <div class="mode-info">
+                    <div class="mode-title">Колесо фортуны</div>
+                    <div class="mode-sub">Крутится 35 секунд, плавно замедляется</div>
                 </div>
             </div>
         </div>
@@ -422,9 +450,20 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                 <div class="settings-row">
                     <div>
                         <div class="row-label">Длительность (мин, 1-5)</div>
-                        <span class="row-sub">Сколько идёт гонка</span>
+                        <span class="row-sub">Гонка идёт ровно это время</span>
                     </div>
                     <input class="small-input" type="number" min="1" max="5" value="2" id="race-duration">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">🎡 Колесо фортуны</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Время вращения (сек)</div>
+                        <span class="row-sub">Сколько крутится колесо</span>
+                    </div>
+                    <input class="small-input" type="number" min="10" max="60" value="35" id="wheel-duration">
                 </div>
             </div>
 
@@ -442,8 +481,8 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                 </div>
                 <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:6px;">
                     <div class="row-label">Ники и голоса (ник:голос)</div>
-                    <input class="input-field" type="text" id="tts-users" placeholder="user1:aidar, user2:baya" style="font-size:12px;">
-                    <span class="row-sub">Голоса: aidar, baya, kseniya, xenia, eugene, milena, yuri</span>
+                    <input class="input-field" type="text" id="tts-users" placeholder="hollymmolly29:baya, user2:aidar" style="font-size:12px;">
+                    <span class="row-sub">Голоса: aidar (муж), baya (жен), kseniya (жен), xenia (жен), eugene (муж), milena (жен), yuri (муж)</span>
                 </div>
             </div>
 
@@ -618,13 +657,22 @@ let ttsUsers = {};
 let ttsQueue = [];
 let ttsSpeaking = false;
 
-// Гонка (оравой)
-let raceInterval = null;
+// ГОНКА
 let raceRunning = false;
+let raceRAF = null;
 let raceStartTime = 0;
 let raceDurationMs = 0;
-let raceDucks = []; // { username, el, position, speed, boost, place }
+let raceDucks = [];
 let raceWinnerDeclared = false;
+
+// КОЛЕСО
+let wheelRunning = false;
+let wheelRAF = null;
+let wheelAngle = 0;
+let wheelStartTime = 0;
+let wheelDurationMs = 0;
+let wheelParticipants = [];
+let wheelWinnerDeclared = false;
 
 // ==================== SVG УТОК ====================
 function duckSVG(index) {
@@ -660,6 +708,13 @@ function savePlayerDataStorage() { localStorage.setItem('malibash_playerData', J
 function saveWinnersBase() { localStorage.setItem('malibash_winnersBase', JSON.stringify(Array.from(winnersBase))); }
 function saveFailedCount() { localStorage.setItem('malibash_failedCount', String(failedCount)); }
 
+function formatTime(ms) {
+    const totalSec = Math.max(0, Math.floor(ms / 1000));
+    const min = String(Math.floor(totalSec / 60)).padStart(2, '0');
+    const sec = String(totalSec % 60).padStart(2, '0');
+    return `${min}:${sec}`;
+}
+
 // ==================== АВАТАР ====================
 async function loadChannelAvatar() {
     const avatarBox = document.getElementById('channel-avatar');
@@ -688,10 +743,7 @@ function updatePepeImage() {
     else pepeBlock.classList.remove('rules-on');
 }
 
-function openRulesTab() {
-    openSettings();
-}
-
+function openRulesTab() { openSettings(); }
 function openGiveawayTab() {}
 
 // ==================== ЛОГИН ====================
@@ -710,6 +762,7 @@ function checkPassword() {
         renderWinnersLog();
         loadTtsSettings();
         updateRulesTicker();
+        updateRaceTimerDisplay();
     } else {
         document.getElementById('error-msg').style.display = 'block';
         document.getElementById('password-input').value = '';
@@ -738,18 +791,31 @@ function updateRulesTicker() {
 }
 document.getElementById('rules-ticker-text').addEventListener('input', updateRulesTicker);
 
+function updateRaceTimerDisplay() {
+    const min = parseInt(document.getElementById('race-duration').value) || 2;
+    document.getElementById('race-timer').textContent = formatTime(min * 60 * 1000);
+}
+document.getElementById('race-duration').addEventListener('input', updateRaceTimerDisplay);
+
 // ==================== НАСТРОЙКИ ====================
-function openSettings() {
-    document.getElementById('settings-modal').style.display = 'flex';
-}
-function closeSettings() {
-    document.getElementById('settings-modal').style.display = 'none';
-}
-document.getElementById('settings-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeSettings();
-});
+function openSettings() { document.getElementById('settings-modal').style.display = 'flex'; }
+function closeSettings() { document.getElementById('settings-modal').style.display = 'none'; }
+document.getElementById('settings-modal').addEventListener('click', function(e) { if (e.target === this) closeSettings(); });
 
 // ==================== TTS ====================
+// Маппинг голосов JeetBot → параметры для Web Speech API
+const VOICE_MAP = {
+    'aidar':   { gender: 'male',   pitch: 0.85, rate: 1.0 },
+    'baya':    { gender: 'female', pitch: 1.15, rate: 1.0 },
+    'kseniya': { gender: 'female', pitch: 1.2,  rate: 1.0 },
+    'xenia':   { gender: 'female', pitch: 1.1,  rate: 1.0 },
+    'eugene':  { gender: 'male',   pitch: 0.9,  rate: 1.0 },
+    'milena':  { gender: 'female', pitch: 1.25, rate: 1.0 },
+    'yuri':    { gender: 'male',   pitch: 0.8,  rate: 1.0 },
+    'alena':   { gender: 'female', pitch: 1.18, rate: 1.0 },
+    'filipp':  { gender: 'male',   pitch: 0.95, rate: 1.0 }
+};
+
 function loadTtsSettings() {
     const savedUsers = localStorage.getItem('ttsUsers');
     if (savedUsers) {
@@ -780,26 +846,40 @@ function speakTTS(username, message) {
     if (!message.toLowerCase().startsWith('!tts')) return;
     const text = message.slice(4).trim();
     if (!text) return;
-    ttsQueue.push({ text, voiceName: ttsUsers[lowerUser] || 'aidar' });
+    ttsQueue.push({ text, voiceName: ttsUsers[lowerUser] || 'baya' });
     if (!ttsSpeaking) processTtsQueue();
 }
+
 function processTtsQueue() {
     if (ttsQueue.length === 0) { ttsSpeaking = false; return; }
     ttsSpeaking = true;
     const item = ttsQueue.shift();
+    
     const voices = window.speechSynthesis.getVoices();
-    let voice = voices.find(v => v.lang.startsWith('ru') && v.name.toLowerCase().includes(item.voiceName));
-    if (!voice) voice = voices.find(v => v.lang.startsWith('ru'));
+    const voiceCfg = VOICE_MAP[item.voiceName] || VOICE_MAP['baya'];
+    
+    // Ищем русский голос нужного пола
+    let voice = null;
+    const ruVoices = voices.filter(v => v.lang.startsWith('ru'));
+    
+    if (voiceCfg.gender === 'female') {
+        voice = ruVoices.find(v => /female|жен|irina|elena|alena|milena|kseniya|svetlana|anna|maria/i.test(v.name));
+    } else {
+        voice = ruVoices.find(v => /male|муж|dmitry|yuri|pavel|maxim|artem|ivan/i.test(v.name));
+    }
+    if (!voice && ruVoices.length > 0) voice = ruVoices[0];
+    
     const utterance = new SpeechSynthesisUtterance(item.text);
     if (voice) utterance.voice = voice;
     utterance.lang = 'ru-RU';
-    utterance.rate = 1.0;
-    utterance.pitch = 1.0;
+    utterance.rate = voiceCfg.rate;
+    utterance.pitch = voiceCfg.pitch;
     utterance.volume = 1.0;
     utterance.onend = () => processTtsQueue();
     utterance.onerror = () => processTtsQueue();
     window.speechSynthesis.speak(utterance);
 }
+
 if (window.speechSynthesis) {
     window.speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
@@ -875,7 +955,8 @@ function logout() {
     if (reconnectTimeout) clearTimeout(reconnectTimeout);
     if (viewerInterval) clearInterval(viewerInterval);
     if (winnerTimerInterval) clearInterval(winnerTimerInterval);
-    if (raceInterval) clearInterval(raceInterval);
+    if (raceRAF) cancelAnimationFrame(raceRAF);
+    if (wheelRAF) cancelAnimationFrame(wheelRAF);
     closeWinnerModal();
     document.getElementById('chat-messages').innerHTML = '';
     participantCount = 0; failedCount = 0;
@@ -890,6 +971,7 @@ function logout() {
     document.getElementById('password-input').focus();
     if (window.speechSynthesis) window.speechSynthesis.cancel();
     document.getElementById('race-track').classList.remove('active');
+    document.getElementById('wheel-track').classList.remove('active');
 }
 
 function reconnect() {
@@ -909,13 +991,12 @@ function openModeModal() {
     if (participants.size === 0) { addSystemMessage('❌ Нет участников для розыгрыша!'); return; }
     document.getElementById('mode-modal').style.display = 'flex';
 }
-function closeModeModal() {
-    document.getElementById('mode-modal').style.display = 'none';
-}
+function closeModeModal() { document.getElementById('mode-modal').style.display = 'none'; }
 function startMode(mode) {
     closeModeModal();
     if (mode === 'messages') startMessageGiveaway();
     else if (mode === 'ducks') startDuckRace();
+    else if (mode === 'wheel') startWheel();
 }
 
 // ==================== РОЗЫГРЫШ ПО СООБЩЕНИЯМ ====================
@@ -939,20 +1020,19 @@ function startMessageGiveaway() {
     giveawayActive = false;
 }
 
-// ==================== ГОНКА УТОК ОРАВОЙ ====================
+// ==================== ГОНКА УТОК (по времени) ====================
 function startDuckRace() {
     if (raceRunning) { addSystemMessage('⚠️ Гонка уже идёт!'); return; }
     giveawayActive = true;
-    addSystemMessage('🦆 Гонка уточек запущена! Все плывут оравой!');
+    addSystemMessage('🦆 Гонка уточек запущена!');
 
     const ducks = Array.from(participants);
     const pool = document.getElementById('race-pool');
-    // Очищаем пул, оставляем только финишную линию
     pool.innerHTML = '<div class="finish-line"></div>';
 
     const durationMin = Math.max(1, Math.min(5, parseInt(document.getElementById('race-duration').value) || 2));
     raceDurationMs = durationMin * 60 * 1000;
-    raceStartTime = Date.now();
+    raceStartTime = performance.now();
     raceWinnerDeclared = false;
 
     raceDucks = [];
@@ -961,12 +1041,15 @@ function startDuckRace() {
     const maxY = poolHeight - 60;
     const stepY = ducks.length > 1 ? (maxY - startY) / (ducks.length - 1) : 0;
 
+    // Определяем случайного победителя заранее — он пересечёт финиш РОВНО в конце времени
+    const winnerIndex = Math.floor(Math.random() * ducks.length);
+
     ducks.forEach((u, i) => {
         const duckEl = document.createElement('div');
         duckEl.className = 'race-duck';
         duckEl.id = `race-duck-${i}`;
         duckEl.style.top = `${startY + i * stepY}px`;
-        duckEl.style.left = '0px';
+        duckEl.style.transform = 'translateX(0px)';
         duckEl.innerHTML = `
             <div class="duck-label">${u}</div>
             <div class="duck-place" id="duck-place-${i}"></div>
@@ -974,83 +1057,95 @@ function startDuckRace() {
         `;
         pool.appendChild(duckEl);
 
+        // Победитель приходит ровно к концу (100% к raceDurationMs)
+        // Остальные — на 70-95% к концу
+        let progressAtEnd;
+        if (i === winnerIndex) {
+            progressAtEnd = 100;
+        } else {
+            progressAtEnd = 70 + Math.random() * 25; // 70-95%
+        }
+        
+        // Небольшая кривизна — утки плывут с ускорением/замедлением
+        const curve = 0.8 + Math.random() * 0.5;
+        
         raceDucks.push({
             username: u,
             el: duckEl,
             placeEl: document.getElementById(`duck-place-${i}`),
-            position: 0,
-            speed: (Math.random() * 0.5 + 0.8), // 0.8–1.3
+            progressAtEnd: progressAtEnd,
+            curve: curve,
             boost: 1,
-            place: 0,
-            finished: false
+            position: 0,
+            finished: false,
+            isWinner: i === winnerIndex
         });
     });
 
+    document.getElementById('race-timer').textContent = formatTime(raceDurationMs);
     document.getElementById('race-track').classList.add('active');
     raceRunning = true;
 
-    // Запускаем плавную анимацию через requestAnimationFrame
-    const poolWidth = pool.clientWidth - 60; // минус финишная линия и ширина утки
+    const poolWidth = pool.clientWidth - 80;
     let lastTime = performance.now();
 
     function animate(now) {
         if (!raceRunning) return;
-        const dt = (now - lastTime) / 1000; // в секундах
-        lastTime = now;
-
         const elapsed = now - raceStartTime;
         const remaining = Math.max(0, raceDurationMs - elapsed);
-        const rMin = String(Math.floor(remaining / 60000)).padStart(2,'0');
-        const rSec = String(Math.floor((remaining % 60000) / 1000)).padStart(2,'0');
-        document.getElementById('race-timer').textContent = `${rMin}:${rSec}`;
+        document.getElementById('race-timer').textContent = formatTime(remaining);
 
-        let allFinished = true;
-        raceDucks.forEach(d => {
+        const t = Math.min(1, elapsed / raceDurationMs); // 0..1
+
+        raceDucks.forEach((d, i) => {
             if (d.finished) return;
-            allFinished = false;
-
-            // Плавное движение: скорость в %/сек, ускорение от boost
-            const baseSpeedPercentPerSec = d.speed * 8; // % в секунду
-            const step = baseSpeedPercentPerSec * d.boost * dt;
-            d.position = Math.min(100, d.position + step);
-
-            // Позиция в пикселях (от 0 до poolWidth)
-            const px = (d.position / 100) * poolWidth;
+            
+            // Прогресс: ease-out — быстрее в начале, медленнее в конце
+            // Каждая утка идёт к своему progressAtEnd
+            const eased = 1 - Math.pow(1 - t, d.curve);
+            let pos = d.progressAtEnd * eased * d.boost;
+            if (pos > 100) pos = 100;
+            
+            // Лёгкое покачивание
+            const wobble = Math.sin(now / 200 + i) * 2;
+            d.position = pos;
+            
+            const px = (pos / 100) * poolWidth + wobble;
             d.el.style.transform = `translateX(${px}px)`;
 
-            if (d.position >= 100) {
+            // Финиш
+            if (pos >= 100 && !d.finished) {
                 d.finished = true;
-                d.place = raceDucks.filter(x => x.finished).length;
-                d.placeEl.textContent = '#' + d.place;
-                if (d.place === 1 && !raceWinnerDeclared) {
+                const place = raceDucks.filter(x => x.finished).length;
+                d.placeEl.textContent = '#' + place;
+                if (d.isWinner && !raceWinnerDeclared) {
                     raceWinnerDeclared = true;
-                    finishRace(d.username);
                 }
             }
         });
 
-        // Если все финишировали или время вышло
-        if (allFinished || elapsed >= raceDurationMs) {
+        // Время вышло — финиш
+        if (elapsed >= raceDurationMs) {
             raceRunning = false;
-            if (!raceWinnerDeclared) {
-                // Победитель — тот, кто дальше всех
-                const winner = raceDucks.reduce((a, b) => a.position > b.position ? a : b);
+            // Победитель — тот, у кого progressAtEnd = 100 (заранее выбранный)
+            const winner = raceDucks.find(d => d.isWinner);
+            if (winner && !raceWinnerDeclared) {
                 raceWinnerDeclared = true;
                 finishRace(winner.username);
             }
             return;
         }
 
-        raceInterval = requestAnimationFrame(animate);
+        raceRAF = requestAnimationFrame(animate);
     }
 
-    raceInterval = requestAnimationFrame(animate);
+    raceRAF = requestAnimationFrame(animate);
 }
 
 function finishRace(winner) {
     setTimeout(() => {
         raceRunning = false;
-        if (raceInterval) { cancelAnimationFrame(raceInterval); raceInterval = null; }
+        if (raceRAF) { cancelAnimationFrame(raceRAF); raceRAF = null; }
         document.getElementById('race-track').classList.remove('active');
         giveawayActive = false;
         addSystemMessage(`🏆 ПОБЕДИТЕЛЬ ГОНКИ: ${winner}`);
@@ -1066,6 +1161,151 @@ function finishRace(winner) {
         chatMessages.scrollTop = chatMessages.scrollHeight;
         showWinnerModal(winner);
     }, 600);
+}
+
+// ==================== КОЛЕСО ФОРТУНЫ ====================
+const WHEEL_COLORS = ['#e63946','#f4a261','#2a9d8f','#e9c46a','#264653','#e76f51','#06d6a0','#118ab2','#ef476f','#ffd166','#8338ec','#3a86ff','#fb5607','#ff006e','#8ac926','#1982c4'];
+
+function startWheel() {
+    if (wheelRunning) { addSystemMessage('⚠️ Колесо уже крутится!'); return; }
+    giveawayActive = true;
+    addSystemMessage('🎡 Колесо фортуны запускается!');
+
+    wheelParticipants = Array.from(participants);
+    if (wheelParticipants.length === 0) { addSystemMessage('❌ Нет участников!'); return; }
+
+    const durationSec = Math.max(10, Math.min(60, parseInt(document.getElementById('wheel-duration').value) || 35));
+    wheelDurationMs = durationSec * 1000;
+    wheelAngle = 0;
+    wheelWinnerDeclared = false;
+    wheelRunning = false;
+
+    // Показываем трек
+    document.getElementById('wheel-track').classList.add('active');
+    document.getElementById('wheel-timer').textContent = `Осталось: ${durationSec} сек`;
+    document.getElementById('wheel-center-btn').disabled = false;
+    document.getElementById('wheel-center-btn').textContent = 'КРУТИТЬ';
+
+    drawWheel();
+    giveawayActive = false; // отпускаем регистрацию? Нет, оставляем
+    giveawayActive = true;
+}
+
+function drawWheel() {
+    const canvas = document.getElementById('wheel-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    const cx = w / 2, cy = h / 2;
+    const radius = Math.min(cx, cy) - 10;
+    const n = wheelParticipants.length;
+    const anglePerSlice = (Math.PI * 2) / n;
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(wheelAngle);
+
+    for (let i = 0; i < n; i++) {
+        const startAngle = i * anglePerSlice;
+        const endAngle = startAngle + anglePerSlice;
+        const color = WHEEL_COLORS[i % WHEEL_COLORS.length];
+
+        // Сектор
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, radius, startAngle, endAngle);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.strokeStyle = '#0f0f0f';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Текст
+        ctx.save();
+        ctx.rotate(startAngle + anglePerSlice / 2);
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 20px "Segoe UI", Arial';
+        ctx.shadowColor = 'rgba(0,0,0,.8)';
+        ctx.shadowBlur = 4;
+        const text = wheelParticipants[i];
+        // Обрезаем длинные ники
+        const maxLen = 14;
+        const displayText = text.length > maxLen ? text.slice(0, maxLen) + '…' : text;
+        ctx.fillText(displayText, radius - 20, 0);
+        ctx.restore();
+    }
+
+    ctx.restore();
+}
+
+function spinWheel() {
+    if (wheelRunning) return;
+    wheelRunning = true;
+    document.getElementById('wheel-center-btn').disabled = true;
+    document.getElementById('wheel-center-btn').textContent = '...';
+    addSystemMessage('🎡 Колесо крутится!');
+
+    wheelStartTime = performance.now();
+    const startAngle = wheelAngle;
+    // 8-12 полных оборотов + случайный угол
+    const totalRotation = (Math.PI * 2) * (8 + Math.random() * 4) + Math.random() * Math.PI * 2;
+    const n = wheelParticipants.length;
+    const anglePerSlice = (Math.PI * 2) / n;
+    // Определяем победителя заранее
+    const winnerIndex = Math.floor(Math.random() * n);
+    // Чтобы победитель оказался под стрелкой (стрелка справа = угол 0)
+    // Стрелка справа, сектор победителя должен быть на позиции 0 (справа)
+    // После вращения wheelAngle = startAngle + totalRotation
+    // Победитель должен быть на месте, где его сектор попадает под угол 0
+    const winnerSliceCenter = winnerIndex * anglePerSlice + anglePerSlice / 2;
+    // Финальный угол: totalRotation такой, что (startAngle + totalRotation + winnerSliceCenter) % 2π = 0
+    const targetMod = ((-winnerSliceCenter - startAngle) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+    const adjustedRotation = totalRotation - (totalRotation % (Math.PI * 2)) + targetMod;
+
+    function animate(now) {
+        if (!wheelRunning) return;
+        const elapsed = now - wheelStartTime;
+        const t = Math.min(1, elapsed / wheelDurationMs);
+        // easeOutQuart — плавное замедление
+        const eased = 1 - Math.pow(1 - t, 4);
+        wheelAngle = startAngle + adjustedRotation * eased;
+        drawWheel();
+
+        const remaining = Math.max(0, wheelDurationMs - elapsed);
+        document.getElementById('wheel-timer').textContent = `Осталось: ${Math.ceil(remaining / 1000)} сек`;
+
+        if (t >= 1) {
+            wheelRunning = false;
+            const winner = wheelParticipants[winnerIndex];
+            document.getElementById('wheel-center-btn').textContent = 'ГОТОВО';
+            finishWheel(winner);
+            return;
+        }
+        wheelRAF = requestAnimationFrame(animate);
+    }
+    wheelRAF = requestAnimationFrame(animate);
+}
+
+function finishWheel(winner) {
+    setTimeout(() => {
+        document.getElementById('wheel-track').classList.remove('active');
+        giveawayActive = false;
+        addSystemMessage(`🏆 ПОБЕДИТЕЛЬ КОЛЕСА: ${winner}`);
+        winnersBase.add(winner);
+        saveWinnersBase();
+        addWinnerToLog(winner);
+
+        const chatMessages = document.getElementById('chat-messages');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'message win';
+        msgDiv.innerHTML = `<span class="tag yellow">Победитель</span><span class="nick" style="color:#ffd700;">${winner}</span><span class="text">выиграл в колесе фортуны!</span>`;
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        showWinnerModal(winner);
+    }, 800);
 }
 
 // ==================== ОКНО ПОБЕДИТЕЛЯ ====================
@@ -1250,7 +1490,7 @@ function handleChatMessage(line) {
     if (message.toLowerCase().trim() === '!speed' && raceRunning) {
         const duck = raceDucks.find(d => d.username === username);
         if (duck) {
-            duck.boost = (duck.boost || 1) * 1.6;
+            duck.boost = (duck.boost || 1) * 1.15;
             addSystemMessage(`⚡ ${displayName} ускорил свою утку!`);
             queueMessage(displayName, message, '#ffd700', false, isVip, isMod, isFirstMsg);
             return;
