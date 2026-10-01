@@ -424,12 +424,12 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 <div id="mode-modal">
     <div class="mode-window">
         <div class="mode-header">
-            <h2>🎲 Выбор режима розыгрыша</h2>
+            <h2> Выбор режима розыгрыша</h2>
             <button class="mode-close" onclick="closeModeModal()">×</button>
         </div>
         <div class="mode-body">
             <div class="mode-option" onclick="startMode('messages')">
-                <div class="mode-icon">💬</div>
+                <div class="mode-icon"></div>
                 <div class="mode-info">
                     <div class="mode-title">Обычно по сообщениям</div>
                     <div class="mode-sub">Случайный победитель из всех участников</div>
@@ -446,7 +446,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                 <div class="mode-icon">🎡</div>
                 <div class="mode-info">
                     <div class="mode-title">Колесо фортуны</div>
-                    <div class="mode-sub">Крутится и останавливается</div>
+                    <div class="mode-sub"></div>
                 </div>
             </div>
         </div>
@@ -748,7 +748,7 @@ function spawnSparks() {
 // ==================== ЛОГИН ====================
 function checkPassword() {
     const input = document.getElementById('password-input').value;
-    if (input === '123') {
+    if (input === 'CSmalibash1337') {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('main-screen').style.display = 'flex';
         document.getElementById('error-msg').style.display = 'none';
