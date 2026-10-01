@@ -24,8 +24,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .bg-stripes { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; background:repeating-linear-gradient(45deg,#0f0f0f,#0f0f0f 40px,#1a1a1a 40px,#1a1a1a 80px); opacity:.4; }
 
 .sidebar { width:360px; background:#141414; border-radius:20px; display:flex; flex-direction:column; overflow:hidden; border:1px solid #2a2a2a; flex-shrink:0; position:relative; z-index:2; }
-.sidebar-top-title { text-align:center; font-size:24px; font-weight:900; color:#ffd700; letter-spacing:3px; padding:15px 0 10px; text-shadow:0 0 20px rgba(255,215,0,.5); cursor:pointer; transition:.2s; text-transform:uppercase; }
-.sidebar-top-title:hover { color:#ffe44d; }
+.sidebar-top-title { text-align:center; font-size:24px; font-weight:900; color:#ffd700; letter-spacing:3px; padding:15px 0 10px; text-shadow:0 0 20px rgba(255,215,0,.5); text-transform:uppercase; }
 .sidebar-header-bar { display:flex; align-items:center; justify-content:space-between; padding:6px 14px 10px; border-bottom:1px solid #2a2a2a; gap:8px; }
 .sidebar-header-left { display:flex; align-items:center; gap:6px; font-size:12px; color:#aaa; }
 .mini-switch { position:relative; width:34px; height:18px; flex-shrink:0; cursor:pointer; }
@@ -34,7 +33,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .mini-switch .slider::before { content:''; position:absolute; height:14px; width:14px; left:1px; top:1px; background:#555; border-radius:50%; transition:.3s; }
 .mini-switch input:checked + .slider { background:#ffd700; border-color:#ffd700; }
 .mini-switch input:checked + .slider::before { transform:translateX(16px); background:#0f0f0f; }
-.sidebar-header-center { font-size:12px; color:#f5f5f5; border-bottom:1px solid #ffd700; padding-bottom:2px; cursor:pointer; white-space:nowrap; }
+.sidebar-header-center { font-size:12px; color:#f5f5f5; border-bottom:1px solid #ffd700; padding-bottom:2px; cursor:pointer; }
 .sidebar-header-center:hover { color:#ffd700; }
 .sidebar-settings-btn { background:#ffd700; border:none; color:#0f0f0f; width:30px; height:30px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; transition:.2s; }
 .sidebar-settings-btn:hover { background:#e6c200; transform:rotate(45deg); }
@@ -42,7 +41,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .sidebar-content::-webkit-scrollbar { width:6px; }
 .sidebar-content::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
 
-.field-label { font-size:12px; color:#aaa; margin-bottom:4px; display:flex; align-items:center; gap:4px; }
+.field-label { font-size:12px; color:#aaa; margin-bottom:4px; }
 .channel-block { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:10px 12px; display:flex; align-items:center; gap:10px; }
 .channel-avatar { width:40px; height:40px; border-radius:50%; background:#ffd700; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; overflow:hidden; color:#0f0f0f; font-weight:800; }
 .channel-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
@@ -50,10 +49,10 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .channel-info .sub { font-size:11px; color:#666; }
 .input-field { width:100%; padding:10px 12px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-size:13px; outline:none; transition:.2s; }
 .input-field:focus { border-color:#ffd700; }
-.small-input { width:80px; padding:10px 12px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-size:13px; outline:none; text-align:center; transition:.2s; }
+.small-input { width:80px; padding:10px 12px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-size:13px; outline:none; text-align:center; }
 .small-input:focus { border-color:#ffd700; }
 
-.checkbox-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; cursor:pointer; line-height:1.4; padding:6px 4px; border-radius:8px; transition:.2s; }
+.checkbox-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; cursor:pointer; line-height:1.4; padding:6px 4px; border-radius:8px; }
 .checkbox-item:hover { background:#1a1a1a; }
 .checkbox-item input { accent-color:#ffd700; width:16px; height:16px; margin-top:2px; flex-shrink:0; cursor:pointer; }
 .checkbox-item .main-text { color:#f5f5f5; }
@@ -64,7 +63,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .btn-purple:hover { background:#e6c200; transform:translateY(-2px); }
 .btn-pink { background:#ffb800; }
 .btn-pink:hover { background:#e6a800; transform:translateY(-2px); }
-.btn-small { padding:8px 12px; font-size:12px; border-radius:10px; background:#2a2a2a; color:#f5f5f5; border:none; cursor:pointer; transition:.2s; font-weight:600; }
+.btn-small { padding:10px 12px; font-size:12px; border-radius:10px; background:#2a2a2a; color:#f5f5f5; border:none; cursor:pointer; transition:.2s; font-weight:600; }
 .btn-small:hover { background:#ffd700; color:#0f0f0f; }
 
 .stat-box { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:12px; text-align:center; display:flex; flex-direction:column; gap:4px; }
@@ -76,7 +75,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .winners-log { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:10px; display:flex; flex-direction:column; gap:6px; max-height:180px; overflow-y:auto; }
 .winners-log .log-title { font-size:12px; color:#ffd700; font-weight:700; margin-bottom:4px; }
 .winners-log .log-entry { font-size:12px; color:#ccc; padding:8px 10px; background:#0f0f0f; border-radius:10px; border-left:3px solid #ffd700; cursor:pointer; transition:.2s; display:flex; justify-content:space-between; }
-.winners-log .log-entry:hover { background:#252525; color:#ffd700; transform:translateX(3px); }
+.winners-log .log-entry:hover { background:#252525; color:#ffd700; }
 .winners-log .log-entry .entry-date { color:#666; font-size:11px; }
 .winners-log .log-empty { font-size:12px; color:#666; text-align:center; padding:8px; }
 
@@ -91,7 +90,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .chat-messages::-webkit-scrollbar { width:6px; }
 .chat-messages::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
 
-.message { font-size:13px; line-height:1.4; padding:3px 8px; border-radius:6px; display:flex; gap:5px; align-items:center; flex-wrap:wrap; position:relative; background:transparent; }
+.message { font-size:13px; line-height:1.4; padding:3px 8px; border-radius:6px; display:flex; gap:5px; align-items:center; flex-wrap:wrap; }
 .message:hover { background:#1f1f1f; }
 .message .badge-img { width:16px; height:16px; vertical-align:middle; flex-shrink:0; }
 .message .nick { font-weight:700; color:#ffd700; flex-shrink:0; }
@@ -109,7 +108,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .right-panel::-webkit-scrollbar { width:6px; }
 .right-panel::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
 .rules-box { background:#1a1a1a; border-radius:14px; padding:14px; border:1px solid #2a2a2a; text-align:center; }
-.rules-box .title { font-size:11px; color:#aaa; margin-bottom:5px; letter-spacing:.5px; }
+.rules-box .title { font-size:11px; color:#aaa; margin-bottom:5px; }
 .rules-box .value { font-size:13px; color:#ffd700; font-weight:600; }
 
 .rules-ticker-box { background:#1a1a1a; border-radius:14px; padding:12px 0; border:1px solid #2a2a2a; overflow:hidden; position:relative; height:50px; display:flex; align-items:center; }
@@ -117,14 +116,13 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .rules-ticker span { display:inline-block; }
 @keyframes tickerScroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
 
-.frog-pepe-block { background:transparent; padding:0; margin:0; display:flex; align-items:flex-end; justify-content:flex-start; flex:1; position:relative; overflow:hidden; min-height:120px; }
+.frog-pepe-block { display:flex; align-items:flex-end; flex:1; position:relative; overflow:hidden; min-height:120px; }
 .frog-pepe-block .pepe-off, .frog-pepe-block .pepe-on { max-width:100%; max-height:100%; object-fit:contain; object-position:bottom left; display:none; }
 .frog-pepe-block .pepe-off { display:block; }
 .frog-pepe-block.rules-on .pepe-off { display:none; }
 .frog-pepe-block.rules-on .pepe-on { display:block; }
 
-/* ГОНКА */
-.race-track { display:none; flex-direction:column; position:relative; z-index:2; background:linear-gradient(180deg,#4db8e8 0%,#3a9fd6 50%,#2a7fb0 100%); border-radius:20px; border:2px solid #1a5a8a; padding:0; overflow:hidden; max-height:400px; }
+.race-track { display:none; flex-direction:column; position:relative; z-index:2; background:linear-gradient(180deg,#4db8e8 0%,#3a9fd6 50%,#2a7fb0 100%); border-radius:20px; border:2px solid #1a5a8a; overflow:hidden; max-height:400px; }
 .race-track.active { display:flex; }
 .race-header-bar { display:flex; justify-content:space-between; align-items:center; padding:10px 18px; background:rgba(26,90,138,.7); border-bottom:2px solid #1a5a8a; }
 .race-header-bar .race-title { font-size:14px; color:#fff; font-weight:700; }
@@ -139,14 +137,13 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .race-duck .duck-label { position:absolute; top:-16px; left:50%; transform:translateX(-50%); font-size:10px; color:#fff; background:rgba(0,0,0,.6); padding:2px 6px; border-radius:6px; white-space:nowrap; font-weight:700; }
 .race-duck .duck-place { position:absolute; top:50%; left:-30px; transform:translateY(-50%); font-size:14px; color:#ffd700; font-weight:900; }
 
-/* КОЛЕСО */
 .wheel-track { display:none; flex-direction:column; align-items:center; justify-content:center; position:relative; z-index:2; background:#141414; border-radius:20px; border:2px solid #ffd700; padding:20px; max-height:500px; }
 .wheel-track.active { display:flex; }
 .wheel-title { font-size:14px; color:#ffd700; font-weight:700; margin-bottom:10px; }
 .wheel-container { position:relative; width:420px; height:420px; max-width:100%; }
 .wheel-canvas { width:100%; height:100%; border-radius:50%; box-shadow:0 0 40px rgba(255,215,0,.4); }
 .wheel-pointer { position:absolute; right:-15px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:20px solid transparent; border-bottom:20px solid transparent; border-right:30px solid #ff3333; filter:drop-shadow(0 0 10px rgba(255,51,51,.8)); z-index:10; }
-.wheel-center-btn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,#ffd700,#e6c200); border:4px solid #0f0f0f; color:#0f0f0f; font-size:14px; font-weight:900; cursor:pointer; z-index:9; box-shadow:0 0 30px rgba(255,215,0,.8); transition:.2s; text-transform:uppercase; }
+.wheel-center-btn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,#ffd700,#e6c200); border:4px solid #0f0f0f; color:#0f0f0f; font-size:14px; font-weight:900; cursor:pointer; z-index:9; box-shadow:0 0 30px rgba(255,215,0,.8); text-transform:uppercase; }
 .wheel-center-btn:hover { transform:translate(-50%,-50%) scale(1.05); }
 .wheel-center-btn:disabled { opacity:.5; cursor:not-allowed; }
 
@@ -161,8 +158,8 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 @keyframes popIn { from { transform:scale(.9); opacity:0; } to { transform:scale(1); opacity:1; } }
 .winner-header, .mode-header, .player-data-header, .settings-header, .stats-header, .backup-header { background:linear-gradient(135deg,#ffd700,#e6c200); padding:16px 22px; display:flex; justify-content:space-between; align-items:center; }
 .winner-header h2, .mode-header h2, .player-data-header h2, .settings-header h2, .stats-header h2, .backup-header h2 { color:#0f0f0f; font-size:18px; font-weight:800; }
-.winner-close, .mode-close, .player-data-header .close-btn, .settings-close, .stats-close, .backup-close { background:rgba(0,0,0,.15); border:none; color:#0f0f0f; width:34px; height:34px; border-radius:10px; cursor:pointer; font-size:18px; font-weight:700; transition:.2s; }
-.winner-close:hover, .mode-close:hover, .player-data-header .close-btn:hover, .settings-close:hover, .stats-close:hover, .backup-close:hover { background:rgba(0,0,0,.3); transform:rotate(90deg); }
+.winner-close, .mode-close, .player-data-header .close-btn, .settings-close, .stats-close, .backup-close { background:rgba(0,0,0,.15); border:none; color:#0f0f0f; width:34px; height:34px; border-radius:10px; cursor:pointer; font-size:18px; font-weight:700; }
+.winner-close:hover, .mode-close:hover, .player-data-header .close-btn:hover, .settings-close:hover, .stats-close:hover, .backup-close:hover { background:rgba(0,0,0,.3); }
 
 .mode-body { padding:24px; display:flex; flex-direction:column; gap:14px; }
 .mode-option { display:flex; align-items:center; gap:16px; background:#1a1a1a; border:2px solid #2a2a2a; border-radius:16px; padding:20px 22px; cursor:pointer; transition:.2s; }
@@ -208,18 +205,33 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .action-btn-modal.orange { background:#ffb800; }
 .action-btn-modal.blue { background:#4db8e8; }
 
-/* Статистика игрока */
-.stats-body { padding:22px; display:flex; flex-direction:column; gap:14px; max-height:80vh; overflow-y:auto; }
-.stat-card { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; padding:14px; display:flex; justify-content:space-between; align-items:center; }
+/* СТАТИСТИКА */
+.stats-body { padding:22px; display:flex; flex-direction:column; gap:12px; max-height:80vh; overflow-y:auto; }
+.stats-title { font-size:14px; color:#ffd700; font-weight:700; text-align:center; margin-bottom:8px; }
+.stat-card { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; }
 .stat-card .label { font-size:13px; color:#aaa; }
 .stat-card .value { font-size:15px; font-weight:800; color:#ffd700; }
-.stats-actions { display:flex; gap:10px; }
+.stats-actions { display:flex; gap:10px; margin-top:6px; }
 .stats-actions button { flex:1; padding:12px; border:none; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer; background:#ffd700; color:#0f0f0f; transition:.2s; }
 .stats-actions button:hover { background:#e6c200; }
 .stats-actions button.secondary { background:#2a2a2a; color:#f5f5f5; }
 .stats-actions button.secondary:hover { background:#3a3a3a; }
 
-/* Бэкап */
+/* ДАННЫЕ ИГРОКА — ИСПРАВЛЕНО */
+.player-data-body { padding:22px; display:flex; flex-direction:column; gap:14px; max-height:80vh; overflow-y:auto; }
+.player-data-field { display:flex; flex-direction:column; gap:6px; }
+.player-data-field label { font-size:12px; color:#ffd700; text-transform:uppercase; letter-spacing:.5px; font-weight:700; }
+.player-data-field input { width:100%; padding:12px 14px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-size:13px; outline:none; transition:.2s; font-family:inherit; }
+.player-data-field input:focus { border-color:#ffd700; background:#1a1a1a; }
+.player-data-field input[readonly] { background:#0a0a0a; color:#ffd700; font-weight:700; border-color:#ffd700; }
+.player-data-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px; }
+.player-data-actions button { padding:14px; border:none; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer; transition:.2s; }
+.player-data-actions .save-btn { background:#ffd700; color:#0f0f0f; }
+.player-data-actions .save-btn:hover { background:#e6c200; }
+.player-data-actions .delete-btn { background:#2a2a2a; color:#ff4444; }
+.player-data-actions .delete-btn:hover { background:#3a3a3a; }
+
+/* БЭКАП */
 .backup-body { padding:22px; display:flex; flex-direction:column; gap:14px; }
 .backup-body textarea { width:100%; height:200px; padding:12px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-family:monospace; font-size:12px; outline:none; resize:vertical; }
 .backup-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -227,6 +239,17 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .backup-actions button:hover { background:#e6c200; }
 .backup-actions button.secondary { background:#2a2a2a; color:#f5f5f5; }
 .backup-actions button.secondary:hover { background:#3a3a3a; }
+
+.last-messages-block { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:15px; }
+.last-messages-block .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding-bottom:10px; border-bottom:1px solid #2a2a2a; }
+.last-messages-block .header .title { font-size:14px; color:#f5f5f5; font-weight:600; }
+.last-messages-block .header .count { background:#ffd700; color:#0f0f0f; padding:3px 12px; border-radius:12px; font-size:12px; font-weight:700; }
+.loader-circle { width:40px; height:40px; border:3px solid #2a2a2a; border-top-color:#ffd700; border-radius:50%; animation:spin 1s linear infinite; margin:0 auto; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.last-messages-block .empty { display:flex; flex-direction:column; align-items:center; gap:10px; padding:20px 0; }
+.last-messages-block .empty-text { font-size:13px; color:#aaa; font-weight:600; }
+.winner-message-item { font-size:13px; color:#f5f5f5; padding:8px 12px; background:#0f0f0f; border-radius:10px; margin-bottom:6px; }
+.winner-message-item .time { color:#666; font-size:11px; margin-right:8px; }
 </style>
 </head>
 <body>
@@ -324,7 +347,6 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                     <div id="winners-log-entries"><div class="log-empty">Пока нет победителей</div></div>
                 </div>
 
-                <button class="btn-small" onclick="openStats()" style="width:100%;">📊 Инфо о канале</button>
                 <button class="btn-small" onclick="openBackup()" style="width:100%;">💾 Экспорт / Импорт</button>
             </div>
         </div>
@@ -332,7 +354,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 
     <div class="center-panel">
         <div class="chat-header">
-            <div class="left" id="chat-hint">Сообщение в чате — участие.</div>
+            <div class="left">Сообщение в чате — участие. <span style="color:#ffd700;">!g</span> — озвучка</div>
             <div class="right">
                 <span class="online-dot" id="online-dot"></span>
                 <span id="channel-name-header">malibash</span>
@@ -353,7 +375,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
         </div>
 
         <div class="wheel-track" id="wheel-track">
-            <div class="wheel-title" id="wheel-title">🎡 Колесо фортуны</div>
+            <div class="wheel-title">🎡 Колесо фортуны</div>
             <div class="wheel-container">
                 <canvas class="wheel-canvas" id="wheel-canvas" width="600" height="600"></canvas>
                 <div class="wheel-pointer"></div>
@@ -433,8 +455,8 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
                 <div class="section-title">🦆 Гонка уточек</div>
                 <div class="settings-row">
                     <div>
-                        <div class="row-label">Длительность (мин)</div>
-                        <span class="row-sub">1-5 минут</span>
+                        <div class="row-label">Длительность (мин, 1-5)</div>
+                        <span class="row-sub">Сколько идёт гонка</span>
                     </div>
                     <input class="small-input" type="number" min="1" max="5" value="2" id="race-duration">
                 </div>
@@ -460,40 +482,85 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
             </div>
 
             <div class="settings-section">
-                <div class="section-title">📜 Лента правил</div>
+                <div class="section-title">⏱️ КД победы</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Сколько дней ждать после победы</div>
+                        <span class="row-sub">Кулдаун</span>
+                    </div>
+                    <input class="small-input" type="number" value="28" id="rule-kd">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">💎 Подписка на канал</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Мин. месяцев подписки</div>
+                        <span class="row-sub">Для участия</span>
+                    </div>
+                    <input class="small-input" type="number" value="1" id="rule-sub">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">⏳ Watchtime</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Мин. часов просмотра</div>
+                        <span class="row-sub">Для участия</span>
+                    </div>
+                    <input class="small-input" type="number" value="1" id="rule-watchtime">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">💬 Сообщений на канале</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="row-label">Мин. сообщений</div>
+                        <span class="row-sub">Для участия</span>
+                    </div>
+                    <input class="small-input" type="number" value="5" id="rule-msgs">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">📜 Текст ленты правил</div>
                 <input class="input-field" type="text" id="rules-ticker-text" value="ДЛЯ УЧАСТИЯ В ПРОКАЧКЕ !1000 В ЧАТ + ПОДПИСКА НА ТГ И ЗНАТЬ ПРАВИЛА В ЗАКРЕПЛЕННОМ ПОСТЕ" style="font-size:12px;">
             </div>
         </div>
     </div>
 </div>
 
-<!-- МОДАЛКА ИНФО О КАНАЛЕ -->
+<!-- МОДАЛКА СТАТИСТИКИ ИГРОКА -->
 <div id="stats-modal">
     <div class="stats-window">
         <div class="stats-header">
-            <h2>📊 Инфо о канале malibash</h2>
+            <h2 id="stats-title">📊 Статистика</h2>
             <button class="stats-close" onclick="closeStats()">×</button>
         </div>
         <div class="stats-body">
+            <div class="stats-title" id="stats-username">—</div>
             <div class="stat-card">
-                <span class="label">👥 Фоллоу канал</span>
-                <span class="value" id="stat-followers">—</span>
+                <span class="label">📅 Сколько отслеживает</span>
+                <span class="value" id="stat-followage">—</span>
+            </div>
+            <div class="stat-card">
+                <span class="label">⏳ Watchtime</span>
+                <span class="value" id="stat-watchtime">—</span>
             </div>
             <div class="stat-card">
                 <span class="label">💬 Сообщений на канале</span>
                 <span class="value" id="stat-messages">—</span>
             </div>
             <div class="stat-card">
-                <span class="label">⏳ Watchtime на канале</span>
-                <span class="value" id="stat-watchtime">—</span>
-            </div>
-            <div class="stat-card">
-                <span class="label">📅 Followage</span>
-                <span class="value" id="stat-followage">—</span>
+                <span class="label">👥 Фоллоу канал</span>
+                <span class="value" id="stat-followers">—</span>
             </div>
             <div class="stats-actions">
-                <button onclick="loadChannelStats()">🔄 Обновить</button>
-                <button class="secondary" onclick="closeStats()">Закрыть</button>
+                <button onclick="loadStatsForUser(currentStatsUser)">🔄 Обновить</button>
+                <button class="secondary" onclick="openFollowageSite(currentStatsUser)">🌐 Открыть сайт</button>
             </div>
         </div>
     </div>
@@ -551,7 +618,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
             <div class="winner-actions">
                 <button class="action-btn-modal purple" onclick="openUserCard()">📋 Twitch Card</button>
                 <a class="action-btn-modal green" id="following-link" target="_blank" href="#">👥 Following</a>
-                <button class="action-btn-modal blue" onclick="openStatsForWinner()">📊 Инфо</button>
+                <button class="action-btn-modal blue" onclick="openStatsForWinner()">📊 Стата</button>
                 <button class="action-btn-modal orange" onclick="rerollWinner()">🔄 Реролл</button>
             </div>
             <div class="last-messages-block">
@@ -580,7 +647,7 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
         <div class="player-data-body">
             <div class="player-data-field">
                 <label>Ник на Twitch</label>
-                <input type="text" id="pd-username" readonly style="background:#0a0a0a;color:#ffd700;font-weight:700;">
+                <input type="text" id="pd-username" readonly>
             </div>
             <div class="player-data-field">
                 <label>Telegram</label>
@@ -635,7 +702,7 @@ let connectionId = 0;
 
 let winnersLog = [];
 let playerData = {};
-let participantsHistory = []; // { username, date, event, channel }
+let participantsHistory = [];
 
 // TTS
 let ttsEnabled = false;
@@ -650,6 +717,7 @@ let raceStartTime = 0;
 let raceDurationMs = 0;
 let raceDucks = [];
 let raceWinnerDeclared = false;
+let speedCounters = {};
 
 // КОЛЕСО
 let wheelRunning = false;
@@ -659,6 +727,9 @@ let wheelStartTime = 0;
 let wheelDurationMs = 35000;
 let wheelParticipants = [];
 let wheelWinnerDeclared = false;
+
+// СТАТИСТИКА
+let currentStatsUser = null;
 
 // ==================== SVG УТОК ====================
 function duckSVG(index) {
@@ -684,7 +755,7 @@ function saveAll() {
         localStorage.setItem('malibash_winnersBase', JSON.stringify(Array.from(winnersBase)));
         localStorage.setItem('malibash_participantsHistory', JSON.stringify(participantsHistory));
         localStorage.setItem('malibash_failedCount', String(failedCount));
-    } catch(e) { console.warn('Save error', e); }
+    } catch(e) {}
 }
 
 function loadFromStorage() {
@@ -699,14 +770,12 @@ function loadFromStorage() {
         if (ph) participantsHistory = JSON.parse(ph);
         const fc = localStorage.getItem('malibash_failedCount');
         if (fc) { failedCount = parseInt(fc) || 0; document.getElementById('failed-count').textContent = failedCount; }
-    } catch(e) { console.warn('Load error', e); }
+    } catch(e) {}
 }
 
 function addParticipantHistory(username, event) {
     participantsHistory.push({
-        username,
-        event,
-        channel: CHANNEL_NAME,
+        username, event, channel: CHANNEL_NAME,
         date: new Date().toLocaleString('ru-RU')
     });
     if (participantsHistory.length > 5000) participantsHistory = participantsHistory.slice(-5000);
@@ -767,14 +836,17 @@ document.getElementById('password-input').addEventListener('keypress', e => { if
 
 // ==================== ПРАВИЛА ====================
 function updateActiveRules() {
-    const kd = document.getElementById('rule-kd') ? document.getElementById('rule-kd').value : 28;
+    const kd = document.getElementById('rule-kd').value || 28;
     const rulesEnabled = document.getElementById('channel-rules-enabled').checked;
     let text = `🏆 кд победы: ${kd} дн.`;
     if (rulesEnabled) text += ' • ✅ Правила вкл';
     document.getElementById('active-rules').textContent = text;
     updatePepeImage();
 }
-document.getElementById('channel-rules-enabled').addEventListener('change', updateActiveRules);
+['rule-kd','rule-sub','rule-watchtime','rule-msgs','channel-rules-enabled'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.addEventListener('input', updateActiveRules); el.addEventListener('change', updateActiveRules); }
+});
 
 function updateRulesTicker() {
     const text = document.getElementById('rules-ticker-text').value || 'ДЛЯ УЧАСТИЯ В ПРОКАЧКЕ !1000 В ЧАТ + ПОДПИСКА НА ТГ И ЗНАТЬ ПРАВИЛА В ЗАКРЕПЛЕННОМ ПОСТЕ';
@@ -850,7 +922,6 @@ function processTtsQueue() {
     utterance.onerror = () => processTtsQueue();
     window.speechSynthesis.speak(utterance);
 }
-
 if (window.speechSynthesis) {
     window.speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
@@ -920,49 +991,72 @@ function deletePlayerData() {
     addSystemMessage(`🗑️ Данные удалены.`);
 }
 
-// ==================== ИНФО О КАНАЛЕ ====================
-function openStats() {
+// ==================== СТАТИСТИКА ИГРОКА ====================
+function openStatsForWinner() {
+    if (currentWinner) openStats(currentWinner);
+}
+
+function openStats(username) {
+    currentStatsUser = username;
+    document.getElementById('stats-title').textContent = `📊 Статистика`;
+    document.getElementById('stats-username').textContent = username;
+    document.getElementById('stat-followage').textContent = '...';
+    document.getElementById('stat-watchtime').textContent = '...';
+    document.getElementById('stat-messages').textContent = '...';
+    document.getElementById('stat-followers').textContent = '...';
     document.getElementById('stats-modal').style.display = 'flex';
-    loadChannelStats();
+    loadStatsForUser(username);
 }
 function closeStats() { document.getElementById('stats-modal').style.display = 'none'; }
 
-async function loadChannelStats() {
-    document.getElementById('stat-followers').textContent = '...';
-    document.getElementById('stat-messages').textContent = '...';
-    document.getElementById('stat-watchtime').textContent = '...';
+async function loadStatsForUser(username) {
+    if (!username) return;
     document.getElementById('stat-followage').textContent = '...';
+    document.getElementById('stat-watchtime').textContent = '...';
+    document.getElementById('stat-messages').textContent = '...';
+    document.getElementById('stat-followers').textContent = '...';
 
     try {
-        const url = `https://followage.showmasterokda.com/?user=${CHANNEL_NAME}`;
+        const url = `https://followage.showmasterokda.com/?user=${username}`;
         const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
         const res = await fetch(proxy);
         const html = await res.text();
-        
-        // Парсим HTML
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
         const text = doc.body.textContent || '';
 
-        // Ищем числа: сообщения, watchtime, фоллоу
-        const messagesMatch = text.match(/(\d[\d\s]*)\s*сообщени/i);
-        const watchtimeMatch = text.match(/(\d[\d\s]*)\s*(часов|часа|час)/i);
-        const followersMatch = text.match(/(\d[\d\s]*)\s*(фоллоу|фолловер|followers)/i);
+        // Ищем блоки с данными
+        // Followage: "Отслеживает X" или "Followage: X"
+        const followageMatch = text.match(/отслежива[а-я]*\s*:?\s*([^\n\r]+)/i) ||
+                               text.match(/followage\s*:?\s*([^\n\r]+)/i) ||
+                               text.match(/(\d+\s*(лет|год|года|мес|месяц|месяцев|дн|дней|день|час|часов|мин|минут))/i);
+        
+        // Watchtime: "Watchtime: X часов"
+        const watchtimeMatch = text.match(/watchtime\s*:?\s*([^\n\r]+)/i) ||
+                               text.match(/(\d+[\d\s]*)\s*(часов|часа|час)/i);
+        
+        // Сообщения: "X сообщений"
+        const messagesMatch = text.match(/(\d+[\d\s]*)\s*сообщени/i) ||
+                              text.match(/сообщени[а-я]*\s*:?\s*([^\n\r]+)/i);
+        
+        // Фоллоу: "X фоллоу" или "X followers"
+        const followersMatch = text.match(/(\d+[\d\s]*)\s*(фоллоу|фолловер|followers)/i);
 
-        document.getElementById('stat-messages').textContent = messagesMatch ? messagesMatch[1].trim() : 'нет данных';
-        document.getElementById('stat-watchtime').textContent = watchtimeMatch ? watchtimeMatch[0].trim() : 'нет данных';
-        document.getElementById('stat-followers').textContent = followersMatch ? followersMatch[1].trim() : 'нет данных';
-        document.getElementById('stat-followage').textContent = 'смотри на сайте';
+        document.getElementById('stat-followage').textContent = followageMatch ? followageMatch[1].trim().slice(0, 40) : 'нет данных';
+        document.getElementById('stat-watchtime').textContent = watchtimeMatch ? watchtimeMatch[0].trim().slice(0, 40) : 'нет данных';
+        document.getElementById('stat-messages').textContent = messagesMatch ? messagesMatch[0].trim().slice(0, 40) : 'нет данных';
+        document.getElementById('stat-followers').textContent = followersMatch ? followersMatch[0].trim().slice(0, 40) : 'нет данных';
     } catch (e) {
-        document.getElementById('stat-followers').textContent = 'ошибка';
-        document.getElementById('stat-messages').textContent = 'ошибка';
-        document.getElementById('stat-watchtime').textContent = 'ошибка';
         document.getElementById('stat-followage').textContent = 'ошибка';
+        document.getElementById('stat-watchtime').textContent = 'ошибка';
+        document.getElementById('stat-messages').textContent = 'ошибка';
+        document.getElementById('stat-followers').textContent = 'ошибка';
     }
 }
 
-function openStatsForWinner() {
-    if (currentWinner) window.open(`https://followage.showmasterokda.com/?user=${currentWinner}`, '_blank');
+function openFollowageSite(username) {
+    if (!username) return;
+    window.open(`https://followage.showmasterokda.com/?user=${username}`, '_blank');
 }
 
 // ==================== ЭКСПОРТ / ИМПОРТ ====================
@@ -974,24 +1068,19 @@ function closeBackup() { document.getElementById('backup-modal').style.display =
 
 function exportData() {
     const data = {
-        winnersLog,
-        playerData,
+        winnersLog, playerData,
         winnersBase: Array.from(winnersBase),
-        participantsHistory,
-        failedCount,
-        ttsUsers,
-        ttsEnabled,
-        rulesTickerText: document.getElementById('rules-ticker-text').value,
-        raceDuration: document.getElementById('race-duration').value,
+        participantsHistory, failedCount,
+        ttsUsers, ttsEnabled,
         exportedAt: new Date().toISOString()
     };
     document.getElementById('backup-textarea').value = JSON.stringify(data, null, 2);
-    addSystemMessage('📤 Данные экспортированы в текстовое поле');
+    addSystemMessage('📤 Данные экспортированы');
 }
 
 function importData() {
     const txt = document.getElementById('backup-textarea').value.trim();
-    if (!txt) { alert('Вставь JSON в поле'); return; }
+    if (!txt) { alert('Вставь JSON'); return; }
     try {
         const data = JSON.parse(txt);
         if (data.winnersLog) winnersLog = data.winnersLog;
@@ -1001,28 +1090,20 @@ function importData() {
         if (data.failedCount !== undefined) { failedCount = data.failedCount; document.getElementById('failed-count').textContent = failedCount; }
         if (data.ttsUsers) { ttsUsers = data.ttsUsers; localStorage.setItem('ttsUsers', JSON.stringify(ttsUsers)); }
         if (data.ttsEnabled !== undefined) { ttsEnabled = data.ttsEnabled; document.getElementById('tts-enabled').checked = ttsEnabled; localStorage.setItem('ttsEnabled', ttsEnabled); }
-        if (data.rulesTickerText) { document.getElementById('rules-ticker-text').value = data.rulesTickerText; updateRulesTicker(); }
-        if (data.raceDuration) document.getElementById('race-duration').value = data.raceDuration;
-        
         saveAll();
         renderWinnersLog();
         loadTtsSettings();
-        addSystemMessage('📥 Данные импортированы успешно');
+        addSystemMessage('📥 Данные импортированы');
         closeBackup();
-    } catch(e) {
-        alert('Ошибка парсинга JSON: ' + e.message);
-    }
+    } catch(e) { alert('Ошибка JSON: ' + e.message); }
 }
 
 function downloadBackup() {
     const data = {
-        winnersLog,
-        playerData,
+        winnersLog, playerData,
         winnersBase: Array.from(winnersBase),
-        participantsHistory,
-        failedCount,
-        ttsUsers,
-        ttsEnabled,
+        participantsHistory, failedCount,
+        ttsUsers, ttsEnabled,
         exportedAt: new Date().toISOString()
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -1087,7 +1168,7 @@ function reconnect() {
 
 // ==================== МОДАЛКА РЕЖИМА ====================
 function openModeModal() {
-    if (participants.size === 0) { addSystemMessage('❌ Нет участников для розыгрыша!'); return; }
+    if (participants.size === 0) { addSystemMessage('❌ Нет участников!'); return; }
     document.getElementById('mode-modal').style.display = 'flex';
 }
 function closeModeModal() { document.getElementById('mode-modal').style.display = 'none'; }
@@ -1098,7 +1179,7 @@ function startMode(mode) {
     else if (mode === 'wheel') startWheel();
 }
 
-// ==================== РОЗЫГРЫШ ПО СООБЩЕНИЯМ ====================
+// ==================== ПО СООБЩЕНИЯМ ====================
 function startMessageGiveaway() {
     giveawayActive = true;
     addSystemMessage('🎲 Розыгрыш запущен!');
@@ -1108,25 +1189,16 @@ function startMessageGiveaway() {
     winnersBase.add(winner);
     addParticipantHistory(winner, 'win_messages');
     saveAll();
-
-    const chatMessages = document.getElementById('chat-messages');
-    const msgDiv = document.createElement('div');
-    msgDiv.className = 'message win';
-    msgDiv.innerHTML = `<span class="tag yellow">Победитель</span><span class="nick" style="color:#ffd700;">${winner}</span><span class="text">выиграл розыгрыш!</span>`;
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
     addWinnerToLog(winner);
     showWinnerModal(winner);
     giveawayActive = false;
 }
 
-// ==================== ГОНКА УТОК ====================
-let speedCounters = {};
-
+// ==================== ГОНКА ====================
 function startDuckRace() {
     if (raceRunning) { addSystemMessage('⚠️ Гонка уже идёт!'); return; }
     giveawayActive = true;
-    addSystemMessage('🦆 Гонка уточек запущена!');
+    addSystemMessage('🦆 Гонка уточек!');
 
     const ducks = Array.from(participants);
     const pool = document.getElementById('race-pool');
@@ -1143,7 +1215,6 @@ function startDuckRace() {
     const startY = 20;
     const maxY = poolHeight - 60;
     const stepY = ducks.length > 1 ? (maxY - startY) / (ducks.length - 1) : 0;
-
     const winnerIndex = Math.floor(Math.random() * ducks.length);
 
     ducks.forEach((u, i) => {
@@ -1151,25 +1222,13 @@ function startDuckRace() {
         duckEl.className = 'race-duck';
         duckEl.style.top = `${startY + i * stepY}px`;
         duckEl.style.transform = 'translateX(0px)';
-        duckEl.innerHTML = `
-            <div class="duck-label">${u}</div>
-            <div class="duck-place"></div>
-            ${duckSVG(i)}
-        `;
+        duckEl.innerHTML = `<div class="duck-label">${u}</div><div class="duck-place"></div>${duckSVG(i)}`;
         pool.appendChild(duckEl);
-
-        let progressAtEnd = (i === winnerIndex) ? 100 : (70 + Math.random() * 25);
-        const curve = 0.8 + Math.random() * 0.5;
-
         raceDucks.push({
-            username: u,
-            el: duckEl,
-            progressAtEnd,
-            curve,
-            boost: 1,
-            position: 0,
-            finished: false,
-            isWinner: i === winnerIndex
+            username: u, el: duckEl,
+            progressAtEnd: (i === winnerIndex) ? 100 : (70 + Math.random() * 25),
+            curve: 0.8 + Math.random() * 0.5,
+            boost: 1, position: 0, finished: false, isWinner: i === winnerIndex
         });
         speedCounters[u] = 0;
     });
@@ -1186,7 +1245,6 @@ function startDuckRace() {
         const elapsed = now - raceStartTime;
         const remaining = Math.max(0, raceDurationMs - elapsed);
         document.getElementById('race-timer').textContent = formatTime(remaining);
-
         const t = Math.min(1, elapsed / raceDurationMs);
 
         raceDucks.forEach((d, i) => {
@@ -1196,13 +1254,10 @@ function startDuckRace() {
             if (pos > 100) pos = 100;
             const wobble = Math.sin(now / 200 + i) * 2;
             d.position = pos;
-            const px = (pos / 100) * poolWidth + wobble;
-            d.el.style.transform = `translateX(${px}px)`;
-
+            d.el.style.transform = `translateX(${(pos / 100) * poolWidth + wobble}px)`;
             if (pos >= 100 && !d.finished) {
                 d.finished = true;
-                const place = raceDucks.filter(x => x.finished).length;
-                d.el.querySelector('.duck-place').textContent = '#' + place;
+                d.el.querySelector('.duck-place').textContent = '#' + raceDucks.filter(x => x.finished).length;
                 if (d.isWinner && !raceWinnerDeclared) raceWinnerDeclared = true;
             }
         });
@@ -1210,10 +1265,7 @@ function startDuckRace() {
         if (elapsed >= raceDurationMs) {
             raceRunning = false;
             const winner = raceDucks.find(d => d.isWinner);
-            if (winner && !raceWinnerDeclared) {
-                raceWinnerDeclared = true;
-                finishRace(winner.username);
-            }
+            if (winner && !raceWinnerDeclared) { raceWinnerDeclared = true; finishRace(winner.username); }
             return;
         }
         raceRAF = requestAnimationFrame(animate);
@@ -1232,13 +1284,6 @@ function finishRace(winner) {
         winnersBase.add(winner);
         addParticipantHistory(winner, 'win_ducks');
         saveAll();
-
-        const chatMessages = document.getElementById('chat-messages');
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'message win';
-        msgDiv.innerHTML = `<span class="tag yellow">Победитель</span><span class="nick" style="color:#ffd700;">${winner}</span><span class="text">выиграл гонку уточек!</span>`;
-        chatMessages.appendChild(msgDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
         addWinnerToLog(winner);
         showWinnerModal(winner);
     }, 600);
@@ -1262,7 +1307,6 @@ function startWheel() {
     document.getElementById('wheel-track').classList.add('active');
     document.getElementById('wheel-center-btn').disabled = false;
     document.getElementById('wheel-center-btn').textContent = 'КРУТИТЬ';
-
     drawWheel();
 }
 
@@ -1303,8 +1347,7 @@ function drawWheel() {
         ctx.shadowColor = 'rgba(0,0,0,.8)';
         ctx.shadowBlur = 4;
         const text = wheelParticipants[i];
-        const displayText = text.length > 14 ? text.slice(0, 14) + '…' : text;
-        ctx.fillText(displayText, radius - 20, 0);
+        ctx.fillText(text.length > 14 ? text.slice(0, 14) + '…' : text, radius - 20, 0);
         ctx.restore();
     }
     ctx.restore();
@@ -1355,13 +1398,6 @@ function finishWheel(winner) {
         winnersBase.add(winner);
         addParticipantHistory(winner, 'win_wheel');
         saveAll();
-
-        const chatMessages = document.getElementById('chat-messages');
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'message win';
-        msgDiv.innerHTML = `<span class="tag yellow">Победитель</span><span class="nick" style="color:#ffd700;">${winner}</span><span class="text">выиграл в колесе!</span>`;
-        chatMessages.appendChild(msgDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
         addWinnerToLog(winner);
         showWinnerModal(winner);
     }, 800);
@@ -1536,27 +1572,20 @@ function handleChatMessage(line) {
     }
 
     lastMessages.set(username.toLowerCase(), { text: message, time: timeStr, date: dateStr });
-
-    // TTS
     speakTTS(displayName, message);
 
-    // !speed — только во время гонки, макс 5 раз
+    // !speed
     if (message.toLowerCase().trim() === '!speed' && raceRunning) {
         const duck = raceDucks.find(d => d.username === username);
-        if (duck) {
-            if (speedCounters[username] < 5) {
-                duck.boost = (duck.boost || 1) * 1.15;
-                speedCounters[username]++;
-                addSystemMessage(`⚡ ${displayName} ускорил утку (${speedCounters[username]}/5)`);
-            } else {
-                addSystemMessage(`⚠️ ${displayName} уже использовал 5 ускорений`);
-            }
+        if (duck && speedCounters[username] < 5) {
+            duck.boost = (duck.boost || 1) * 1.15;
+            speedCounters[username]++;
+            addSystemMessage(`⚡ ${displayName} ускорил утку (${speedCounters[username]}/5)`);
             queueMessage(displayName, message, '#ffd700', false, isVip, isMod, isFirstMsg);
             return;
         }
     }
 
-    // Победитель
     if (currentWinner && username.toLowerCase() === currentWinner.toLowerCase()) {
         document.getElementById('winner-last-msg').textContent = message;
         document.getElementById('winner-last-date').textContent = dateStr;
@@ -1575,7 +1604,6 @@ function handleChatMessage(line) {
         return;
     }
 
-    // РЕГИСТРАЦИЯ
     const isNew = !winnersBase.has(username);
     const cbAll = document.getElementById('cb-all').checked;
     const cbFm = document.getElementById('cb-fm').checked;
@@ -1603,7 +1631,7 @@ function handleChatMessage(line) {
     queueMessage(displayName, message, userColor, false, isVip, isMod, isFirstMsg);
 }
 
-// ==================== ОЧЕРЕДЬ СООБЩЕНИЙ ====================
+// ==================== ОЧЕРЕДЬ ====================
 function queueMessage(username, message, color, isWinner, isVip, isMod, isFirst) {
     messageQueue.push({ username, message, color, isWinner, isVip, isMod, isFirst });
     if (!flushScheduled) {
@@ -1627,16 +1655,8 @@ function flushMessages() {
             fmLabel.textContent = 'FIRST MESSAGE';
             msgDiv.appendChild(fmLabel);
         }
-        if (msg.isMod) {
-            const span = document.createElement('span');
-            span.innerHTML = MOD_BADGE_SVG;
-            msgDiv.appendChild(span.firstChild);
-        }
-        if (msg.isVip) {
-            const span = document.createElement('span');
-            span.innerHTML = VIP_BADGE_SVG;
-            msgDiv.appendChild(span.firstChild);
-        }
+        if (msg.isMod) { const s = document.createElement('span'); s.innerHTML = MOD_BADGE_SVG; msgDiv.appendChild(s.firstChild); }
+        if (msg.isVip) { const s = document.createElement('span'); s.innerHTML = VIP_BADGE_SVG; msgDiv.appendChild(s.firstChild); }
         const nickSpan = document.createElement('span');
         nickSpan.className = 'nick';
         nickSpan.style.color = msg.color;
