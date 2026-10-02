@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>malibash | Админка</title>
+<link rel="icon" type="image/png" href="https://static-cdn.jtvnw.net/jtv_user_pictures/1e11680f-1b45-4d53-b65d-e1a2112287c9-profile_image-70x70.png">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Tahoma,sans-serif; }
+body { background:#0f0f0f; color:#f5f5f5; min-height:100vh; padding:16px; }
+.bg-stripes {
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:repeating-linear-gradient(45deg,#0f0f0f,#0f0f0f 40px,#1a1a1a 40px,#1a1a1a 80px);
+    opacity:.35; animation:bgMove 40s linear infinite;
+}
+@keyframes bgMove { from { background-position:0 0; } to { background-position:226px 226px; } }
+
+#login-admin { display:flex; justify-content:center; align-items:center; min-height:100vh; position:relative; z-index:2; }
+.login-box { background:#1a1a1a; padding:36px; border-radius:18px; border-top:4px solid #ffd700; width:340px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.8); }
+.login-box h1 { color:#ffd700; font-size:20px; margin-bottom:22px; }
+.login-box input { width:100%; padding:12px; background:#0f0f0f; border:1px solid #333; border-radius:10px; color:#f5f5f5; font-size:14px; outline:none; margin-bottom:14px; }
+.login-box input:focus { border-color:#ffd700; }
+.login-box button { width:100%; padding:12px; background:#ffd700; color:#0f0f0f; border:none; border-radius:10px; font-weight:800; cursor:pointer; font-size:14px; }
+.login-box button:hover { background:#e6c200; }
+
+#admin-panel { display:none; position:relative; z-index:2; max-width:1200px; margin:0 auto; }
+.admin-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; background:#141414; padding:14px 20px; border-radius:14px; border:1px solid #2a2a2a; }
+.admin-header h1 { color:#ffd700; font-size:20px; font-weight:800; letter-spacing:1px; }
+.admin-header a { color:#ffd700; text-decoration:none; border:1px solid #ffd700; padding:7px 14px; border-radius:9px; font-size:12px; font-weight:600; }
+.admin-header a:hover { background:#ffd700; color:#0f0f0f; }
+.admin-header .back { border-color:#ff4444; color:#ff4444; }
+.admin-header .back:hover { background:#ff4444; color:#fff; }
+
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width: 900px) { .grid { grid-template-columns:1fr; } }
+
+.card { background:#141414; border:1px solid #2a2a2a; border-radius:14px; padding:16px; margin-bottom:14px; }
+.card h2 { color:#ffd700; font-size:15px; margin-bottom:12px; font-weight:800; }
+
+.row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+.row label { font-size:12px; color:#aaa; min-width:120px; }
+.row input, .row select, .row textarea { flex:1; padding:9px 12px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:9px; color:#f5f5f5; font-size:13px; outline:none; }
+.row input:focus, .row select:focus, .row textarea:focus { border-color:#ffd700; }
+.row textarea { resize:vertical; min-height:60px; font-family:monospace; }
+
+.btn { padding:9px 16px; border:none; border-radius:9px; font-size:12px; font-weight:700; cursor:pointer; transition:.2s; }
+.btn-y { background:#ffd700; color:#0f0f0f; }
+.btn-y:hover { background:#e6c200; }
+.btn-r { background:#2a2a2a; color:#ff4444; }
+.btn-r:hover { background:#3a3a3a; }
+.btn-sm { padding:6px 10px; font-size:11px; }
+
+table { width:100%; border-collapse:collapse; font-size:12px; }
+th, td { text-align:left; padding:8px 10px; border-bottom:1px solid #2a2a2a; }
+th { color:#ffd700; font-weight:700; }
+tr:hover { background:#1a1a1a; }
+td input { width:100%; padding:6px 8px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:7px; color:#f5f5f5; font-size:12px; outline:none; }
+td input:focus { border-color:#ffd700; }
+
+.winners-list { max-height:340px; overflow-y:auto; }
+.winners-list::-webkit-scrollbar { width:6px; }
+.winners-list::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
+
+.status-msg { padding:10px 14px; border-radius:10px; font-size:12px; margin-bottom:10px; display:none; }
+.status-msg.ok { background:#0a2a1f; color:#00ff88; display:block; }
+.status-msg.err { background:#2a0a0a; color:#ff4444; display:block; }
+
+.player-row { background:#0f0f0f; border-radius:9px; padding:10px 12px; margin-bottom:6px; }
+.player-row .nick { color:#ffd700; font-weight:700; font-size:13px; margin-bottom:6px; }
+.player-fields { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.player-fields input { padding:6px 8px; background:#0a0a0a; border:1px solid #2a2a2a; border-radius:6px; color:#f5f5f5; font-size:11px; outline:none; }
+.player-fields input:focus { border-color:#ffd700; }
+</style>
+</head>
+<body>
+
+<div class="bg-stripes"></div>
+
+<div id="login-admin">
+    <div class="login-box">
+        <h1>🔐 malibash | Админка</h1>
+        <input type="password" id="admin-pass" placeholder="Пароль">
+        <button onclick="checkAdminPass()">Войти</button>
+        <div id="admin-error" style="color:#ff4444;font-size:12px;margin-top:10px;display:none;">Неверный пароль</div>
+    </div>
+</div>
+
+<div id="admin-panel">
+    <div class="admin-header">
+        <h1>⚙️ malibash | Админка</h1>
+        <div style="display:flex;gap:8px;">
+            <a href="index.html">← На сайт</a>
+            <a href="#" class="back" onclick="adminLogout()">Выйти</a>
+        </div>
+    </div>
+
+    <div id="status-msg" class="status-msg"></div>
+
+    <div class="grid">
+        <!-- ИСТОРИЯ ПОБЕДИТЕЛЕЙ -->
+        <div class="card">
+            <h2>🏆 История победителей</h2>
+            <div class="row">
+                <input type="text" id="new-winner-nick" placeholder="Ник нового победителя">
+                <button class="btn btn-y" onclick="addWinnerManually()">Добавить</button>
+            </div>
+            <div class="winners-list" id="winners-list"></div>
+        </div>
+
+        <!-- БАЗА ПОБЕДИТЕЛЕЙ (NEW фильтр) -->
+        <div class="card">
+            <h2>🚫 База победителей (NEW)</h2>
+            <div class="row">
+                <input type="text" id="new-base-nick" placeholder="Ник">
+                <button class="btn btn-y" onclick="addToBase()">Добавить</button>
+            </div>
+            <div class="winners-list" id="base-list"></div>
+        </div>
+
+        <!-- НАСТРОЙКИ -->
+        <div class="card">
+            <h2>⚙️ Настройки</h2>
+            <div class="row">
+                <label>Гонка (мин)</label>
+                <input type="number" min="1" max="5" id="cfg-race">
+            </div>
+            <div class="row">
+                <label>КД победы (дн)</label>
+                <input type="number" id="cfg-kd">
+            </div>
+            <div class="row">
+                <label>Мин. месяцев подписки</label>
+                <input type="number" id="cfg-sub">
+            </div>
+            <div class="row">
+                <label>Мин. часов watchtime</label>
+                <input type="number" id="cfg-watchtime">
+            </div>
+            <div class="row">
+                <label>Мин. сообщений</label>
+                <input type="number" id="cfg-msgs">
+            </div>
+            <div class="row">
+                <label>Правила вкл</label>
+                <select id="cfg-rules-on">
+                    <option value="true">Да</option>
+                    <option value="false">Нет</option>
+                </select>
+            </div>
+            <div class="row" style="flex-direction:column;align-items:stretch;">
+                <label style="margin-bottom:4px;">Лента правил</label>
+                <textarea id="cfg-ticker"></textarea>
+            </div>
+            <button class="btn btn-y" onclick="saveSettings()" style="width:100%;">💾 Сохранить настройки</button>
+        </div>
+
+        <!-- ДАННЫЕ ИГРОКОВ -->
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2>📋 Данные игроков</h2>
+            <div id="players-list"></div>
+        </div>
+
+        <!-- СТАТИСТИКА -->
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2>📊 Статистика</h2>
+            <div class="row"><label>Победителей:</label><span id="stat-winners">0</span></div>
+            <div class="row"><label>В базе (NEW):</label><span id="stat-base">0</span></div>
+            <div class="row"><label>Записей в истории:</label><span id="stat-history">0</span></div>
+            <div class="row"><label>Не прошли проверку:</label><span id="stat-failed">0</span></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+    databaseURL: "https://malibash-xxxxx-default-rtdb.firebaseio.com" // ← ТОТ ЖЕ URL
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+let winnersLog = [];
+let winnersBase = [];
+let playerData = {};
+let participantsHistory = [];
+let failedCount = 0;
+
+const ADMIN_PASS = 'admin1337'; // ← ПАРОЛЬ АДМИНКИ (поменяй)
+
+function checkAdminPass() {
+    const p = document.getElementById('admin-pass').value;
+    if (p === ADMIN_PASS) {
+        localStorage.setItem('malibash_admin', '1');
+        document.getElementById('login-admin').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+        initAdmin();
+    } else {
+        document.getElementById('admin-error').style.display = 'block';
+    }
+}
+document.getElementById('admin-pass').addEventListener('keypress', e => {
+    if (e.key === 'Enter') checkAdminPass();
+});
+
+function adminLogout() {
+    localStorage.removeItem('malibash_admin');
+    location.reload();
+}
+
+function showStatus(txt, ok) {
+    const el = document.getElementById('status-msg');
+    el.textContent = txt;
+    el.className = 'status-msg ' + (ok ? 'ok' : 'err');
+    setTimeout(() => el.className = 'status-msg', 3000);
+}
+
+function initAdmin() {
+    db.ref('malibash').on('value', (snap) => {
+        const data = snap.val() || {};
+        winnersLog = data.winnersLog || [];
+        winnersBase = data.winnersBase || [];
+        playerData = data.playerData || {};
+        participantsHistory = data.participantsHistory || [];
+        failedCount = data.failedCount || 0;
+        renderWinners();
+        renderBase();
+        renderPlayers();
+        renderStats();
+    });
+}
+
+function renderWinners() {
+    const c = document.getElementById('winners-list');
+    if (winnersLog.length === 0) { c.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:12px;">Пусто</div>'; return; }
+    c.innerHTML = winnersLog.slice().reverse().map((w, i) => {
+        const realIdx = winnersLog.length - 1 - i;
+        return `<div class="row" style="background:#0f0f0f;padding:8px 10px;border-radius:9px;">
+            <span style="color:#ffd700;font-weight:700;flex:1;">🏆 ${w.username}</span>
+            <span style="color:#666;font-size:11px;">${w.date}</span>
+            <button class="btn btn-r btn-sm" onclick="removeWinner(${realIdx})">✕</button>
+        </div>`;
+    }).join('');
+}
+
+function renderBase() {
+    const c = document.getElementById('base-list');
+    if (winnersBase.length === 0) { c.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:12px;">Пусто</div>'; return; }
+    c.innerHTML = winnersBase.map((n, i) => `
+        <div class="row" style="background:#0f0f0f;padding:8px 10px;border-radius:9px;">
+            <span style="color:#ffd700;flex:1;">${n}</span>
+            <button class="btn btn-r btn-sm" onclick="removeFromBase(${i})">✕</button>
+        </div>
+    `).join('');
+}
+
+function renderPlayers() {
+    const c = document.getElementById('players-list');
+    const keys = Object.keys(playerData);
+    if (keys.length === 0) { c.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding:12px;">Пусто</div>'; return; }
+    c.innerHTML = keys.map(k => {
+        const d = playerData[k];
+        return `<div class="player-row">
+            <div class="nick">👤 ${k}</div>
+            <div class="player-fields">
+                <input placeholder="telegram" value="${d.telegram||''}" onchange="updatePlayer('${k}','telegram',this.value)">
+                <input placeholder="discord" value="${d.discord||''}" onchange="updatePlayer('${k}','discord',this.value)">
+                <input placeholder="upgrader" value="${d.upgrader||''}" onchange="updatePlayer('${k}','upgrader',this.value)">
+                <input placeholder="deposit" value="${d.deposit||''}" onchange="updatePlayer('${k}','deposit',this.value)">
+                <input placeholder="withdraw" value="${d.withdraw||''}" onchange="updatePlayer('${k}','withdraw',this.value)">
+                <button class="btn btn-r btn-sm" onclick="deletePlayer('${k}')">🗑 Удалить</button>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderStats() {
+    document.getElementById('stat-winners').textContent = winnersLog.length;
+    document.getElementById('stat-base').textContent = winnersBase.length;
+    document.getElementById('stat-history').textContent = participantsHistory.length;
+    document.getElementById('stat-failed').textContent = failedCount;
+    // Заполняем настройки из текущих значений
+    document.getElementById('cfg-race').value = localStorage.getItem('malibash_race') || 1;
+    document.getElementById('cfg-kd').value = localStorage.getItem('malibash_kd') || 28;
+    document.getElementById('cfg-sub').value = localStorage.getItem('malibash_sub') || 1;
+    document.getElementById('cfg-watchtime').value = localStorage.getItem('malibash_watchtime') || 1;
+    document.getElementById('cfg-msgs').value = localStorage.getItem('malibash_msgs') || 5;
+    document.getElementById('cfg-rules-on').value = localStorage.getItem('malibash_rules_on') || 'false';
+    document.getElementById('cfg-ticker').value = localStorage.getItem('malibash_ticker') || 'ДЛЯ УЧАСТИЯ В ПРОКАЧКЕ !1000 В ЧАТ + ПОДПИСКА НА ТГ';
+}
+
+function removeWinner(idx) {
+    if (!confirm('Удалить запись?')) return;
+    winnersLog.splice(idx, 1);
+    saveAll();
+}
+function removeFromBase(idx) {
+    if (!confirm('Убрать из базы?')) return;
+    winnersBase.splice(idx, 1);
+    saveAll();
+}
+function addWinnerManually() {
+    const n = document.getElementById('new-winner-nick').value.trim();
+    if (!n) return;
+    winnersLog.push({ username: n, date: new Date().toLocaleString('ru-RU') });
+    if (!winnersBase.includes(n)) winnersBase.push(n);
+    document.getElementById('new-winner-nick').value = '';
+    saveAll();
+}
+function addToBase() {
+    const n = document.getElementById('new-base-nick').value.trim();
+    if (!n) return;
+    if (!winnersBase.includes(n)) winnersBase.push(n);
+    document.getElementById('new-base-nick').value = '';
+    saveAll();
+}
+function updatePlayer(nick, field, val) {
+    if (!playerData[nick]) playerData[nick] = {};
+    playerData[nick][field] = val;
+    saveAll();
+}
+function deletePlayer(nick) {
+    if (!confirm(`Удалить все данные для ${nick}?`)) return;
+    delete playerData[nick];
+    saveAll();
+}
+
+function saveSettings() {
+    localStorage.setItem('malibash_race', document.getElementById('cfg-race').value);
+    localStorage.setItem('malibash_kd', document.getElementById('cfg-kd').value);
+    localStorage.setItem('malibash_sub', document.getElementById('cfg-sub').value);
+    localStorage.setItem('malibash_watchtime', document.getElementById('cfg-watchtime').value);
+    localStorage.setItem('malibash_msgs', document.getElementById('cfg-msgs').value);
+    localStorage.setItem('malibash_rules_on', document.getElementById('cfg-rules-on').value);
+    localStorage.setItem('malibash_ticker', document.getElementById('cfg-ticker').value);
+
+    // Пишем настройки в облако тоже
+    db.ref('malibash/settings').set({
+        race: document.getElementById('cfg-race').value,
+        kd: document.getElementById('cfg-kd').value,
+        sub: document.getElementById('cfg-sub').value,
+        watchtime: document.getElementById('cfg-watchtime').value,
+        msgs: document.getElementById('cfg-msgs').value,
+        rulesOn: document.getElementById('cfg-rules-on').value,
+        ticker: document.getElementById('cfg-ticker').value
+    });
+    showStatus('✅ Настройки сохранены', true);
+}
+
+function saveAll() {
+    db.ref('malibash').set({
+        winnersLog,
+        playerData,
+        winnersBase,
+        participantsHistory,
+        failedCount
+    });
+    renderWinners();
+    renderBase();
+    renderPlayers();
+    renderStats();
+    showStatus('💾 Сохранено в облако', true);
+}
+
+window.addEventListener('load', () => {
+    if (localStorage.getItem('malibash_admin') === '1') {
+        document.getElementById('login-admin').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+        initAdmin();
+    }
+});
+</script>
+</body>
+</html>
