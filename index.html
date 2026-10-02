@@ -1,698 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>malibash | Панель управления</title>
-<link rel="icon" type="image/png" href="https://static-cdn.jtvnw.net/jtv_user_pictures/1e11680f-1b45-4d53-b65d-e1a2112287c9-profile_image-70x70.png">
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI','Inter',Tahoma,sans-serif; user-select:none; }
-body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display:flex; justify-content:center; align-items:center; }
-
-.bg-stripes {
-    position:fixed; inset:0; pointer-events:none; z-index:0;
-    background:repeating-linear-gradient(45deg,#0f0f0f,#0f0f0f 40px,#1a1a1a 40px,#1a1a1a 80px);
-    opacity:.4; animation:bgMove 40s linear infinite;
-}
-@keyframes bgMove { from { background-position:0 0; } to { background-position:226px 226px; } }
-
-.spark {
-    position:fixed; pointer-events:none; z-index:50;
-    color:#ffd700; font-size:14px; opacity:0;
-    animation:sparkFloat linear infinite;
-    text-shadow:0 0 10px rgba(255,215,0,.9), 0 0 20px rgba(255,215,0,.4);
-    font-weight:700;
-}
-@keyframes sparkFloat {
-    0% { transform:translateY(0) scale(.4) rotate(0deg); opacity:0; }
-    10% { opacity:1; } 90% { opacity:1; }
-    100% { transform:translateY(-110vh) scale(1.3) rotate(360deg); opacity:0; }
-}
-
-#login-screen { display:flex; justify-content:center; align-items:center; width:100%; height:100%; position:absolute; inset:0; z-index:100; background:#0f0f0f; }
-.login-container { background:#1a1a1a; width:380px; padding:40px; border-radius:20px; border-top:5px solid #ffd700; box-shadow:0 10px 30px rgba(0,0,0,0.8); text-align:center; animation:loginPop .5s cubic-bezier(.2,1.4,.5,1); }
-@keyframes loginPop { from { transform:scale(.85) translateY(20px); opacity:0; } to { transform:scale(1) translateY(0); opacity:1; } }
-.login-container h1 { font-size:20px; font-weight:600; margin-bottom:25px; color:#ffd700; }
-.input-group { text-align:left; margin-bottom:20px; }
-.input-group label { display:block; font-size:13px; color:#aaa; margin-bottom:8px; }
-.input-group input { width:100%; padding:12px 14px; background:#0f0f0f; border:1px solid #333; border-radius:12px; color:#f5f5f5; font-size:14px; outline:none; transition:.2s; }
-.input-group input:focus { border-color:#ffd700; box-shadow:0 0 0 3px rgba(255,215,0,.1); }
-.btn-login { width:100%; padding:14px; background:#ffd700; color:#0f0f0f; border:none; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; transition:.2s; }
-.btn-login:hover { background:#e6c200; transform:translateY(-2px); box-shadow:0 6px 20px rgba(255,215,0,.35); }
-.error-msg { color:#ff4444; font-size:13px; margin-top:10px; display:none; }
-
-#main-screen { display:none; width:100%; height:100%; padding:10px; gap:10px; background:#0f0f0f; position:relative; z-index:2; }
-
-.sidebar { width:360px; background:#141414; border-radius:20px; display:flex; flex-direction:column; overflow:hidden; border:1px solid #2a2a2a; flex-shrink:0; position:relative; z-index:2; }
-.sidebar-top-title { text-align:center; font-size:24px; font-weight:900; color:#ffd700; letter-spacing:3px; padding:15px 0 10px; text-shadow:0 0 20px rgba(255,215,0,.5); text-transform:uppercase; }
-.sidebar-header-bar { display:flex; align-items:center; justify-content:space-between; padding:6px 14px 10px; border-bottom:1px solid #2a2a2a; gap:8px; }
-.sidebar-header-left { display:flex; align-items:center; gap:6px; font-size:12px; color:#aaa; }
-.mini-switch { position:relative; width:34px; height:18px; flex-shrink:0; cursor:pointer; }
-.mini-switch input { opacity:0; width:0; height:0; }
-.mini-switch .slider { position:absolute; top:0; left:0; right:0; bottom:0; background:#1a1a1a; border:1px solid #333; border-radius:18px; transition:.3s; }
-.mini-switch .slider::before { content:''; position:absolute; height:14px; width:14px; left:1px; top:1px; background:#555; border-radius:50%; transition:.3s; }
-.mini-switch input:checked + .slider { background:#ffd700; border-color:#ffd700; }
-.mini-switch input:checked + .slider::before { transform:translateX(16px); background:#0f0f0f; }
-.sidebar-header-center { font-size:12px; color:#f5f5f5; border-bottom:1px solid #ffd700; padding-bottom:2px; cursor:pointer; }
-.sidebar-header-center:hover { color:#ffd700; }
-.sidebar-settings-btn { background:#ffd700; border:none; color:#0f0f0f; width:30px; height:30px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; transition:.3s; }
-.sidebar-settings-btn:hover { background:#e6c200; transform:rotate(90deg); }
-.sidebar-content { padding:14px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; flex:1; }
-.sidebar-content::-webkit-scrollbar { width:6px; }
-.sidebar-content::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
-
-.field-label { font-size:12px; color:#aaa; margin-bottom:4px; }
-.channel-block { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:10px 12px; display:flex; align-items:center; gap:10px; }
-.channel-avatar { width:40px; height:40px; border-radius:50%; background:#ffd700; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; overflow:hidden; color:#0f0f0f; font-weight:800; }
-.channel-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
-.channel-info .name { font-size:13px; font-weight:700; color:#f5f5f5; }
-.channel-info .sub { font-size:11px; color:#666; }
-.input-field { width:100%; padding:10px 12px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-size:13px; outline:none; transition:.2s; }
-.input-field:focus { border-color:#ffd700; box-shadow:0 0 0 3px rgba(255,215,0,.1); }
-.small-input { width:80px; padding:10px 12px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; color:#f5f5f5; font-size:13px; outline:none; text-align:center; }
-.small-input:focus { border-color:#ffd700; }
-
-.checkbox-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; cursor:pointer; line-height:1.4; padding:6px 4px; border-radius:8px; transition:.15s; }
-.checkbox-item:hover { background:#1a1a1a; }
-.checkbox-item input { accent-color:#ffd700; width:16px; height:16px; margin-top:2px; flex-shrink:0; cursor:pointer; }
-.checkbox-item .main-text { color:#f5f5f5; }
-.checkbox-item .sub-text { color:#666; font-size:11px; display:block; margin-top:2px; }
-
-.action-btn { width:100%; padding:14px; border:none; border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:.2s; color:#0f0f0f; }
-.btn-purple { background:#ffd700; }
-.btn-purple:hover { background:#e6c200; transform:translateY(-2px); box-shadow:0 6px 18px rgba(255,215,0,.25); }
-.btn-pink { background:#ffb800; }
-.btn-pink:hover { background:#e6a800; transform:translateY(-2px); box-shadow:0 6px 18px rgba(255,184,0,.25); }
-
-.stat-box { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:12px; text-align:center; display:flex; flex-direction:column; gap:4px; transition:.2s; }
-.stat-box:hover { border-color:#ffd700; }
-.stat-box .stat-title { font-size:12px; color:#aaa; }
-.stat-box .stat-number { font-size:24px; font-weight:800; color:#ffd700; }
-.stat-box .stat-number.muted { color:#888; }
-.stat-box .stat-sub { font-size:11px; color:#666; }
-@keyframes countPulse { 0% { transform:scale(1); } 50% { transform:scale(1.25); color:#fff; } 100% { transform:scale(1); } }
-.stat-box .stat-number.pulse { animation:countPulse .4s ease; }
-
-.winners-log { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:10px; display:flex; flex-direction:column; gap:6px; max-height:180px; overflow-y:auto; }
-.winners-log .log-title { font-size:12px; color:#ffd700; font-weight:700; margin-bottom:4px; }
-.winners-log .log-entry { font-size:12px; color:#ccc; padding:8px 10px; background:#0f0f0f; border-radius:10px; border-left:3px solid #ffd700; cursor:pointer; transition:.2s; display:flex; justify-content:space-between; }
-.winners-log .log-entry:hover { background:#252525; color:#ffd700; transform:translateX(3px); }
-.winners-log .log-entry .entry-date { color:#666; font-size:11px; }
-.winners-log .log-empty { font-size:12px; color:#666; text-align:center; padding:8px; }
-
-.center-panel { flex:1; display:flex; flex-direction:column; gap:10px; min-width:0; position:relative; z-index:2; }
-.chat-header { background:#141414; padding:14px 18px; border-radius:20px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2a2a2a; }
-.chat-header .left { font-size:13px; color:#aaa; }
-.chat-header .right { display:flex; align-items:center; gap:10px; font-size:13px; color:#aaa; }
-.chat-header .right .online-dot { width:10px; height:10px; background:#555; border-radius:50%; display:inline-block; transition:background .3s, box-shadow .3s; }
-.chat-header .right .online-dot.live { background:#00ff88; box-shadow:0 0 10px #00ff88; animation:dotPulse 1.5s infinite; }
-@keyframes dotPulse { 0%,100% { box-shadow:0 0 8px #00ff88; } 50% { box-shadow:0 0 16px #00ff88, 0 0 24px #00ff88; } }
-.chat-header .right .count { color:#f5f5f5; font-weight:600; }
-.chat-messages { flex:1; background:#0a0a0a; border-radius:20px; padding:15px; overflow-y:auto; border:1px solid #2a2a2a; display:flex; flex-direction:column; gap:2px; }
-.chat-messages::-webkit-scrollbar { width:6px; }
-.chat-messages::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
-
-.message { font-size:13px; line-height:1.4; padding:3px 8px; border-radius:6px; display:flex; gap:5px; align-items:center; flex-wrap:wrap; animation:msgIn .25s ease; }
-@keyframes msgIn { from { opacity:0; transform:translateX(-8px); } to { opacity:1; transform:translateX(0); } }
-.message:hover { background:#1f1f1f; }
-.message .badge-img { width:16px; height:16px; vertical-align:middle; flex-shrink:0; }
-.message .nick { font-weight:700; color:#ffd700; flex-shrink:0; }
-.message .text { color:#f5f5f5; word-break:break-word; }
-.message.system { color:#aaa; font-style:italic; background:#1f1f1f; padding:6px 12px; border-radius:8px; font-size:12px; border-left:3px solid #ffd700; }
-.message.win { background:rgba(255,215,0,.15); border:1px solid rgba(255,215,0,.3); animation:winFlash 1s ease; }
-@keyframes winFlash { 0% { background:rgba(255,215,0,.5); } 100% { background:rgba(255,215,0,.15); } }
-.message.win .nick { color:#ffd700; }
-.message.fm-message { background:#3a2e00; padding:6px 10px; border-radius:8px; }
-.message.fm-message .fm-label { font-size:9px; font-weight:800; color:#ffd700; letter-spacing:.8px; text-transform:uppercase; text-align:right; width:100%; margin-bottom:2px; }
-
-.logout-btn { background:transparent; border:1px solid #ffd700; color:#ffd700; padding:6px 14px; border-radius:10px; font-size:12px; cursor:pointer; font-weight:600; transition:.2s; margin-left:10px; }
-.logout-btn:hover { background:#ffd700; color:#0f0f0f; }
-
-.right-panel {
-    width:300px;
-    background:#141414;
-    border-radius:20px;
-    padding:12px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    border:1px solid #2a2a2a;
-    flex-shrink:0;
-    position:relative;
-    z-index:2;
-    overflow-y:auto;
-}
-.right-panel::-webkit-scrollbar { width:6px; }
-.right-panel::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
-
-.rules-box { background:#1a1a1a; border-radius:14px; padding:12px; border:1px solid #2a2a2a; text-align:center; flex-shrink:0; }
-.rules-box .title { font-size:11px; color:#aaa; margin-bottom:5px; }
-.rules-box .value { font-size:13px; color:#ffd700; font-weight:600; }
-
-.rules-ticker-box {
-    background:#1a1a1a;
-    border-radius:14px;
-    padding:10px 0;
-    border:1px solid #2a2a2a;
-    overflow:hidden;
-    position:relative;
-    height:46px;
-    display:flex;
-    align-items:center;
-    flex-shrink:0;
-}
-.rules-ticker { display:flex; white-space:nowrap; animation:tickerScroll 25s linear infinite; font-size:12px; font-weight:700; color:#ffd700; gap:60px; }
-.rules-ticker span { display:inline-block; }
-@keyframes tickerScroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
-
-.rules-post {
-    background:#1a1a1a;
-    border:1px solid #2a2a2a;
-    border-radius:14px;
-    padding:10px;
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-    font-size:11px;
-    line-height:1.35;
-    color:#e8e8e8;
-    flex-shrink:0;
-    width:100%;
-}
-.rules-post .rules-post-title {
-    font-size:11px;
-    font-weight:800;
-    color:#ffd700;
-    letter-spacing:.5px;
-    text-align:center;
-    padding-bottom:5px;
-    border-bottom:1px solid #2a2a2a;
-    margin-bottom:2px;
-}
-.rules-post .rule-item {
-    display:flex;
-    gap:6px;
-    align-items:flex-start;
-    padding:5px 7px;
-    background:#0f0f0f;
-    border-radius:8px;
-    border-left:3px solid #00b894;
-    color:#ddd;
-    transition:.2s;
-    width:100%;
-}
-.rules-post .rule-item:hover {
-    background:#151515;
-    color:#fff;
-    transform:translateX(2px);
-}
-.rules-post .rule-item .num {
-    flex-shrink:0;
-    color:#00b894;
-    font-weight:800;
-    min-width:16px;
-}
-.rules-post .rules-post-footer {
-    text-align:center;
-    font-size:10px;
-    color:#00b894;
-    font-weight:700;
-    padding:5px 2px 2px;
-    border-top:1px dashed #2a2a2a;
-    margin-top:2px;
-    line-height:1.3;
-}
-
-/* ПНГШКА ПОСЛЕ ПРАВИЛ — просто картинка */
-.pepe-img {
-    width:100%;
-    display:block;
-    margin-top:6px;
-    border-radius:14px;
-    flex-shrink:0;
-}
-
-.race-track { display:none; flex-direction:column; position:relative; z-index:2; background:linear-gradient(180deg,#4db8e8 0%,#3a9fd6 50%,#2a7fb0 100%); border-radius:20px; border:2px solid #1a5a8a; overflow:hidden; max-height:400px; }
-.race-track.active { display:flex; }
-.race-header-bar { display:flex; justify-content:space-between; align-items:center; padding:10px 18px; background:rgba(26,90,138,.7); border-bottom:2px solid #1a5a8a; }
-.race-header-bar .race-title { font-size:14px; color:#fff; font-weight:700; }
-.race-header-bar .race-timer { font-size:15px; color:#ffd700; font-weight:800; background:#0f0f0f; padding:5px 14px; border-radius:12px; letter-spacing:1px; }
-.race-header-bar .speed-hint { font-size:11px; color:#ffd700; background:rgba(0,0,0,.4); padding:4px 10px; border-radius:8px; }
-
-.race-pool { position:relative; width:100%; height:280px; overflow:hidden; }
-.race-pool::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 8px, transparent 8px 16px); opacity:.5; }
-.race-pool .finish-line { position:absolute; right:20px; top:0; bottom:0; width:16px; background:repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/16px 16px; border-left:2px solid #000; border-right:2px solid #000; z-index:5; }
-.race-duck { position:absolute; width:44px; height:40px; z-index:2; will-change:transform; }
-.race-duck svg { width:100%; height:100%; display:block; filter:drop-shadow(0 3px 4px rgba(0,0,0,.3)); }
-.race-duck .duck-label { position:absolute; top:-16px; left:50%; transform:translateX(-50%); font-size:10px; color:#fff; background:rgba(0,0,0,.6); padding:2px 6px; border-radius:6px; white-space:nowrap; font-weight:700; }
-.race-duck .duck-place { position:absolute; top:50%; left:-30px; transform:translateY(-50%); font-size:14px; color:#ffd700; font-weight:900; }
-
-.wheel-track { display:none; flex-direction:column; align-items:center; justify-content:center; position:relative; z-index:2; background:#141414; border-radius:20px; border:2px solid #ffd700; padding:20px; max-height:500px; }
-.wheel-track.active { display:flex; }
-.wheel-title { font-size:14px; color:#ffd700; font-weight:700; margin-bottom:10px; }
-.wheel-container { position:relative; width:420px; height:420px; max-width:100%; }
-.wheel-canvas { width:100%; height:100%; border-radius:50%; box-shadow:0 0 40px rgba(255,215,0,.4); }
-.wheel-pointer { position:absolute; right:-15px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:20px solid transparent; border-bottom:20px solid transparent; border-right:30px solid #ff3333; filter:drop-shadow(0 0 10px rgba(255,51,51,.8)); z-index:10; }
-.wheel-center-btn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,#ffd700,#e6c200); border:4px solid #0f0f0f; color:#0f0f0f; font-size:14px; font-weight:900; cursor:pointer; z-index:9; box-shadow:0 0 30px rgba(255,215,0,.8); text-transform:uppercase; transition:.2s; }
-.wheel-center-btn:hover { transform:translate(-50%,-50%) scale(1.06); }
-.wheel-center-btn:disabled { opacity:.5; cursor:not-allowed; }
-
-#winner-modal, #mode-modal, #player-data-modal, #settings-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.85); z-index:999; justify-content:center; align-items:center; padding:20px; }
-.winner-window, .mode-window, .player-data-window, .settings-window { width:100%; max-width:700px; background:#141414; border-radius:20px; overflow:hidden; border:1px solid #ffd700; box-shadow:0 0 50px rgba(255,215,0,.3); animation:popIn .3s cubic-bezier(.2,1.4,.5,1); }
-.mode-window { max-width:520px; }
-.player-data-window { max-width:520px; }
-.settings-window { max-width:560px; }
-@keyframes popIn { from { transform:scale(.9); opacity:0; } to { transform:scale(1); opacity:1; } }
-.winner-header, .mode-header, .player-data-header, .settings-header { background:linear-gradient(135deg,#ffd700,#e6c200); padding:16px 22px; display:flex; justify-content:space-between; align-items:center; }
-.winner-header h2, .mode-header h2, .player-data-header h2, .settings-header h2 { color:#0f0f0f; font-size:18px; font-weight:800; }
-.winner-close, .mode-close, .player-data-header .close-btn, .settings-close { background:rgba(0,0,0,.15); border:none; color:#0f0f0f; width:34px; height:34px; border-radius:10px; cursor:pointer; font-size:18px; font-weight:700; transition:.2s; }
-.winner-close:hover, .mode-close:hover, .player-data-header .close-btn:hover, .settings-close:hover { background:rgba(0,0,0,.3); transform:rotate(90deg); }
-
-.mode-body { padding:24px; display:flex; flex-direction:column; gap:14px; }
-.mode-option { display:flex; align-items:center; gap:16px; background:#1a1a1a; border:2px solid #2a2a2a; border-radius:16px; padding:20px 22px; cursor:pointer; transition:.2s; }
-.mode-option:hover { border-color:#ffd700; background:#222; transform:translateY(-3px); }
-.mode-option .mode-icon { font-size:36px; flex-shrink:0; }
-.mode-option .mode-info { display:flex; flex-direction:column; gap:4px; }
-.mode-option .mode-title { font-size:15px; font-weight:800; color:#ffd700; }
-.mode-option .mode-sub { font-size:12px; color:#aaa; }
-
-.settings-body { padding:22px; display:flex; flex-direction:column; gap:14px; max-height:75vh; overflow-y:auto; }
-.settings-section { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:12px; }
-.settings-section .section-title { font-size:13px; color:#ffd700; font-weight:700; margin-bottom:2px; }
-.settings-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.settings-row .row-label { font-size:13px; color:#f5f5f5; }
-.settings-row .row-sub { font-size:11px; color:#666; display:block; margin-top:2px; }
-
-.switch { position:relative; width:46px; height:26px; flex-shrink:0; cursor:pointer; }
-.switch input { opacity:0; width:0; height:0; }
-.switch .slider { position:absolute; top:0; left:0; right:0; bottom:0; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:26px; transition:.3s; }
-.switch .slider::before { content:''; position:absolute; height:20px; width:20px; left:2px; top:2px; background:#555; border-radius:50%; transition:.3s; }
-.switch input:checked + .slider { background:#ffd700; border-color:#ffd700; }
-.switch input:checked + .slider::before { transform:translateX(20px); background:#0f0f0f; }
-
-.winner-body { padding:22px; display:flex; flex-direction:column; gap:18px; max-height:80vh; overflow-y:auto; }
-.winner-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
-.last-message-box { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:12px; padding:12px 16px; min-width:180px; }
-.last-message-box .label { font-size:10px; color:#666; text-transform:uppercase; margin-bottom:4px; }
-.last-message-box .msg { font-size:13px; color:#f5f5f5; font-weight:600; margin-bottom:2px; }
-.last-message-box .date { font-size:11px; color:#666; }
-.timer-badge { background:#ff4444; color:white; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:700; transition:.3s; }
-.timer-badge.answered { background:#ffd700; color:#0f0f0f; }
-.winner-avatar { width:120px; height:120px; border-radius:50%; background:#1a1a1a; margin:0 auto; display:flex; align-items:center; justify-content:center; border:3px solid #ffd700; overflow:hidden; box-shadow:0 0 25px rgba(255,215,0,.4); }
-.winner-avatar svg { width:60px; height:60px; fill:#555; }
-.winner-name { text-align:center; font-size:34px; font-weight:800; color:#ffd700; text-shadow:0 0 20px rgba(255,215,0,.5); }
-.winner-info { display:flex; flex-direction:column; gap:10px; align-items:center; }
-.info-row { display:flex; align-items:center; gap:8px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:10px 18px; font-size:13px; color:#f5f5f5; min-width:320px; justify-content:space-between; }
-.info-row .info-value { color:#ffd700; font-weight:700; }
-.winner-actions { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
-.action-btn-modal { padding:12px; border:none; border-radius:14px; font-size:12px; font-weight:700; cursor:pointer; color:#0f0f0f; text-decoration:none; text-align:center; transition:.2s; }
-.action-btn-modal:hover { transform:translateY(-2px); }
-.action-btn-modal.purple { background:#ffd700; }
-.action-btn-modal.green { background:#ffd700; }
-.action-btn-modal.orange { background:#ffb800; }
-
-.last-messages-block { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:14px; padding:15px; }
-.last-messages-block .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding-bottom:10px; border-bottom:1px solid #2a2a2a; }
-.last-messages-block .header .title { font-size:14px; color:#f5f5f5; font-weight:600; }
-.last-messages-block .header .count { background:#ffd700; color:#0f0f0f; padding:3px 12px; border-radius:12px; font-size:12px; font-weight:700; }
-.loader-circle { width:40px; height:40px; border:3px solid #2a2a2a; border-top-color:#ffd700; border-radius:50%; animation:spin 1s linear infinite; margin:0 auto; }
-@keyframes spin { to { transform:rotate(360deg); } }
-.last-messages-block .empty { display:flex; flex-direction:column; align-items:center; gap:10px; padding:20px 0; }
-.last-messages-block .empty-text { font-size:13px; color:#aaa; font-weight:600; }
-.winner-message-item { font-size:13px; color:#f5f5f5; padding:8px 12px; background:#0f0f0f; border-radius:10px; margin-bottom:6px; }
-.winner-message-item .time { color:#666; font-size:11px; margin-right:8px; }
-
-.player-data-body { padding:22px; display:flex; flex-direction:column; gap:14px; max-height:80vh; overflow-y:auto; }
-.player-data-field { display:flex; flex-direction:column; gap:5px; }
-.player-data-field label { font-size:11px; color:#ffd700; text-transform:uppercase; letter-spacing:.5px; font-weight:700; }
-.player-data-field input { width:100%; padding:11px 13px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:11px; color:#f5f5f5; font-size:13px; outline:none; transition:.2s; }
-.player-data-field input:focus { border-color:#ffd700; background:#1a1a1a; }
-.player-data-field input[readonly] { background:#0a0a0a; color:#ffd700; font-weight:700; border-color:#ffd700; }
-.player-data-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px; }
-.player-data-actions button { padding:13px; border:none; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer; transition:.2s; }
-.player-data-actions .save-btn { background:#ffd700; color:#0f0f0f; }
-.player-data-actions .save-btn:hover { background:#e6c200; }
-.player-data-actions .delete-btn { background:#2a2a2a; color:#ff4444; }
-.player-data-actions .delete-btn:hover { background:#3a3a3a; }
-</style>
-</head>
-<body>
-
-<div class="bg-stripes"></div>
-
-<div id="login-screen">
-    <div class="login-container">
-        <h1>malibash | Авторизация</h1>
-        <div class="input-group">
-            <label>🔑 Введите пароль доступа</label>
-            <input type="password" id="password-input" placeholder="Пароль">
-        </div>
-        <button class="btn-login" onclick="checkPassword()">Войти в приложение</button>
-        <div class="error-msg" id="error-msg">Неверный пароль!</div>
-    </div>
-</div>
-
-<div id="main-screen">
-    <div class="sidebar">
-        <div class="sidebar-top-title">MALIBASH</div>
-
-        <div class="sidebar-header-bar">
-            <div class="sidebar-header-left">
-                <span>Правила канала</span>
-                <label class="mini-switch">
-                    <input type="checkbox" id="channel-rules-enabled">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="sidebar-header-center" onclick="openSettings()">Правила</div>
-            <button class="sidebar-settings-btn" onclick="openSettings()">⚙️</button>
-        </div>
-
-        <div class="sidebar-content">
-            <div class="tab-page active" id="tab-giveaway">
-                <div style="display:flex;gap:8px;">
-                    <div style="flex:1;">
-                        <div class="field-label">📺 Канал</div>
-                        <div class="channel-block">
-                            <div class="channel-avatar" id="channel-avatar">
-                                <span id="channel-avatar-placeholder">🎮</span>
-                            </div>
-                            <div class="channel-info">
-                                <div class="name" id="channel-name-display">malibash</div>
-                                <div class="sub">Twitch-канал</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="flex:1;">
-                        <div class="field-label">🔑 Ключевое слово</div>
-                        <input class="input-field" type="text" placeholder="Пусто = все" id="keyword-input">
-                    </div>
-                </div>
-
-                <label class="checkbox-item">
-                    <input type="checkbox" id="cb-all" checked>
-                    <div>
-                        <span class="main-text">Все в чате без ключевого слова</span>
-                        <span class="sub-text">Регает всех, кто пишет в чат.</span>
-                    </div>
-                </label>
-                <label class="checkbox-item">
-                    <input type="checkbox" id="cb-fm">
-                    <div>
-                        <span class="main-text">(FM) Только первые сообщения</span>
-                        <span class="sub-text">Регает только тех, кто пишет первое сообщение.</span>
-                    </div>
-                </label>
-                <label class="checkbox-item">
-                    <input type="checkbox" id="cb-new">
-                    <div>
-                        <span class="main-text">(NEW) Никогда не выигрывал</span>
-                        <span class="sub-text">Регает только тех, кого нет в базе победителей.</span>
-                    </div>
-                </label>
-
-                <button class="action-btn btn-purple" onclick="reconnect()">🔄 Переподключиться</button>
-                <button class="action-btn btn-pink" onclick="openModeModal()">⏱️ Запустить розыгрыш</button>
-
-                <div class="stat-box">
-                    <div class="stat-title">Участников:</div>
-                    <div class="stat-number" id="participants-count">0</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number muted" id="failed-count">0</div>
-                    <div class="stat-sub">не прошли проверку</div>
-                </div>
-
-                <div class="winners-log" id="winners-log">
-                    <div class="log-title">🏆 История побед</div>
-                    <div id="winners-log-entries"><div class="log-empty">Пока нет победителей</div></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="center-panel">
-        <div class="chat-header">
-            <div class="left">Сообщение в чате — участие. <span style="color:#ffd700;">!speed</span> — ускорить утку</div>
-            <div class="right">
-                <span class="online-dot" id="online-dot"></span>
-                <span id="channel-name-header">malibash</span>
-                <span class="count" id="viewer-count">0</span>
-                <button class="logout-btn" onclick="logout()">🚪 Выйти</button>
-            </div>
-        </div>
-
-        <div class="race-track" id="race-track">
-            <div class="race-header-bar">
-                <div class="race-title" id="race-title">🦆 Гонка уточек</div>
-                <div class="race-timer" id="race-timer">01:00</div>
-                <div class="speed-hint" id="speed-hint" style="display:none;">!speed — ускорить (макс 5)</div>
-            </div>
-            <div class="race-pool" id="race-pool">
-                <div class="finish-line"></div>
-            </div>
-        </div>
-
-        <div class="wheel-track" id="wheel-track">
-            <div class="wheel-title" id="wheel-title">🎡 Колесо фортуны</div>
-            <div class="wheel-container">
-                <canvas class="wheel-canvas" id="wheel-canvas" width="600" height="600"></canvas>
-                <div class="wheel-pointer"></div>
-                <button class="wheel-center-btn" id="wheel-center-btn" onclick="spinWheel()">КРУТИТЬ</button>
-            </div>
-        </div>
-
-        <div class="chat-messages" id="chat-messages">
-            <div class="message system">Подключение к чату malibash...</div>
-        </div>
-    </div>
-
-    <div class="right-panel">
-        <div class="rules-box">
-            <div class="title">АКТИВНЫЕ ПРАВИЛА</div>
-            <div class="value" id="active-rules">🏆 кд победы: 28 дн.</div>
-        </div>
-
-        <div class="rules-ticker-box">
-            <div class="rules-ticker" id="rules-ticker">
-                <span>ДЛЯ УЧАСТИЯ В ПРОКАЧКЕ !1000 В ЧАТ + ПОДПИСКА НА ТГ И ЗНАТЬ ПРАВИЛА В ЗАКРЕПЛЕННОМ ПОСТЕ</span>
-                <span>ДЛЯ УЧАСТИЯ В ПРОКАЧКЕ !1000 В ЧАТ + ПОДПИСКА НА ТГ И ЗНАТЬ ПРАВИЛА В ЗАКРЕПЛЕННОМ ПОСТЕ</span>
-            </div>
-        </div>
-
-        <div class="rules-post" id="rules-post">
-            <div class="rules-post-title">📌 ПРАВИЛА ПОБЕДИТЕЛЯ</div>
-            <div class="rule-item"><span class="num">1.</span><span>🟢Как только ты выиграл, в течении 1 минуты 30 секунд, ты должен вступить в сервер Дискорд</span></div>
-            <div class="rule-item"><span class="num">2.</span><span>🟢Отписать свой юзернейм - Дискорда | В чате на твиче!</span></div>
-            <div class="rule-item"><span class="num">3.</span><span>🟢Вступить в Голосовой Канал в Дискорде - «ОЖИДАНИЕ»</span></div>
-            <div class="rule-item"><span class="num">4.</span><span>🟢Минимально иметь 100 сообщений за все время на TWITCH</span></div>
-            <div class="rule-item"><span class="num">5.</span><span>🟢СПАМ сообщения по типу (!400-!500) РЕРОЛЛ</span></div>
-            <div class="rule-item"><span class="num">6.</span><span>🟢Обязательная подписка на Телеграм , более 30 минут</span></div>
-            <div class="rule-item"><span class="num">7.</span><span>🟢Твинки ЗАПРЕЩЕНЫ | АВТО Реролл</span></div>
-            <div class="rule-item"><span class="num">8.</span><span>🟢Я могу сделать Реролл на своё усмотрение</span></div>
-            <div class="rules-post-footer">🟢Все условия будут проверяться, не выполнение условий или не ответ в течении заданого времени - реролл.🟢</div>
-        </div>
-
-        <!-- ПНГШКА ПОСЛЕ ПРАВИЛ -->
-        <img id="pepe-off" class="pepe-img" src="pravila_off.png" alt="Правила выключены"
-             onerror="this.style.display='none'; this.insertAdjacentHTML('afterend','<div style=&quot;color:#ffd700;font-size:11px;text-align:center;padding:14px;&quot;>нет pravila_off.png</div>')">
-        <img id="pepe-on" class="pepe-img" src="pravila_on.png" alt="Правила включены" style="display:none;"
-             onerror="this.style.display='none'; this.insertAdjacentHTML('afterend','<div style=&quot;color:#ffd700;font-size:11px;text-align:center;padding:14px;&quot;>нет pravila_on.png</div>')">
-    </div>
-</div>
-
-<!-- МОДАЛКА ВЫБОРА РЕЖИМА -->
-<div id="mode-modal">
-    <div class="mode-window">
-        <div class="mode-header">
-            <h2>🎲 Выбор режима розыгрыша</h2>
-            <button class="mode-close" onclick="closeModeModal()">×</button>
-        </div>
-        <div class="mode-body">
-            <div class="mode-option" onclick="startMode('messages')">
-                <div class="mode-icon">💬</div>
-                <div class="mode-info">
-                    <div class="mode-title">Обычно по сообщениям</div>
-                    <div class="mode-sub">Случайный победитель из всех участников</div>
-                </div>
-            </div>
-            <div class="mode-option" onclick="startMode('ducks')">
-                <div class="mode-icon">🦆</div>
-                <div class="mode-info">
-                    <div class="mode-title">Гонка утками</div>
-                    <div class="mode-sub">!speed — ускорить свою утку</div>
-                </div>
-            </div>
-            <div class="mode-option" onclick="startMode('wheel')">
-                <div class="mode-icon">🎡</div>
-                <div class="mode-info">
-                    <div class="mode-title">Колесо фортуны</div>
-                    <div class="mode-sub">Крутится и останавливается</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- НАСТРОЙКИ -->
-<div id="settings-modal">
-    <div class="settings-window">
-        <div class="settings-header">
-            <h2>⚙️ Настройки</h2>
-            <button class="settings-close" onclick="closeSettings()">×</button>
-        </div>
-        <div class="settings-body">
-            <div class="settings-section">
-                <div class="section-title">🦆 Гонка уточек</div>
-                <div class="settings-row">
-                    <div>
-                        <div class="row-label">Длительность (мин, 1-5)</div>
-                        <span class="row-sub">Сколько идёт гонка</span>
-                    </div>
-                    <input class="small-input" type="number" min="1" max="5" value="1" id="race-duration">
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <div class="section-title">⏱️ КД победы</div>
-                <div class="settings-row">
-                    <div>
-                        <div class="row-label">Сколько дней ждать после победы</div>
-                        <span class="row-sub">Кулдаун</span>
-                    </div>
-                    <input class="small-input" type="number" value="28" id="rule-kd">
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <div class="section-title">💎 Подписка на канал</div>
-                <div class="settings-row">
-                    <div>
-                        <div class="row-label">Мин. месяцев подписки</div>
-                        <span class="row-sub">Для участия</span>
-                    </div>
-                    <input class="small-input" type="number" value="1" id="rule-sub">
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <div class="section-title">⏳ Watchtime</div>
-                <div class="settings-row">
-                    <div>
-                        <div class="row-label">Мин. часов просмотра</div>
-                        <span class="row-sub">Для участия</span>
-                    </div>
-                    <input class="small-input" type="number" value="1" id="rule-watchtime">
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <div class="section-title">💬 Сообщений на канале</div>
-                <div class="settings-row">
-                    <div>
-                        <div class="row-label">Мин. сообщений</div>
-                        <span class="row-sub">Для участия</span>
-                    </div>
-                    <input class="small-input" type="number" value="5" id="rule-msgs">
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <div class="section-title">📜 Текст ленты правил</div>
-                <input class="input-field" type="text" id="rules-ticker-text" value="ДЛЯ УЧАСТИЯ В ПРОКАЧКЕ !1000 В ЧАТ + ПОДПИСКА НА ТГ И ЗНАТЬ ПРАВИЛА В ЗАКРЕПЛЕННОМ ПОСТЕ" style="font-size:12px;">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ПОБЕДИТЕЛЬ -->
-<div id="winner-modal">
-    <div class="winner-window">
-        <div class="winner-header">
-            <h2>⭐ Победитель:</h2>
-            <button class="winner-close" onclick="closeWinnerModal()">×</button>
-        </div>
-        <div class="winner-body">
-            <div class="winner-top">
-                <div class="last-message-box">
-                    <div class="label">последнее сообщение</div>
-                    <div class="msg" id="winner-last-msg">—</div>
-                    <div class="date" id="winner-last-date">—</div>
-                </div>
-                <div class="timer-badge" id="winner-timer">00:00</div>
-            </div>
-            <div class="winner-info">
-                <div class="winner-avatar" id="winner-avatar">
-                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                </div>
-                <div class="winner-name" id="winner-name">—</div>
-                <div class="info-row">
-                    <span>💬 Сообщений на канале <strong>malibash</strong>:</span>
-                    <span class="info-value" id="winner-message-count-value">0</span>
-                </div>
-            </div>
-            <div class="winner-actions">
-                <button class="action-btn-modal purple" onclick="openUserCard()">📋 Twitch Card</button>
-                <a class="action-btn-modal green" id="following-link" target="_blank" href="#">👥 Following</a>
-                <button class="action-btn-modal orange" onclick="rerollWinner()">🔄 Реролл</button>
-            </div>
-            <div class="last-messages-block">
-                <div class="header">
-                    <span class="title">Последние сообщения от победителя:</span>
-                    <span class="count" id="winner-messages-count">0</span>
-                </div>
-                <div id="winner-messages-list">
-                    <div class="empty">
-                        <div class="loader-circle"></div>
-                        <div class="empty-text">Ожидание сообщений от победителя...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ДАННЫЕ ИГРОКА -->
-<div id="player-data-modal">
-    <div class="player-data-window">
-        <div class="player-data-header">
-            <h2 id="player-data-title">📋 Данные игрока</h2>
-            <button class="close-btn" onclick="closePlayerDataModal()">×</button>
-        </div>
-        <div class="player-data-body">
-            <div class="player-data-field">
-                <label>Ник на Twitch</label>
-                <input type="text" id="pd-username" readonly>
-            </div>
-            <div class="player-data-field">
-                <label>Telegram</label>
-                <input type="text" id="pd-telegram" placeholder="@username">
-            </div>
-            <div class="player-data-field">
-                <label>Discord</label>
-                <input type="text" id="pd-discord" placeholder="username#0000">
-            </div>
-            <div class="player-data-field">
-                <label>Сайт Upgrader</label>
-                <input type="text" id="pd-upgrader" placeholder="https://...">
-            </div>
-            <div class="player-data-field">
-                <label>Сумма депозита</label>
-                <input type="text" id="pd-deposit" placeholder="например 5000 ₽">
-            </div>
-            <div class="player-data-field">
-                <label>Сумма вывода</label>
-                <input type="text" id="pd-withdraw" placeholder="например 12000 ₽">
-            </div>
-            <div class="player-data-actions">
-                <button class="save-btn" onclick="savePlayerData()">💾 Сохранить</button>
-                <button class="delete-btn" onclick="deletePlayerData()">🗑️ Удалить</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
 const CHANNEL_NAME = 'malibash';
 const participants = new Set();
 const winnersBase = new Set();
@@ -725,6 +30,8 @@ let raceDurationMs = 0;
 let raceDucks = [];
 let raceWinnerDeclared = false;
 let speedCounters = {};
+let raceMode = false;   // true — сейчас гонка, реролл перезапускает
+let wheelMode = false;  // true — сейчас колесо, реролл перезапускает
 
 let wheelRunning = false;
 let wheelRAF = null;
@@ -733,6 +40,7 @@ let wheelStartTime = 0;
 let wheelDurationMs = 35000;
 let wheelParticipants = [];
 let wheelWinnerDeclared = false;
+let wheelLastFrame = 0;
 
 function duckSVG(index) {
     const accessories = [
@@ -749,23 +57,8 @@ function duckSVG(index) {
     return `<svg viewBox="0 0 40 36"><ellipse cx="20" cy="26" rx="14" ry="8" fill="#f5c518"/><circle cx="24" cy="12" r="7" fill="#f5c518"/><circle cx="23" cy="11" r="1.5" fill="#111"/><path d="M29 12 L36 13 L29 15 Z" fill="#f4a261"/>${acc || ''}</svg>`;
 }
 
-function saveAll() {
-    saveToCloud();
-}
-function loadFromStorage() {
-    try {
-        const wl = localStorage.getItem('malibash_winnersLog');
-        if (wl) winnersLog = JSON.parse(wl);
-        const pd = localStorage.getItem('malibash_playerData');
-        if (pd) playerData = JSON.parse(pd);
-        const wb = localStorage.getItem('malibash_winnersBase');
-        if (wb) { JSON.parse(wb).forEach(n => winnersBase.add(n)); }
-        const ph = localStorage.getItem('malibash_participantsHistory');
-        if (ph) participantsHistory = JSON.parse(ph);
-        const fc = localStorage.getItem('malibash_failedCount');
-        if (fc) { failedCount = parseInt(fc) || 0; document.getElementById('failed-count').textContent = failedCount; }
-    } catch(e) {}
-}
+function saveAll() { saveToCloud(); }
+
 function addParticipantHistory(username, event) {
     participantsHistory.push({ username, event, channel: CHANNEL_NAME, date: new Date().toLocaleString('ru-RU') });
     if (participantsHistory.length > 5000) participantsHistory = participantsHistory.slice(-5000);
@@ -822,9 +115,15 @@ function spawnSparks() {
 }
 
 function initPanel() {
-    loadFromCloud();  // ← было loadFromStorage
+    loadFromCloud();
     connectToTwitchChat();
-    // ... остальное
+    startViewerTracking();
+    updateActiveRules();
+    loadChannelAvatar();
+    updatePepeImage();
+    renderWinnersLog();
+    updateRulesTicker();
+    spawnSparks();
 }
 
 function checkPassword() {
@@ -843,7 +142,6 @@ function checkPassword() {
 }
 document.getElementById('password-input').addEventListener('keypress', e => { if (e.key === 'Enter') checkPassword(); });
 
-// Автологин — не выкидывать при F5
 window.addEventListener('load', () => {
     if (localStorage.getItem('malibash_logged') === '1') {
         document.getElementById('login-screen').style.display = 'none';
@@ -978,9 +276,11 @@ function openModeModal() {
 function closeModeModal() { document.getElementById('mode-modal').style.display = 'none'; }
 function startMode(mode) {
     closeModeModal();
+    raceMode = false;
+    wheelMode = false;
     if (mode === 'messages') startMessageGiveaway();
-    else if (mode === 'ducks') startDuckRace();
-    else if (mode === 'wheel') startWheel();
+    else if (mode === 'ducks') { raceMode = true; startDuckRace(); }
+    else if (mode === 'wheel') { wheelMode = true; startWheel(); }
 }
 
 function startMessageGiveaway() {
@@ -997,6 +297,7 @@ function startMessageGiveaway() {
     giveawayActive = false;
 }
 
+// ==================== ГОНКА УТОК (120 FPS) ====================
 function startDuckRace() {
     if (raceRunning) { addSystemMessage('⚠️ Гонка уже идёт!'); return; }
     giveawayActive = true;
@@ -1091,6 +392,7 @@ function finishRace(winner) {
     }, 600);
 }
 
+// ==================== КОЛЕСО (120 FPS) ====================
 const WHEEL_COLORS = ['#e63946','#f4a261','#2a9d8f','#e9c46a','#264653','#e76f51','#06d6a0','#118ab2','#ef476f','#ffd166','#8338ec','#3a86ff','#fb5607','#ff006e','#8ac926','#1982c4'];
 
 function startWheel() {
@@ -1120,20 +422,19 @@ function drawWheel() {
     const n = wheelParticipants.length;
     const anglePerSlice = (Math.PI * 2) / n;
 
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, w, h);
-    ctx.save();
-    ctx.translate(cx, cy);
+    ctx.setTransform(1, 0, 0, 1, cx, cy);
     ctx.rotate(wheelAngle);
 
     for (let i = 0; i < n; i++) {
         const startAngle = i * anglePerSlice;
         const endAngle = startAngle + anglePerSlice;
-        const color = WHEEL_COLORS[i % WHEEL_COLORS.length];
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.arc(0, 0, radius, startAngle, endAngle);
         ctx.closePath();
-        ctx.fillStyle = color;
+        ctx.fillStyle = WHEEL_COLORS[i % WHEEL_COLORS.length];
         ctx.fill();
         ctx.strokeStyle = '#0f0f0f';
         ctx.lineWidth = 2;
@@ -1151,7 +452,7 @@ function drawWheel() {
         ctx.fillText(text.length > 14 ? text.slice(0, 14) + '…' : text, radius - 20, 0);
         ctx.restore();
     }
-    ctx.restore();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
 
 function spinWheel() {
@@ -1162,6 +463,7 @@ function spinWheel() {
     addSystemMessage('🎡 Колесо крутится!');
 
     wheelStartTime = performance.now();
+    wheelLastFrame = wheelStartTime;
     const startAngle = wheelAngle;
     const totalRotation = (Math.PI * 2) * (8 + Math.random() * 4) + Math.random() * Math.PI * 2;
     const n = wheelParticipants.length;
@@ -1175,9 +477,11 @@ function spinWheel() {
         if (!wheelRunning) return;
         const elapsed = now - wheelStartTime;
         const t = Math.min(1, elapsed / wheelDurationMs);
+        // easeOutQuart — плавное замедление
         const eased = 1 - Math.pow(1 - t, 4);
         wheelAngle = startAngle + adjustedRotation * eased;
         drawWheel();
+        wheelLastFrame = now;
 
         if (t >= 1) {
             wheelRunning = false;
@@ -1204,6 +508,7 @@ function finishWheel(winner) {
     }, 800);
 }
 
+// ==================== ОКНО ПОБЕДИТЕЛЯ ====================
 function updateWinnerMessageCount() {
     document.getElementById('winner-message-count-value').textContent = winnerMessages.length;
 }
@@ -1241,22 +546,58 @@ function closeWinnerModal() {
 }
 function openUserCard() { if (currentWinner) window.open(`https://www.twitch.tv/popout/${CHANNEL_NAME}/viewercard/${currentWinner}`, '_blank'); }
 
+// ==================== РЕРOLL С ПЕРЕЗАПУСКОМ ====================
 function rerollWinner() {
     if (!currentWinner) return;
     participants.delete(currentWinner);
     participantCount = participants.size;
     document.getElementById('participants-count').textContent = participantCount;
+
+    // Закрываем окно победителя
+    closeWinnerModal();
+
     if (participants.size === 0) {
-        document.getElementById('winner-name').textContent = 'Больше нет участников';
+        addSystemMessage('⚠️ Больше нет участников для реролла.');
         return;
     }
-    const arr = Array.from(participants);
-    const newWinner = arr[Math.floor(Math.random() * arr.length)];
-    addSystemMessage(`🔄 Реролл: ${newWinner}`);
-    addWinnerToLog(newWinner);
-    showWinnerModal(newWinner);
+
+    // ===== ПО СООБЩЕНИЯМ =====
+    if (!raceMode && !wheelMode) {
+        const arr = Array.from(participants);
+        const newWinner = arr[Math.floor(Math.random() * arr.length)];
+        addSystemMessage(`🔄 Реролл: новый победитель — ${newWinner}`);
+        winnersBase.add(newWinner);
+        addParticipantHistory(newWinner, 'reroll_messages');
+        saveAll();
+        addWinnerToLog(newWinner);
+        showWinnerModal(newWinner);
+        return;
+    }
+
+    // ===== ГОНКА УТКАМИ — запускаем заново =====
+    if (raceMode) {
+        addSystemMessage('🔄 Реролл — новая гонка!');
+        raceRunning = false;
+        if (raceRAF) { cancelAnimationFrame(raceRAF); raceRAF = null; }
+        document.getElementById('race-track').classList.remove('active');
+        giveawayActive = false;
+        setTimeout(() => startDuckRace(), 300);
+        return;
+    }
+
+    // ===== КОЛЕСО — запускаем заново =====
+    if (wheelMode) {
+        addSystemMessage('🔄 Реролл — новое вращение!');
+        wheelRunning = false;
+        if (wheelRAF) { cancelAnimationFrame(wheelRAF); wheelRAF = null; }
+        document.getElementById('wheel-track').classList.remove('active');
+        giveawayActive = false;
+        setTimeout(() => startWheel(), 300);
+        return;
+    }
 }
 
+// ==================== ПРОЧЕЕ ====================
 async function updateViewerCount() {
     try {
         const apiUrl = `https://decapi.me/twitch/viewercount/${CHANNEL_NAME}`;
@@ -1499,43 +840,3 @@ function formatTime(ms) {
     const sec = String(totalSec % 60).padStart(2, '0');
     return `${min}:${sec}`;
 }
-</script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script>
-const firebaseConfig = {
-    databaseURL: "https://malibash-xxxxx-default-rtdb.firebaseio.com" // ← ВСТАВЬ СВОЙ URL
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-// Загрузка данных из облака при старте
-function loadFromCloud() {
-    db.ref('malibash').on('value', (snap) => {
-        const data = snap.val();
-        if (!data) return;
-        if (data.winnersLog) winnersLog = data.winnersLog;
-        if (data.playerData) playerData = data.playerData;
-        if (data.winnersBase) { winnersBase.clear(); data.winnersBase.forEach(n => winnersBase.add(n)); }
-        if (data.participantsHistory) participantsHistory = data.participantsHistory;
-        if (data.failedCount !== undefined) {
-            failedCount = data.failedCount;
-            document.getElementById('failed-count').textContent = failedCount;
-        }
-        renderWinnersLog();
-    });
-}
-
-// Сохранение в облако
-function saveToCloud() {
-    db.ref('malibash').set({
-        winnersLog,
-        playerData,
-        winnersBase: Array.from(winnersBase),
-        participantsHistory,
-        failedCount
-    });
-}
-</script>
-</body>
-</html>
