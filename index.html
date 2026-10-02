@@ -140,40 +140,37 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 .rules-ticker span { display:inline-block; }
 @keyframes tickerScroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
 
-/* ===== ПОСТ С ПРАВИЛАМИ ПОД ЛЕНТОЙ ===== */
+/* ===== ПОСТ С ПРАВИЛАМИ ПОД ЛЕНТОЙ (без скролла) ===== */
 .rules-post {
     background:#1a1a1a;
     border:1px solid #2a2a2a;
     border-radius:14px;
-    padding:14px 14px 12px;
+    padding:12px 12px 10px;
     display:flex;
     flex-direction:column;
-    gap:8px;
+    gap:6px;
     font-size:12px;
-    line-height:1.45;
+    line-height:1.4;
     color:#e8e8e8;
-    max-height:340px;
-    overflow-y:auto;
+    flex-shrink:0;
 }
-.rules-post::-webkit-scrollbar { width:5px; }
-.rules-post::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
 .rules-post .rules-post-title {
     font-size:12px;
     font-weight:800;
     color:#ffd700;
     letter-spacing:.5px;
     text-align:center;
-    padding-bottom:6px;
+    padding-bottom:5px;
     border-bottom:1px solid #2a2a2a;
     margin-bottom:2px;
 }
 .rules-post .rule-item {
     display:flex;
-    gap:8px;
+    gap:7px;
     align-items:flex-start;
-    padding:6px 8px;
+    padding:5px 7px;
     background:#0f0f0f;
-    border-radius:9px;
+    border-radius:8px;
     border-left:3px solid #00b894;
     color:#ddd;
     transition:.2s;
@@ -190,19 +187,16 @@ body { background:#0f0f0f; color:#f5f5f5; height:100vh; overflow:hidden; display
 }
 .rules-post .rules-post-footer {
     text-align:center;
-    font-size:11px;
+    font-size:10.5px;
     color:#00b894;
     font-weight:700;
-    padding:6px 4px 2px;
+    padding:5px 4px 2px;
     border-top:1px dashed #2a2a2a;
     margin-top:2px;
+    line-height:1.3;
 }
 
-.frog-pepe-block { display:flex; align-items:flex-end; flex:1; position:relative; overflow:hidden; min-height:90px; }
-.frog-pepe-block .pepe-off, .frog-pepe-block .pepe-on { max-width:100%; max-height:100%; object-fit:contain; object-position:bottom left; display:none; }
-.frog-pepe-block .pepe-off { display:block; }
-.frog-pepe-block.rules-on .pepe-off { display:none; }
-.frog-pepe-block.rules-on .pepe-on { display:block; }
+.frog-pepe-block { display:flex; align-items:flex-end; flex:1; position:relative; overflow:hidden; min-height:80px; }
 
 .race-track { display:none; flex-direction:column; position:relative; z-index:2; background:linear-gradient(180deg,#4db8e8 0%,#3a9fd6 50%,#2a7fb0 100%); border-radius:20px; border:2px solid #1a5a8a; overflow:hidden; max-height:400px; }
 .race-track.active { display:flex; }
